@@ -1,0 +1,56 @@
+---
+db:
+  driver: dbi:Pg:harvester:localhost
+  user: astro
+  password: ***
+settings:
+  size limit: 102400
+  timeout: 30
+  templates: templates
+  output: html
+jabber:
+  jid: astrobot@spaceboyz.net/harvester
+  password: ***
+  interval: 120
+vars:
+  title: Blog Harvester
+  strftime: %d.%m.%G %T
+collections:
+  ticker:
+  - http://www.c3d2.de/news-atom.xml
+  - http://planet.c3bi.de/rss20.xml
+  - http://www.blacksec.org/index2.php?option=com_rss&feed=RSS0.91&no_html=1
+  - http://planet.entropia.de/rss.rdf
+  - http://bruteforce.blogg.de/rss.xml
+  links:
+  - http://del.icio.us/rss/fukami
+  - http://del.icio.us/rss/astro1138
+  - http://del.icio.us/rss/toidinamai
+  - http://del.icio.us/rss/r0b0
+  - http://del.icio.us/rss/pentabarf
+  - http://del.icio.us/rss/tigion
+  - http://del.icio.us/rss/turbo24prg
+  - http://del.icio.us/rss/mechko
+  - http://del.icio.us/rss/DerTobendeGummihammer
+  - http://del.icio.us/rss/Alien8
+  - http://del.icio.us/rss/boelthorn
+  - http://del.icio.us/rss/rabuju
+  - http://del.icio.us/rss/cosmoFlash
+  blogs:
+  - http://astroblog.spaceboyz.net/rss.rb
+  - http://tigion.bsd-crew.de/blog_wp/?feed=atom
+  - http://fukami.vakuum.net/feed/
+  - http://blog.daemonized.de/feed/
+  - http://www.psycast.de/blog/rss.php?ver=2
+  - http://www.kuarepoti-dju.net/wp-rss2.php
+  - http://spaceboyz.net/~cosmo/updates.rss
+  - http://efficio.wh29.tu-dresden.de/archive.rss
+  - http://webknocking.de/semaphor/content/blog/rss.xml
+  - http://turbo24prg.skyhub.de/rss/rss2.xml
+  - http://www.marvinnet.org/?feed=rss2
+  - http://d-ventures.heartofgold.de/?feed=rss2
+  - http://jelena.blogsome.com/feed/rdf/
+  - http://equiblog.diac24.net/$rss:full4
+  - http://matthias.bsd-crew.de/blog/?feed=atom
+  - http://cthulhu.c3d2.de/~toidinamai/blog.py/index.atom
+

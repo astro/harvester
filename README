@@ -1,0 +1,145 @@
+Harvester 0.6
+===============
+
+Astro (2005,2006)
+Neingeist (2005,2006)
+
+
+About
+=====
+
+The Harvester is a web-based RSS-Aggregator
+
+A running instance can be seen at:
+http://astroblog.spaceboyz.net/harvester/
+
+
+Changes
+=======
+0.6:
+ - Complete rewrite (excl. MRSS)
+ - YAML configuration
+ - Database backend (PostgreSQL)
+ - Fetcher is not using wget anymore and supports SSL, HTTP authentication and If-Modified-Since
+ - Fetcher operates threaded to request feeds parallelized
+ - Minor template variables renaming
+0.5:
+ - Fixed a syntax error ;-)
+ - Multiple further fixes
+ - The Jabber-bot
+ - ATOM support by Neingeist
+0.4:
+ - Blog variables available in <tmpl:iter-item/>
+ - index.html Template readability improvements, CSS now in extra
+   file
+0.3.2:
+ - All template elements are now escaped by default. Use
+   escape="false" if you really don't want to escape HTML-Tags and
+   such...
+0.3.1:
+ - Fixed bug where incorrect encoded feeds won't be displayed when
+   parsed for the first time
+0.3:
+ - Major overhaul
+
+
+Feed parsing
+============
+
+Although Ruby comes with its own RSS parser it is not very helpful when
+dealing with lots of feeds from different sources in different styles.
+mrss.rb contains "Magic RSS" with the purpose to get everything out of a
+feed, even if its a broken one. The only mandatority is that the feed
+must be valid XML readable by REXML.
+
+MRSS supports the ATOM feed format, added by Neingeist.
+
+
+Feed encoding
+=============
+
+The whole thing is Unicode. Respect this everytime, especially when
+writing templates and when configuring your web server. If the Charset
+is included in the "Content-type:" header it *must* be UTF-8 or browsers
+will start to cough.
+
+Few authors declare their feed as UTF-8 but write in old ISO-8859. REXML
+bails out when stumbling accross such things. The Harvester tries to
+forcibly convert a feed file with iconv(1) from ISO-8859 to UTF-8. This
+works most of the time.
+
+
+Files overview
+==============
+
+To tamper with:
+config.yaml  -- Configuration file
+db.sql       -- Database definitions (should be customized if not using PostgreSQL)
+templates/   -- Templates
+html/        -- Processed templates output (can be set in config.yaml)
+fetch.rb     -- Run (periodically) to fetch feeds (be friendly!)
+generate.rb  -- Run after fetch.rb to process templates
+jabberbot.rb -- Jabber service to notify subscribers about updated feeds
+
+
+Configuration
+=============
+
+Configuration is done in the config.yaml file, using the YAML mark-up
+format. If you don't know this format yet, read http://yaml.org/ or the
+corresponding Wikipedia article.
+
+First of all, create a database and a database user for the harvester.
+Usage of UTF-8 is recommended.  Then use psql to execute the db
+definitions located in db.sql:
+psql -U harvester harvester
+\i db.sql
+
+Install prequisites: ruby-dbi is required for normal operation. xmpp4r
+is required for the Jabber bot. Currently, using xmpp4r from SVN is
+suggested.
+
+Next, customize config.yaml.
+
+The database section contains three keys: driver is a string specifying
+database type, host and name to be used. Consult the ruby-dbi homepage
+for the correct syntax. user and password key is used for database
+access.
+
+The settings section contains four keys: size limit, timeout, templates
+and output. size limit specifies a maximum size for the feeds to not
+exhaust system memory while parsing broken feeds. timeout specifies a
+maximum amount of time to wait for HTTP responses in the fetcher.
+templates and output specifies directories to be used by the generator.
+
+The jabber section is specific for the Jabber bot. Note that the jid
+should contain a resource (see RFC3920 for explanation) if the Jabber
+server is not XMPP-1.0 compliant. The interval specifies the amount of
+time the bot sleeps between checking the last48hrs view.
+
+The vars section contains two keys to be used by the generator: title is
+used by the default template to define the page title. strftime
+specifies the time format to be used. Consult strftime(3) for more
+information.
+
+The feeds are organized into collections, which are to be put under the
+collections key. Simply see the default config.yaml.
+
+
+Periodical scripts
+==================
+
+Edit your crontab (crontab -e) to run the following:
+
+ruby fetch.rb; ruby generate.rb
+
+Maybe you want to set MAILTO variables too, those scripts give
+informational and erroneous output.
+
+
+Jabberbot
+=========
+
+Simply run jabberbot.rb and start talking to the configured Jabber-ID.
+
+

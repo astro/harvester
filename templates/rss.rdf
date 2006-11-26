@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF xmlns="http://purl.org/rss/1.0/"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <channel rdf:about="http://astroblog.spaceboyz.net/harvester/rss.rdf">
+    <title><tmpl:print var="title"/></title>
+    <link>http://astroblog.spaceboyz.net/harvester/</link>
+    <description>&lt;p&gt;&lt;a href="http://astroblog.spaceboyz.net/harvester/"&gt;Blog Harvester&lt;/a&gt; sammelt Blogs von Menschen rund um Astro&lt;/p&gt;&lt;Enthalten sind:&lt;ul&gt;
+	     <tmpl:iter-blog collection="blogs" sort="title" link="url" title="title" description="desc">
+		     &lt;li&gt;&lt;a href="<tmpl:print var="url"/>" title="<tmpl:print var="desc"/>"&gt;<tmpl:print var="title"/>&lt;/a&gt;&lt;/li&gt;
+	     </tmpl:iter-blog>
+	    &lt;/ul&gt;</description>
+    <items>
+      <rdf:Seq>
+        <tmpl:iter-item sort="date" reverse="true" collection="blogs" max="23" link="url">
+       	  <tmpl:param param="resource" var="url"><rdf:li/></tmpl:param>
+	</tmpl:iter-item>
+      </rdf:Seq>
+    </items>
+  </channel>
+  <tmpl:iter-item sort="date" reverse="true" collection="blogs" max="23" title="title" blogtitle="btitle" link="url" description="description" rssdate="date">
+  <tmpl:param param="rdf:about" var="url"><item>
+    <title><tmpl:print var="btitle"/>: <tmpl:print var="title"/></title>
+    <link><tmpl:print var="url"/></link>
+    <description><tmpl:print var="description"/></description>
+    <dc:date><tmpl:print var="date"/></dc:date>
+  </item></tmpl:param>
+  </tmpl:iter-item>
+</rdf:RDF>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <title><tmpl:print var="title"/></title>
+    <link rel="alternate" type="application/rss+xml" title="RSS 1.0" href="rss.rdf" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="harvester.css"/>
+  </head>
+ 
+ 
+  <body>
+          <h1><tmpl:print var="title"/></h1>
+        <div class="tickers1">
+          <div class="ticker">
+          <h2>Harvesting</h2>
+	    <ul class="tickerlinks">
+	     <tmpl:iter-blog collection="blogs" sort="title" link="url" title="title" description="desc">
+	      <li><tmpl:param param="href" var="url"><tmpl:param param="title" var="desc"><a><tmpl:print var="title"/></a></tmpl:param></tmpl:param></li>
+	     </tmpl:iter-blog>
+	    </ul>
+          </div>
+          <div class="ticker">
+          <h2>Apropos</h2>
+          <p>The Harvester is made of fresh flesh, clean design by Tigion and hacked-together Ruby scripts by Astro</p>
+          </div>
+          <div class="ticker">
+          <h2>To Be Fed</h2>
+          <p>wget the <a href="rss.rdf">RSS-1.0</a> feed!</p>
+          </div>
+          <div class="ticker">
+          <h2>Questions</h2>
+          <p>Missing something?<br/>Contact <a href="mailto:astro@spaceboyz.net">Astro</a> via Mail or Jabber: astro@spaceboyz.net</p>
+          </div>
+          <div class="ticker">
+          <h2>Learn more</h2>
+	   <ul class="tickerlist">
+	    <li><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)</li>
+	    <li><a href="../harvester-0.3.tar.bz2">harvester-0.3.tar.bz2</a> (8411 Bytes, <a href="../harvester-0.3.tar.bz2.sig">Sig</a>)</li>
+	    <li><a href="../harvester-0.3.1.tar.bz2">harvester-0.3.1.tar.bz2</a> (8519 Bytes, <a href="../harvester-0.3.1.tar.bz2.sig">Sig</a>)</li>
+	    <li><a href="../harvester-0.3.2.tar.bz2">harvester-0.3.2.tar.bz2</a> (8663 Bytes, <a href="../harvester-0.3.2.tar.bz2.sig">Sig</a>)</li>
+	    <li><a href="../harvester-0.4.tar.bz2">harvester-0.4.tar.bz2</a> (9731 Bytes, <a href="../harvester-0.4.tar.bz2.sig">Sig</a>)</li>
+	    <li><a href="../harvester-0.5.tar.bz2">harvester-0.5.tar.bz2</a> (16101 Bytes, <a href="../harvester-0.5.tar.bz2.sig">Sig</a>)</li>
+	    <li><a href="../harvester-0.6.tar.bz2">harvester-0.6.tar.bz2</a> (14148 Bytes, <a href="../harvester-0.6.tar.bz2.sig">Sig</a>)</li>
+	   </ul>
+          </div>
+	  <tmpl:iter-blog sort="title" collection="links" title="ltitle" link="url">
+	    <div class="ticker">
+	      <h2><tmpl:param param="href" var="url"><a><tmpl:print var="ltitle"/></a></tmpl:param></h2>
+	       <ul class="tickerlinks">
+	        <tmpl:iter-item sort="date" reverse="true" collection="links" max="8" blog="ltitle" title="title" link="url" description="description">
+		  <li><tmpl:param param="href" var="url"><tmpl:param param="title" var="description"><a><tmpl:print var="snip(title,29)"/></a></tmpl:param></tmpl:param></li>
+		</tmpl:iter-item>
+	       </ul>
+	   </div>
+          </tmpl:iter-blog>
+	</div>
+
+	<div class="tickers2">
+	  <tmpl:iter-blog sort="title" collection="ticker" title="ttitle" link="url">
+	    <div class="ticker">
+	      <h2><tmpl:param param="href" var="url"><a><tmpl:print var="ttitle"/></a></tmpl:param></h2>
+	      <ul class="tickerlinks">
+	        <tmpl:iter-item sort="date" reverse="true" collection="ticker" max="23" blog="ttitle" title="title" link="url" description="description">
+		  <li><tmpl:param param="href" var="url"><tmpl:param param="title" var="snip(strip(description),50)"><a><tmpl:print var="snip(title,29)"/></a></tmpl:param></tmpl:param></li>
+		</tmpl:iter-item>
+	      </ul>
+	   </div>
+	 </tmpl:iter-blog>
+       </div>
+
+          <tmpl:iter-item sort="date" reverse="true" collection="blogs" max="23" blogtitle="btitle" bloglink="burl" blogdescription="bdesc" title="title" date="date" description="description" link="url">
+	   <div class="entry">
+	   <h2><tmpl:param param="href" var="burl"><tmpl:param param="title" var="bdesc"><a><tmpl:print var="btitle"/></a></tmpl:param></tmpl:param></h2>
+	   <div class="entrydate"><tmpl:print var="date"/></div>
+	   <h3><tmpl:param param="href" var="url"><a><tmpl:print var="title"/></a></tmpl:param></h3>
+	   <div class="entrydesc"><tmpl:print var="description" escape="false"/></div>
+	   <div class="entryfoot"><tmpl:param param="href" var="url"><tmpl:param param="title" var="url"><a>mehr...</a></tmpl:param></tmpl:param></div>
+	   </div>
+         </tmpl:iter-item>
+  </body>
+</html>
+

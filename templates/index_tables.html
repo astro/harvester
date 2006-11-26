@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><tmpl:print var="title"/></title>
+    <link rel="alternate" type="application/rss+xml" title="RSS 1.0" href="rss.rdf" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style type="text/css">
+      /* Meta ------------------------------------- */
+      body {
+        font-size: 10pt;
+        font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+        color: #333;
+        background-color: #E0E0E0;
+        margin: 0;
+        padding: 0;
+      }
+      a:link, a:visited {
+        text-decoration:  none;
+        color:            #C00000;
+      }
+      a:hover {
+        text-decoration:  underline;
+        color:            #C00000;
+      }
+      a:active {
+        text-decoration:  none;
+        color:            #FFA500;
+      }
+      .head {
+        /* border: 1px solid #afafaf; */
+        background-color: #FFFFFF;
+        color: #333;
+        font-weight: bold;
+        font-size: 20pt;
+	text-align: center;
+        margin: 10px 10px 0px 10px;
+        padding: 10px 10px 10px 10px;
+      }
+      /* Blogeintraege ------------------------------------- */
+      .entry {
+        /* border: 1px solid #afafaf; */
+        background-color: white;
+        margin: 10px 0px 10px 0px;
+        text-align: left;
+      }
+      .entryhead {
+        font-size: 10pt;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        padding: 5px 10px 5px 10px;
+        /* background-color: #ff6600; */
+        background-color: #ff6600;
+        color: white;
+      }
+      .entrydate {
+        font-size: 8pt;
+        padding: 0 10px 10px 10px;
+        margin: -30px 0 0 0;
+        text-align: right;
+        color: white;
+      }
+      .entrytitle {
+        font-size: 12pt;
+        font-weight: bold;
+        padding: 10px 10px 0 10px;
+      }
+      .entrytext {
+        padding: 10px 10px 10px 10px;
+	text-align: justify;
+      }
+      .entryfoot {
+        font-size: 8pt;
+        padding: 0 10px 10px 10px;
+        text-align: right;
+      }
+      /* Seitenleisten ------------------------------------- */
+      .ticker {
+        /* border: 1px solid #afafaf; */
+        background-color: white;
+        margin: 10px 10px 10px 10px;
+        text-align: left;
+        width: 180px;
+      }
+      .tickerhead {
+        font-size: 10pt;
+        font-weight: bold;
+        padding: 5px 10px 5px 10px;
+        /* background-color: #ff6600; */
+        background-color: #6699cc;
+        color: white;
+      }
+      .tickerhead a {
+        color: white;
+        text-decoration:  none;
+      }
+      .tickerlink {
+        font-size: 8pt;
+        padding: 2px 10px 2px 10px;
+        text-align: left;
+      }
+      .tickerlink a {
+        color: #333;
+        text-decoration:  none;
+      }
+      .tickerlink a:hover {
+        text-decoration:  underline;
+      }
+      .tickerervice {
+        font-size: 8pt;
+        padding: 5px 10px 5px 10px;
+        text-align: left;
+        font-style: italic;
+      }
+    </style>
+  </head>
+ 
+ 
+  <body>
+    <table class="pagetable">
+      <tr>
+        <td colspan="3">
+          <div class="head"><tmpl:print var="title"/></div>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">
+        
+          <div class="ticker">
+          <div class="tickerhead">Harvesting</div>
+	  <tmpl:iter-blog collection="blogs" sort="title" link="url" title="title">
+	    <div class="tickerlink">
+	      <tmpl:param param="href" var="url"><a><tmpl:print var="title"/></a></tmpl:param>
+	    </div>
+	  </tmpl:iter-blog>
+          </div>
+          <div class="ticker">
+          <div class="tickerhead">Apropos</div>
+          <div class="tickerervice">The Harvester is made of fresh flesh, clean design by Tigion and hacked-together Ruby scripts by Astro</div>
+          </div>
+          <div class="ticker">
+          <div class="tickerhead">To Be Fed</div>
+          <div class="tickerervice">wget the <a href="rss.rdf">RSS-1.0</a> feed!</div>
+          </div>
+          <div class="ticker">
+          <div class="tickerhead">Questions</div>
+          <div class="tickerervice">Missing something?<br/>Contact <a href="mailto:astro@spaceboyz.net">Astro</a> via Mail or Jabber: astro@spaceboyz.net</div>
+          </div>
+          <div class="ticker">
+          <div class="tickerhead">Learn more</div>
+          <div class="tickerervice">Download source:
+	    <br/><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)
+	    <br/><a href="../harvester-0.3.tar.bz2">harvester-0.3.tar.bz2</a> (8411 Bytes, <a href="../harvester-0.3.tar.bz2.sig">Sig</a>)
+	    <br/><a href="../harvester-0.3.1.tar.bz2">harvester-0.3.1.tar.bz2</a> (8519 Bytes, <a href="../harvester-0.3.1.tar.bz2.sig">Sig</a>)
+	    <br/><a href="../harvester-0.3.2.tar.bz2">harvester-0.3.2.tar.bz2</a> (8663 Bytes, <a href="../harvester-0.3.2.tar.bz2.sig">Sig</a>)
+	  </div>
+          </div>
+	  <tmpl:iter-blog sort="title" collection="links" title="ltitle" link="url">
+	    <div class="ticker">
+	      <div class="tickerhead"><tmpl:param param="href" var="url"><a><tmpl:print var="ltitle"/></a></tmpl:param></div>
+	        <tmpl:iter-item sort="date" reverse="true" collection="links" max="23" blog="ltitle" title="title" link="url">
+		  <div class="tickerlink"><tmpl:param param="href" var="url"><a><tmpl:print var="snip(title,29)"/></a></tmpl:param></div>
+		</tmpl:iter-item>
+	   </div>
+	 </tmpl:iter-blog>
+        </td>
+        <td valign="top">
+          <tmpl:iter-item sort="date" reverse="true" collection="blogs" max="23" blogtitle="btitle" title="title" date="date" description="description" link="url">
+	   <div class="entry">
+	   <div class="entryhead"><tmpl:print var="btitle"/></div>
+	   <div class="entrydate"><tmpl:print var="date"/></div>
+	   <div class="entrytitle"><tmpl:print var="title"/></div>
+	   <div class="entrytext"><tmpl:print var="description" escape="false"/></div>
+	   <div class="entryfoot"><tmpl:param param="href" var="url"><a>mehr...</a></tmpl:param></div>
+	   </div>
+         </tmpl:iter-item>
+        </td>
+        <td valign="top">
+	  <tmpl:iter-blog sort="title" collection="ticker" title="ttitle" link="url">
+	    <div class="ticker">
+	      <div class="tickerhead"><tmpl:param param="href" var="url"><a><tmpl:print var="ttitle"/></a></tmpl:param></div>
+	        <tmpl:iter-item sort="date" reverse="true" collection="ticker" max="23" blog="ttitle" title="title" link="url">
+		  <div class="tickerlink"><tmpl:param param="href" var="url"><a><tmpl:print var="snip(title,29)"/></a></tmpl:param></div>
+		</tmpl:iter-item>
+	   </div>
+	 </tmpl:iter-blog>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+

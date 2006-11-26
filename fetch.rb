@@ -1,8 +1,14 @@
+#!/usr/bin/env ruby
+
 require 'dbi'
 require 'yaml'
 require 'uri'
 require 'net/http'
-require 'net/https'
+begin
+  require 'net/https'
+rescue LoadError
+  $stderr.puts "WARNING: No https support!"
+end
 require 'thread'
 
 require 'mrss'
@@ -73,7 +79,7 @@ config['collections'].each { |collection,rss_urls|
       logprefix = "[#{uri.to_s.ljust maxurlsize}]"
 
       http = Net::HTTP.new uri.host, uri.port
-      http.use_ssl = uri.kind_of? URI::HTTPS
+      http.use_ssl = (uri.kind_of? URI::HTTPS) if defined? OpenSSL
       request = (if is_new or last.nil?
         puts "#{logprefix} GET"
         Net::HTTP::Get.new uri.request_uri
@@ -84,7 +90,12 @@ config['collections'].each { |collection,rss_urls|
       request.basic_auth(uri.user, uri.password) if uri.user
       
       last_get_started = Time.new
-      response = http.request request
+      begin
+        response = http.request request
+      rescue
+        puts "Skipped (request error)"
+        pending_lock.synchronize { pending.delete rss_url }
+      end
       puts "#{logprefix} #{response.code} #{response.message}"
 
       if response.kind_of? Net::HTTPOK

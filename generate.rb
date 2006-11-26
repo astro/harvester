@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'dbi'
 require 'yaml'
 require 'rexml/document'

@@ -12,9 +12,6 @@ jabber:
   jid: astrobot@spaceboyz.net/harvester
   password: ***
   interval: 120
-vars:
-  title: Blog Harvester
-  strftime: %d.%m.%G %T
 collections:
   ticker:
   - http://www.c3d2.de/news-atom.xml

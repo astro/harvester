@@ -73,6 +73,11 @@ class MRSS
     xml.elements.each(items) do |e|
       @items.push(MRSSItem.new(e, @type))
     end
+
+    # Remove any meaningless items
+    @items.delete_if do |item|
+      item.title == '' and item.link == ''
+    end
   end
 end
 

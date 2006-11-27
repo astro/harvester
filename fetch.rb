@@ -10,6 +10,11 @@ rescue LoadError
   $stderr.puts "WARNING: No https support!"
 end
 require 'thread'
+begin
+  require 'htree'
+rescue LoadError
+  $stderr.puts "HTree not found, will not mangle relative links in <description/>"
+end
 
 require 'mrss'
 
@@ -118,21 +123,41 @@ config['collections'].each { |collection,rss_urls|
 
             items_new, items_updated = 0, 0
             rss.items.each { |item|
-              db_title = dbi.select_one "SELECT title FROM items WHERE rss=? AND link=?", rss_url, item.link
+              # Link mangling
+              link = URI::join((rss.link.to_s == '') ? uri.to_s : rss.link.to_s, item.link).to_s
+              # Description mangling
+              description = item.description
+              if defined? HTree
+                begin
+                  html = HTree("<html><body>#{description}</body></html>").to_rexml
+                  html.each_element('//a') { |a|
+                    a.attributes['href'] = URI::join(link, a.attributes['href'].to_s).to_s
+                  }
+                  html.each_element('//img') { |img|
+                    img.attributes['src'] = URI::join(link, img.attributes['src'].to_s).to_s
+                  }
+                  description = html.elements['/html/body'].children.to_s
+                rescue HTree::Error => e
+                  $stderr.puts "Oops: #{e}"
+                end
+              end
+
+              # Push into database
+              db_title = dbi.select_one "SELECT title FROM items WHERE rss=? AND link=?", rss_url, link
               item_is_new = db_title.nil?
 
               if item_is_new
                 begin
                   dbi.do "INSERT INTO items (rss, title, link, date, description) VALUES (?, ?, ?, ?, ?)",
-                    rss_url, item.title, item.link, item.date, item.description
+                    rss_url, item.title, link, item.date, description
                   items_new += 1
                 rescue DBI::ProgrammingError
-                  puts item.description
+                  puts description
                   puts "#{$!.class}: #{$!}\n#{$!.backtrace.join("\n")}"
                 end
               else
                 dbi.do "UPDATE items SET title=?, description=? WHERE rss=? AND link=?",
-                  item.title, item.description, rss_url, item.link
+                  item.title, description, rss_url, link
                 items_updated += 1
               end
             }

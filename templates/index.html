@@ -24,68 +24,68 @@
 
     <body>
       <h1>Blog Harvester</h1>
-        <div class="tickers1">
-          <div class="ticker">
-            <h2>Harvesting</h2>
-            <ul class="tickerlinks">
-              <xsl:for-each select="collection[@name='blogs']/feed">
-                <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
-                <li><a href="{link}" title="{description}"><xsl:value-of select="title"/></a></li>
-              </xsl:for-each>
+      <div class="tickers1">
+        <div class="ticker">
+          <h2>Harvesting</h2>
+          <ul class="tickerlinks">
+            <xsl:for-each select="collection[@name='blogs']/feed">
+              <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+              <li><a href="{link}" title="{description}"><xsl:value-of select="title"/></a></li>
+            </xsl:for-each>
+          </ul>
+        </div>
+        <div class="ticker">
+          <h2>Apropos</h2>
+          <p>The Harvester is made of fresh flesh, clean design by Tigion and hacked-together Ruby scripts by Astro</p>
+        </div>
+        <div class="ticker">
+          <h2>To Be Fed</h2>
+          <p>wget the <a href="rss.rdf">RSS-1.0</a> feed!</p>
+        </div>
+        <div class="ticker">
+          <h2>Questions</h2>
+          <p>Missing something?<br/>Contact <a href="mailto:astro@spaceboyz.net">Astro</a> via Mail or Jabber: astro@spaceboyz.net</p>
+        </div>
+        <div class="ticker">
+          <h2>Learn more</h2>
+            <ul class="tickerlist">
+              <li><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.3.tar.bz2">harvester-0.3.tar.bz2</a> (8411 Bytes, <a href="../harvester-0.3.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.3.1.tar.bz2">harvester-0.3.1.tar.bz2</a> (8519 Bytes, <a href="../harvester-0.3.1.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.3.2.tar.bz2">harvester-0.3.2.tar.bz2</a> (8663 Bytes, <a href="../harvester-0.3.2.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.4.tar.bz2">harvester-0.4.tar.bz2</a> (9731 Bytes, <a href="../harvester-0.4.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.5.tar.bz2">harvester-0.5.tar.bz2</a> (16101 Bytes, <a href="../harvester-0.5.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.6.tar.bz2">harvester-0.6.tar.bz2</a> (14148 Bytes, <a href="../harvester-0.6.tar.bz2.sig">Sig</a>)</li>
             </ul>
           </div>
-          <div class="ticker">
-            <h2>Apropos</h2>
-            <p>The Harvester is made of fresh flesh, clean design by Tigion and hacked-together Ruby scripts by Astro</p>
-          </div>
-          <div class="ticker">
-            <h2>To Be Fed</h2>
-            <p>wget the <a href="rss.rdf">RSS-1.0</a> feed!</p>
-          </div>
-          <div class="ticker">
-            <h2>Questions</h2>
-            <p>Missing something?<br/>Contact <a href="mailto:astro@spaceboyz.net">Astro</a> via Mail or Jabber: astro@spaceboyz.net</p>
-          </div>
-          <div class="ticker">
-            <h2>Learn more</h2>
-              <ul class="tickerlist">
-                <li><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)</li>
-                <li><a href="../harvester-0.3.tar.bz2">harvester-0.3.tar.bz2</a> (8411 Bytes, <a href="../harvester-0.3.tar.bz2.sig">Sig</a>)</li>
-                <li><a href="../harvester-0.3.1.tar.bz2">harvester-0.3.1.tar.bz2</a> (8519 Bytes, <a href="../harvester-0.3.1.tar.bz2.sig">Sig</a>)</li>
-                <li><a href="../harvester-0.3.2.tar.bz2">harvester-0.3.2.tar.bz2</a> (8663 Bytes, <a href="../harvester-0.3.2.tar.bz2.sig">Sig</a>)</li>
-                <li><a href="../harvester-0.4.tar.bz2">harvester-0.4.tar.bz2</a> (9731 Bytes, <a href="../harvester-0.4.tar.bz2.sig">Sig</a>)</li>
-                <li><a href="../harvester-0.5.tar.bz2">harvester-0.5.tar.bz2</a> (16101 Bytes, <a href="../harvester-0.5.tar.bz2.sig">Sig</a>)</li>
-                <li><a href="../harvester-0.6.tar.bz2">harvester-0.6.tar.bz2</a> (14148 Bytes, <a href="../harvester-0.6.tar.bz2.sig">Sig</a>)</li>
-              </ul>
+
+          <xsl:call-template name="ticker-boxen">
+            <xsl:with-param name="collection" select="'ticker'"/>
+          </xsl:call-template>
+        </div>
+
+        <div class="tickers2">
+          <xsl:call-template name="ticker-boxen">
+            <xsl:with-param name="collection" select="'links'"/>
+          </xsl:call-template>
+        </div>
+
+        <xsl:variable name="blogs" select="collection[@name='blogs']"/>
+        <xsl:for-each select="hv:collection-items('blogs')/item">
+          <xsl:variable name="rss" select="string(rss)"/>
+          <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
+          <div class="entry">
+            <h2>
+              <a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a>
+            </h2>
+            <div class="entrydate"><xsl:value-of select="date"/></div>
+            <h3><a href="{link}"><xsl:value-of select="title"/></a></h3>
+            <div class="entrydesc">
+              <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
             </div>
-
-            <xsl:call-template name="ticker-boxen">
-              <xsl:with-param name="collection" select="'ticker'"/>
-            </xsl:call-template>
+            <div class="entryfoot"><a href="{link}" title="{link}">mehr...</a></div>
           </div>
-
-          <div class="tickers2">
-            <xsl:call-template name="ticker-boxen">
-              <xsl:with-param name="collection" select="'links'"/>
-            </xsl:call-template>
-          </div>
-
-          <xsl:variable name="blogs" select="collection[@name='blogs']"/>
-          <xsl:for-each select="hv:collection-items('blogs')/item">
-            <xsl:variable name="rss" select="string(rss)"/>
-            <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
-            <div class="entry">
-              <h2>
-                <a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a>
-              </h2>
-              <div class="entrydate"><xsl:value-of select="date"/></div>
-              <h3><a href="{link}"><xsl:value-of select="title"/></a></h3>
-              <div class="entrydesc">
-                <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
-              </div>
-              <div class="entryfoot"><a href="{link}" title="{link}">mehr...</a></div>
-            </div>
-         </xsl:for-each>
+       </xsl:for-each>
     </body>
   </html>
 </xsl:template>

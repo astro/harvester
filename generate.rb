@@ -78,7 +78,6 @@ templatedir = config['settings']['templates']
 outputdir = config['settings']['output']
 Dir.foreach(templatedir) { |templatefile|
   next if templatefile =~ /^\./
-  next if templatefile != 'index.html'
 
   puts "Processing #{templatefile}"
   xslt.xsl = "#{templatedir}/#{templatefile}"

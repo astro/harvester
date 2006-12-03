@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0"
+  xmlns="http://www.w3.org/2005/Atom"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:crypto="http://exslt.org/crypto"
+  xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
+  exclude-result-prefixes="xsl hv crypto">
+
+<xsl:output method="xml"
+            version="1.0"
+            encoding="utf-8"
+            indent="yes"/>
+
+<xsl:template match="/collections">
+  <feed>
+    <title>Blog Harvester</title>
+    <id><xsl:value-of select="crypto:sha1(entry_id)"/></id>
+    <link href="{$feed/link}" rel="alternate" type="text/html"/>
+    <subtitle>Blog Harvester sammelt Blogs von Menschen rund um Astro</subtitle>
+
+    <xsl:variable name="blogs" select="collection[@name='blogs']"/>
+    <xsl:for-each select="hv:collection-items('blogs')/item">
+      <xsl:variable name="rss" select="string(rss)"/>
+      <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
+      <entry>
+        <title><xsl:value-of select="concat($feed/title,': ',title)"/></title>
+        <id><xsl:value-of select="crypto:sha1(link)"/></id>
+        <link href="{link}" rel="alternate" type="text/html"/>
+        <link href="{$feed/link}" rel="source" type="text/html"/>
+        <content type="html">
+          <xsl:value-of select="hv:item-description($rss, string(link))"/>
+        </content>
+        <updated><xsl:value-of select="date"/></updated>
+      </entry>
+    </xsl:for-each>
+  </feed>
+</xsl:template>
+
+</xsl:stylesheet>

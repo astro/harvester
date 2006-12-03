@@ -29,8 +29,8 @@
       <xsl:variable name="rss" select="string(rss)"/>
       <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
       <item>
-        <title><xsl:value-of select="$feed/title"/></title>
-        <link><xsl:value-of select="$feed/link"/></link>
+        <title><xsl:value-of select="concat($feed/title,': ',title)"/></title>
+        <link><xsl:value-of select="link"/></link>
         <guid isPermaLink="yes"><xsl:value-of select="$feed/link"/></guid>
         <pubDate><xsl:value-of select="date"/></pubDate>
         <description>

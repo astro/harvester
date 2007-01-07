@@ -17,7 +17,7 @@
     <channel>
       <title>Blog Harvester</title>
       <link>http://astroblog.spaceboyz.net/harvester/</link>
-      <description>&lt;p&gt;&lt;a href="http://astroblog.spaceboyz.net/harvester/"&gt;Blog Harvester&lt;/a&gt; sammelt Blogs von Menschen rund um Astro&lt;/p&gt;&lt;Enthalten sind:&lt;ul&gt;
+      <description>&lt;p&gt;&lt;a href="http://astroblog.spaceboyz.net/harvester/"&gt;Blog Harvester&lt;/a&gt; sammelt Blogs von Menschen rund um Astro. Enthalten sind:&lt;/p&gt;&lt;ul&gt;
         <xsl:for-each select="collection[@name='blogs']/feed">
           <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
           &lt;li&gt;&lt;a href="<xsl:value-of select="link"/>" title="<xsl:value-of select="description"/>"&gt;<xsl:value-of select="title"/>&lt;/a&gt;&lt;/li&gt;

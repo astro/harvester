@@ -39,7 +39,7 @@ class XSLTFunctions
     @dbi.select_all("SELECT items.title,items.date,items.link,items.rss FROM items,sources WHERE items.rss=sources.rss AND sources.collection=? ORDER BY items.date DESC LIMIT ?", collection, max.to_i) { |title,date,link,rss|
       item = items.add(REXML::Element.new('item'))
       item.add(REXML::Element.new('title')).text = title
-      item.add(REXML::Element.new('date')).text = date
+      item.add(REXML::Element.new('date')).text = date.to_time.xmlschema
       item.add(REXML::Element.new('link')).text = link
       item.add(REXML::Element.new('rss')).text = rss
     }
@@ -52,7 +52,7 @@ class XSLTFunctions
     @dbi.select_all("SELECT title,date,link FROM items WHERE rss=? ORDER BY date DESC LIMIT ?", rss, max.to_i) { |title,date,link|
       item = items.add(REXML::Element.new('item'))
       item.add(REXML::Element.new('title')).text = title
-      item.add(REXML::Element.new('date')).text = date
+      item.add(REXML::Element.new('date')).text = date.to_time.xmlschema
       item.add(REXML::Element.new('link')).text = link
     }
 

@@ -5,7 +5,7 @@ db:
   password: ***
 settings:
   size limit: 102400
-  timeout: 30
+  timeout: 90
   templates: templates
   output: html
 jabber:
@@ -35,13 +35,12 @@ collections:
   - http://del.icio.us/rss/cosmoFlash
   blogs:
   - http://astroblog.spaceboyz.net/rss.rb
-  - http://tigion.bsd-crew.de/blog_wp/?feed=atom
+  - http://blog.tigion.de/feed/atom/
   - http://fukami.vakuum.net/feed/
   - http://blog.daemonized.de/feed/
   - http://www.psycast.de/blog/rss.php?ver=2
   - http://www.kuarepoti-dju.net/wp-rss2.php
   - http://spaceboyz.net/~cosmo/updates.rss
-  - http://efficio.wh29.tu-dresden.de/archive.rss
   - http://webknocking.de/semaphor/content/blog/rss.xml
   - http://turbo24prg.skyhub.de/rss/rss2.xml
   - http://www.marvinnet.org/?feed=rss2
@@ -50,4 +49,5 @@ collections:
   - http://equiblog.diac24.net/$rss:full4
   - http://matthias.bsd-crew.de/blog/?feed=atom
   - http://cthulhu.c3d2.de/~toidinamai/blog.py/index.atom
+  - http://www.stecklina.info/blog/atom
 

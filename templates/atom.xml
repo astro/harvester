@@ -1,24 +1,28 @@
-<?xml version="1.0"?>
-
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
   xmlns="http://www.w3.org/2005/Atom"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:crypto="http://exslt.org/crypto"
   xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
-  exclude-result-prefixes="xsl hv crypto">
+  xmlns:date="http://exslt.org/dates-and-times"
+  exclude-result-prefixes="xsl hv crypto date">
 
 <xsl:output method="xml"
             version="1.0"
             encoding="utf-8"
+            media-type="application/atom+xml"
             indent="yes"/>
 
 <xsl:template match="/collections">
   <feed>
     <title>Blog Harvester</title>
-    <id><xsl:value-of select="crypto:sha1(entry_id)"/></id>
-    <link href="{$feed/link}" rel="alternate" type="text/html"/>
+    <id>http://astroblog.spaceboyz.net/harvester/</id>
+    <link href="http://astroblog.spaceboyz.net/harvester/" rel="alternate" type="text/html"/>
+    <link href="http://astroblog.spaceboyz.net/harvester/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://astroblog.spaceboyz.net/harvester/rss.rdf" rel="alternate" type="application/rss+xml"/>
+
     <subtitle>Blog Harvester sammelt Blogs von Menschen rund um Astro</subtitle>
+    <updated><xsl:value-of select="date:date-time()"/></updated>
 
     <xsl:variable name="blogs" select="collection[@name='blogs']"/>
     <xsl:for-each select="hv:collection-items('blogs')/item">
@@ -26,11 +30,13 @@
       <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
       <entry>
         <title><xsl:value-of select="concat($feed/title,': ',title)"/></title>
-        <id><xsl:value-of select="crypto:sha1(link)"/></id>
+        <id><xsl:value-of select="link"/></id>
         <link href="{link}" rel="alternate" type="text/html"/>
-        <link href="{$feed/link}" rel="source" type="text/html"/>
-        <content type="html">
-          <xsl:value-of select="hv:item-description($rss, string(link))"/>
+        <link href="{$feed/link}" rel="via" type="text/html"/>
+        <content type="xhtml">
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
+          </div>
         </content>
         <updated><xsl:value-of select="date"/></updated>
       </entry>

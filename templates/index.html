@@ -3,7 +3,8 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
-  exclude-result-prefixes="xsl hv">
+  xmlns:date="http://exslt.org/dates-and-times"
+  exclude-result-prefixes="xsl hv date">
 
 <xsl:output method="xml"
             version="1.0"
@@ -99,7 +100,7 @@
             <h2>
               <a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a>
             </h2>
-            <div class="entrydate"><xsl:value-of select="date"/></div>
+            <div class="entrydate"><xsl:value-of select="concat(date:day-in-month(date),'.',date:month-in-year(date),'. ',date:hour-in-day(date),':',date:minute-in-hour(date))"/></div>
             <h3><a href="{link}"><xsl:value-of select="title"/></a></h3>
             <div class="entrydesc">
               <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>

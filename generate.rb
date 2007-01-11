@@ -1,10 +1,55 @@
 #!/usr/bin/env ruby
 
+require 'singleton'
 require 'dbi'
 require 'yaml'
 require 'rexml/document'
 require 'xml/xslt'
 require 'time'
+require 'iconv'
+
+class EntityTranslator
+  include Singleton
+
+  def initialize
+    @entities = {}
+    %w(HTMLlat1.ent HTMLsymbol.ent HTMLspecial.ent).each do |file|
+      begin
+        load_entities_from_file(file)
+      rescue Errno::ENOENT
+        system("wget http://www.w3.org/TR/html4/#{file}")
+        load_entities_from_file(file)
+      end
+    end
+  end
+
+  def load_entities_from_file(filename)
+    IO::readlines(filename).to_s.scan(/<!ENTITY +(.+?) +CDATA +"(.+?)".+?>/m) do |ent,code|
+      @entities[ent] = code
+    end
+  end
+
+  def translate_entities(doc)
+    oldclass = doc.class
+    doc = doc.to_s
+
+    @entities.each do |ent,code|
+      doc.gsub!("&#{ent};", code)
+    end
+
+    doc = "<?xml version='1.0' encoding='utf-8'?>\n#{doc}"
+
+    if oldclass == REXML::Element
+      REXML::Document.new(doc).root
+    else
+      doc
+    end
+  end
+
+  def self.translate_entities(doc)
+    instance.translate_entities(doc)
+  end
+end
 
 
 class XSLTFunctions
@@ -31,7 +76,7 @@ class XSLTFunctions
       }
     }
 
-    root
+    EntityTranslator.translate_entities(root)
   end
 
   def collection_items(collection, max=23)
@@ -44,7 +89,7 @@ class XSLTFunctions
       item.add(REXML::Element.new('rss')).text = rss
     }
 
-    items
+    EntityTranslator.translate_entities(items)
   end
 
   def feed_items(rss, max=23)
@@ -56,12 +101,12 @@ class XSLTFunctions
       item.add(REXML::Element.new('link')).text = link
     }
 
-    items
+    EntityTranslator.translate_entities(items)
   end
 
   def item_description(rss, item_link)
     @dbi.select_all("SELECT description FROM items WHERE rss=? AND link=?", rss, item_link) { |desc,|
-      return desc
+      return EntityTranslator.translate_entities(desc)
     }
     ''
   end

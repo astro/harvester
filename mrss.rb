@@ -13,7 +13,7 @@ class MRSS
     rescue REXML::ParseException
       xml = REXML::Document.new(Iconv::iconv('UTF-8', 'ISO-8859-15', body).to_s).root
     end
-    
+
     begin
       # Try to validate UTF-8
       Iconv::iconv('UTF-8', 'UTF-8', xml.to_s).to_s

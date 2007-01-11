@@ -131,10 +131,18 @@ config['collections'].each { |collection,rss_urls|
                 begin
                   html = HTree("<html><body>#{description}</body></html>").to_rexml
                   html.each_element('//a') { |a|
-                    a.attributes['href'] = URI::join(link, a.attributes['href'].to_s).to_s
+                    begin
+                      a.attributes['href'] = URI::join(link, a.attributes['href'].to_s).to_s
+                    rescue URI::Error
+                      puts "Cannot rewrite relative URL: #{a.attributes['href']}" unless a.attributes['href'] =~ /^[a-z]{2,10}:/
+                    end
                   }
                   html.each_element('//img') { |img|
-                    img.attributes['src'] = URI::join(link, img.attributes['src'].to_s).to_s
+                    begin
+                      img.attributes['src'] = URI::join(link, img.attributes['src'].to_s).to_s
+                    rescue URI::Error
+                      puts "Cannot rewrite relative URL: #{img.attributes['href']}" unless img.attributes['href'] =~ /^[a-z]{2,10}:/
+                    end
                   }
                   description = html.elements['/html/body'].children.to_s
                 rescue HTree::Error => e

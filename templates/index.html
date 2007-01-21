@@ -101,7 +101,7 @@
             <h2>
               <a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a>
             </h2>
-            <div class="entrydate"><xsl:value-of select="concat(date:day-in-month(date),'.',date:month-in-year(date),'. ',date:hour-in-day(date),':',date:minute-in-hour(date))"/></div>
+            <div class="entrydate"><xsl:value-of select="concat(date:day-in-month(date),'.',date:month-in-year(date),'. ',format-number(date:hour-in-day(date),'00'),':',format-number(date:minute-in-hour(date),'00'))"/></div>
             <h3><a href="{link}"><xsl:value-of select="title"/></a></h3>
             <div class="entrydesc">
               <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>

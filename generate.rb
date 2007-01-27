@@ -29,7 +29,7 @@ class EntityTranslator
     end
   end
 
-  def translate_entities(doc)
+  def translate_entities(doc, with_xmldecl=true)
     oldclass = doc.class
     doc = doc.to_s
 
@@ -37,7 +37,7 @@ class EntityTranslator
       doc.gsub!("&#{ent};", code)
     end
 
-    doc = "<?xml version='1.0' encoding='utf-8'?>\n#{doc}"
+    "<?xml version='1.0' encoding='utf-8'?>\n#{doc}" if with_xmldecl
 
     if oldclass == REXML::Element
       REXML::Document.new(doc).root
@@ -46,8 +46,8 @@ class EntityTranslator
     end
   end
 
-  def self.translate_entities(doc)
-    instance.translate_entities(doc)
+  def self.translate_entities(doc, with_xmldecl=true)
+    instance.translate_entities(doc, with_xmldecl)
   end
 end
 
@@ -106,7 +106,7 @@ class XSLTFunctions
 
   def item_description(rss, item_link)
     @dbi.select_all("SELECT description FROM items WHERE rss=? AND link=?", rss, item_link) { |desc,|
-      return EntityTranslator.translate_entities(desc)
+      return EntityTranslator.translate_entities(desc, false)
     }
     ''
   end

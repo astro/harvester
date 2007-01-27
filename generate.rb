@@ -81,7 +81,7 @@ class XSLTFunctions
 
   def collection_items(collection, max=23)
     items = REXML::Element.new('items')
-    @dbi.select_all("SELECT items.title,items.date,items.link,items.rss FROM items,sources WHERE items.rss=sources.rss AND sources.collection=? ORDER BY items.date DESC LIMIT ?", collection, max.to_i) { |title,date,link,rss|
+    @dbi.select_all("SELECT items.title,items.date,items.link,items.rss FROM items,sources WHERE items.rss=sources.rss AND sources.collection LIKE ? ORDER BY items.date DESC LIMIT ?", collection, max.to_i) { |title,date,link,rss|
       item = items.add(REXML::Element.new('item'))
       item.add(REXML::Element.new('title')).text = title
       item.add(REXML::Element.new('date')).text = date.to_time.xmlschema

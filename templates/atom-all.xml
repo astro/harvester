@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0"
+  xmlns="http://www.w3.org/2005/Atom"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:crypto="http://exslt.org/crypto"
+  xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
+  xmlns:date="http://exslt.org/dates-and-times"
+  exclude-result-prefixes="xsl hv crypto date">
+
+<xsl:output method="xml"
+            version="1.0"
+            encoding="utf-8"
+            media-type="application/atom+xml"
+            indent="yes"/>
+
+<xsl:template match="/collections">
+  <feed>
+    <title>Blog Harvester (all)</title>
+    <id>http://astroblog.spaceboyz.net/harvester/</id>
+    <link href="http://astroblog.spaceboyz.net/harvester/" rel="alternate" type="text/html"/>
+    <link href="http://astroblog.spaceboyz.net/harvester/atom-all.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://astroblog.spaceboyz.net/harvester/rss-all.rdf" rel="alternate" type="application/rss+xml"/>
+
+    <subtitle>Blog Harvester sammelt Blogs von Menschen rund um Astro</subtitle>
+    <updated><xsl:value-of select="date:date-time()"/></updated>
+
+    <xsl:variable name="collections" select="."/>
+    <xsl:for-each select="hv:collection-items('%')/item">
+      <xsl:variable name="rss" select="string(rss)"/>
+      <xsl:variable name="feed" select="$collections/collection/feed[rss=$rss]"/>
+      <entry>
+        <title><xsl:value-of select="concat($feed/title,': ',title)"/></title>
+        <id><xsl:value-of select="link"/></id>
+        <link href="{link}" rel="alternate" type="text/html"/>
+        <link href="{$feed/link}" rel="via" type="text/html"/>
+        <content type="xhtml">
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
+          </div>
+        </content>
+        <updated><xsl:value-of select="date"/></updated>
+      </entry>
+    </xsl:for-each>
+  </feed>
+</xsl:template>
+
+</xsl:stylesheet>

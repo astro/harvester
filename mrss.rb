@@ -129,7 +129,6 @@ class MRSSItem
         end
 
         if e.name == 'enclosure'
-          puts "ENC: #{e.to_s.inspect}"
           a = e.attributes
           a['href'] = a['url']
           @enclosures << a

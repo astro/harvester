@@ -174,7 +174,6 @@ config['collections'].each { |collection,rss_urls|
               # Re-add all enclosures
               item.enclosures.each do |enclosure|
                 href = URI::join((rss.link.to_s == '') ? link.to_s : rss.link.to_s, enclosure['href']).to_s
-                p href
                 dbi.do "INSERT INTO enclosures (rss, link, href, mime, title, length) VALUES (?, ?, ?, ?, ?, ?)",
                   rss_url, link, href, enclosure['type'], enclosure['title'], enclosure['length']
               end

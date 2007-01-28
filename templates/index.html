@@ -110,6 +110,37 @@
             <div class="entrydesc">
               <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
             </div>
+
+            <xsl:variable name="enclosures" select="hv:item-enclosures(string($rss), string(link))"/>
+            <xsl:if test="count($enclosures/enclosure) &gt; 0">
+              <ul>
+                <xsl:for-each select="$enclosures/enclosure">
+                  <xsl:variable name="filename">
+                    <xsl:call-template name="basename">
+                      <xsl:with-param name="path" select="href"/>
+                    </xsl:call-template>
+                  </xsl:variable>
+                  <li>
+                    <xsl:choose>
+                      <xsl:when test="string-length(string(title)) &gt; 0">
+                        <xsl:value-of select="title"/>
+                        (<a href="{href}"><xsl:value-of select="$filename"/></a>)
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <a href="{href}"><xsl:value-of select="$filename"/></a>
+                      </xsl:otherwise>
+                    </xsl:choose>
+
+                    <xsl:text> </xsl:text>
+
+                    <xsl:call-template name="format-enclosure-length">
+                      <xsl:with-param name="length" select="number(length)"/>
+                    </xsl:call-template>
+                  </li>
+                </xsl:for-each>
+              </ul>
+            </xsl:if>
+
             <div class="entryfoot"><a href="{link}" title="{link}">mehr...</a></div>
           </div>
        </xsl:for-each>
@@ -140,6 +171,42 @@
       </ul>
     </div>
   </xsl:for-each>
+</xsl:template>
+
+<xsl:template name="format-enclosure-length">
+  <xsl:param name="length"/>
+
+  <xsl:if test="$length">
+    <xsl:choose>
+      <xsl:when test="$length &lt; 1024">
+        <xsl:value-of select="$length"/> Bytes
+      </xsl:when>
+      <xsl:when test="$length &lt; 1048576">
+        <xsl:value-of select="format-number($length div 1024, '0.0#')"/> KB
+      </xsl:when>
+      <xsl:when test="$length &lt; 1073741824">
+        <xsl:value-of select="format-number($length div 1048576, '0.0#')"/> MB
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="format-number($length div 1073741824, '0.0#')"/> GB
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="basename">
+  <xsl:param name="path"/>
+
+  <xsl:choose>
+    <xsl:when test="contains($path, '/')">
+      <xsl:call-template name="basename">
+        <xsl:with-param name="path" select="substring-after($path, '/')"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$path"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>

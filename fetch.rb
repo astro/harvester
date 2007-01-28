@@ -93,7 +93,7 @@ config['collections'].each { |collection,rss_urls|
         Net::HTTP::Get.new uri.request_uri, {'If-Modified-Since'=>last}
       end)
       request.basic_auth(uri.user, uri.password) if uri.user
-      
+
       last_get_started = Time.new
       begin
         response = http.request request
@@ -107,7 +107,7 @@ config['collections'].each { |collection,rss_urls|
         if response.body.size > sizelimit
           puts "#{logprefix} #{response.body.size} bytes big!"
         else
-          begin
+          begin dbi.transaction do
             rss = MRSS::parse response.body
 
             # Update source
@@ -168,9 +168,19 @@ config['collections'].each { |collection,rss_urls|
                   item.title, description, rss_url, link
                 items_updated += 1
               end
+
+              # Remove all enclosures
+              dbi.do "DELETE FROM enclosures WHERE rss=? AND link=?", rss_url, link
+              # Re-add all enclosures
+              item.enclosures.each do |enclosure|
+                href = URI::join((rss.link.to_s == '') ? link.to_s : rss.link.to_s, enclosure['href']).to_s
+                p href
+                dbi.do "INSERT INTO enclosures (rss, link, href, mime, title, length) VALUES (?, ?, ?, ?, ?, ?)",
+                  rss_url, link, href, enclosure['type'], enclosure['title'], enclosure['length']
+              end
             }
             puts "#{logprefix} New: #{items_new} Updated: #{items_updated}"
-          rescue
+          end; rescue
             puts "#{logprefix} Error: #{$!.class}: #{$!}\n#{$!.backtrace.join("\n")}"
           end
         end

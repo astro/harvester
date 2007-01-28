@@ -57,7 +57,7 @@ class XSLTFunctions
 
   def initialize(dbi)
     @dbi = dbi
-    %w(collection-items feed-items item-description).each { |func|
+    %w(collection-items feed-items item-description item-enclosures).each { |func|
       XML::XSLT.extFunction(func, FUNC_NAMESPACE, self)
     }
   end
@@ -109,6 +109,20 @@ class XSLTFunctions
       return EntityTranslator.translate_entities(desc, false)
     }
     ''
+  end
+
+  def item_enclosures(rss, link)
+    #p [rss,link]
+    enclosures = REXML::Element.new('enclosures')
+    @dbi.select_all("SELECT href, mime, title, length FROM enclosures WHERE rss=? AND link=? ORDER BY length DESC", rss, link) { |href,mime,title,length|
+      enclosure = enclosures.add(REXML::Element.new('enclosure'))
+      enclosure.add(REXML::Element.new('href')).text = href
+      enclosure.add(REXML::Element.new('mime')).text = mime
+      enclosure.add(REXML::Element.new('title')).text = title
+      enclosure.add(REXML::Element.new('length')).text = length
+    }
+    #p enclosures.to_s
+    enclosures
   end
 end
 

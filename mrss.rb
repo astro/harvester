@@ -82,13 +82,14 @@ class MRSS
 end
 
 class MRSSItem
-  attr_reader :title, :link, :description, :date
+  attr_reader :title, :link, :description, :date, :enclosures
 
   def initialize(ele, type)
     @title = ""
     @link = ""
     @description = ""
     @date = Time.new
+      @enclosures = []
 
     ele.elements.each do |e|
 
@@ -116,11 +117,22 @@ class MRSSItem
             @description = e.children.to_s # for ATOM 1.0, e.text isn't quite it
           end
         end
+
+        if e.name == 'link' and e.attributes['rel'] == 'enclosure'
+          @enclosures << e.attributes
+        end
       else
         case e.name
           when "link" then @link = e.text
           # Always take longest description
           when "description" then @description = e.text if @description.to_s.size < e.text.to_s.size
+        end
+
+        if e.name == 'enclosure'
+          puts "ENC: #{e.to_s.inspect}"
+          a = e.attributes
+          a['href'] = a['url']
+          @enclosures << a
         end
       end
     end

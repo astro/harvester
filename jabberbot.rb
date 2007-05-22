@@ -138,8 +138,8 @@ dbi = DBI::connect(config['db']['driver'], config['db']['user'], config['db']['p
 cl = Jabber::Client.new Jabber::JID.new(config['jabber']['jid'])
 cl.on_exception { |e,|
   puts "HICKUP: #{e.class}: #{e}\n#{e.backtrace.join("\n")}"
-  sleep 2
   begin
+    sleep 5
     cl.connect('::1')
     cl.auth config['jabber']['password']
   rescue

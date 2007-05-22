@@ -38,7 +38,7 @@ collections:
   - http://del.icio.us/rss/stepardo
   blogs:
   - http://astroblog.spaceboyz.net/rss.rb
-  - http://blog.tigion.de/feed/atom/
+  - http://blog.tigion.de/feed/
   - http://fukami.vakuum.net/feed/
   - http://blog.daemonized.de/feed/
   - http://www.psycast.de/blog/rss.php?ver=2

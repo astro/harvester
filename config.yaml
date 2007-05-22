@@ -19,6 +19,7 @@ collections:
   - http://www.blacksec.org/index2.php?option=com_rss&feed=RSS0.91&no_html=1
   - http://planet.entropia.de/rss.rdf
   - http://bruteforce.blogg.de/rss.xml
+  - http://asocio.no-ip.com/unter-schwarzer-flagge/?feed=rss2
   links:
   - http://del.icio.us/rss/fukami
   - http://del.icio.us/rss/astro1138
@@ -33,6 +34,9 @@ collections:
   - http://del.icio.us/rss/boelthorn
   - http://del.icio.us/rss/rabuju
   - http://del.icio.us/rss/cosmoFlash
+  - http://del.icio.us/rss/Shnifti
+  - http://del.icio.us/rss/stepardo
+  - http://blog.tigion.de/feed/
   blogs:
   - http://astroblog.spaceboyz.net/rss.rb
   - http://blog.tigion.de/feed/atom/
@@ -41,8 +45,7 @@ collections:
   - http://www.psycast.de/blog/rss.php?ver=2
   - http://www.kuarepoti-dju.net/wp-rss2.php
   - http://spaceboyz.net/~cosmo/updates.rss
-  - http://webknocking.de/semaphor/content/blog/rss.xml
-  - http://turbo24prg.skyhub.de/rss/rss2.xml
+  - http://89.238.64.223/semaphor/semaphor.php?item=blogRss
   - http://www.marvinnet.org/?feed=rss2
   - http://d-ventures.heartofgold.de/?feed=rss2
   - http://jelena.blogsome.com/feed/rdf/
@@ -50,4 +53,8 @@ collections:
   - http://matthias.bsd-crew.de/blog/?feed=atom
   - http://cthulhu.c3d2.de/~toidinamai/blog.py/index.atom
   - http://www.stecklina.info/blog/atom
-
+  - "http://api.flickr.com/services/feeds/photos_public.gne?id=73915810@N00&format=atom"
+  - http://bsd-crew.de/~riot/rss.xml
+  - http://www.haltetdenbeat.de/feed/
+  - http://vserver152.masterssystems.com/blog/feed/
+  - http://stepardos.blogspot.com/feeds/posts/default

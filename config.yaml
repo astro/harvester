@@ -36,7 +36,6 @@ collections:
   - http://del.icio.us/rss/cosmoFlash
   - http://del.icio.us/rss/Shnifti
   - http://del.icio.us/rss/stepardo
-  - http://blog.tigion.de/feed/
   blogs:
   - http://astroblog.spaceboyz.net/rss.rb
   - http://blog.tigion.de/feed/atom/

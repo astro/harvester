@@ -1,0 +1,59 @@
+diff -u harvester-0.6/config.yaml harvester-0.6-mysql/config.yaml
+--- harvester-0.6/config.yaml   2006-04-14 22:29:53.000000000 +0200
++++ harvester-0.6-mysql/config.yaml     2006-10-03 11:47:48.303550000 +0200
+@@ -1,8 +1,8 @@
+ ---
+ db:
+-  driver: dbi:Pg:harvester:localhost
+-  user: harvester
+-  password: ***
++  driver: dbi:MySQL:database_name:localhost
++  user: username
++  password: password
+ settings:
+   size limit: 102400
+   timeout: 30
+diff -u harvester-0.6/db.sql harvester-0.6-mysql/db.sql
+--- harvester-0.6/db.sql        2006-03-13 03:38:57.000000000 +0100
++++ harvester-0.6-mysql/db.sql  2006-10-03 11:41:49.549129250 +0200
+@@ -1,6 +1,6 @@
+ create table sources (
+-  collection varchar(256) not null,
+-  rss varchar(256) not null,
++  collection varchar(100) not null,
++  rss varchar(100) not null,
+   last varchar(40),
+   title varchar(256),
+   link varchar(256),
+@@ -9,24 +9,24 @@
+ );
+
+ create table items (
+-  rss varchar(256) not null,
++  rss varchar(100) not null,
+   title varchar(256),
+-  link varchar(256),
+-  date timestamp,
++  link varchar(100),
++  date datetime,
+   description text,
+   unique (rss, link)
+ );
+
+-create view last48hrs as select items.rss, items.title, items.link, sources.title as blogtitle, sources.collection from items, sources where items.rss = sources.rss and now() - interval '48 hour' < items.date order by date;
++create view last48hrs as select items.rss, items.title, items.link, sources.title as blogtitle, sources.collection from items, sources where items.rss = sources.rss and now() - interval 48 hour < items.date order by date;
+
+ create table jabbersubscriptions (
+-  jid varchar(256) not null,
+-  collection varchar(256) not null,
++  jid varchar(100) not null,
++  collection varchar(100) not null,
+   unique (jid, collection)
+ );
+
+ create table jabbersettings (
+   jid varchar(256) primary key,
+-  respect_status boolean,
++  respect_status tinyint(1),
+   message_type varchar(16)
+ );

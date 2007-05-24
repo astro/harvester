@@ -9,7 +9,11 @@ begin
 rescue LoadError
   $stderr.puts "WARNING: No https support!"
 end
-require 'thread'
+begin
+  require 'fastthread'
+rescue LoadError
+  require 'thread'
+end
 begin
   require 'htree'
 rescue LoadError
@@ -69,6 +73,7 @@ config['collections'].each { |collection,rss_urls|
   }
 }
 
+dbi['AutoCommit'] = false
 last_get_started = Time.new
 pending = []
 pending_lock = Mutex.new
@@ -124,7 +129,11 @@ config['collections'].each { |collection,rss_urls|
             items_new, items_updated = 0, 0
             rss.items.each { |item|
               # Link mangling
-              link = URI::join((rss.link.to_s == '') ? uri.to_s : rss.link.to_s, item.link).to_s
+              begin
+                link = URI::join((rss.link.to_s == '') ? uri.to_s : rss.link.to_s, item.link || rss.link).to_s
+              rescue URI::Error
+                link = item.link
+              end
               # Description mangling
               description = item.description
               if defined? HTree
@@ -134,14 +143,14 @@ config['collections'].each { |collection,rss_urls|
                     begin
                       a.attributes['href'] = URI::join(link, a.attributes['href'].to_s).to_s
                     rescue URI::Error
-                      puts "Cannot rewrite relative URL: #{a.attributes['href']}" unless a.attributes['href'] =~ /^[a-z]{2,10}:/
+                      puts "Cannot rewrite relative URL: #{a.attributes['href'].inspect}" unless a.attributes['href'] =~ /^[a-z]{2,10}:/
                     end
                   }
                   html.each_element('//img') { |img|
                     begin
                       img.attributes['src'] = URI::join(link, img.attributes['src'].to_s).to_s
                     rescue URI::Error
-                      puts "Cannot rewrite relative URL: #{img.attributes['href']}" unless img.attributes['href'] =~ /^[a-z]{2,10}:/
+                      puts "Cannot rewrite relative URL: #{img.attributes['href'].inspect}" unless img.attributes['href'] =~ /^[a-z]{2,10}:/
                     end
                   }
                   description = html.elements['/html/body'].children.to_s

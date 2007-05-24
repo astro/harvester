@@ -28,6 +28,15 @@ timeout = config['settings']['timeout'].to_i
 sizelimit = config['settings']['size limit'].to_i
 dbi = DBI::connect(config['db']['driver'], config['db']['user'], config['db']['password'])
 
+# Hack, an explicit lock would look much better
+class << dbi
+  def transaction(*a)
+    Thread::critical = true
+    super
+    Thread::critical = false
+  end
+end
+
 #######################
 # Database maintenance
 #######################

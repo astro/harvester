@@ -8,6 +8,13 @@ require 'xml/xslt'
 require 'time'
 require 'iconv'
 
+class String
+  def to_time
+    Time.parse self
+  end
+end
+
+
 class EntityTranslator
   include Singleton
 

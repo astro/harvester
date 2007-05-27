@@ -77,6 +77,7 @@ class REXML::Element
 
       if e_rank > rank
         link = e.attributes['href']
+        rank = e_rank
       end
     end
 

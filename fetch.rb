@@ -14,11 +14,6 @@ begin
 rescue LoadError
   require 'thread'
 end
-begin
-  require 'htree'
-rescue LoadError
-  $stderr.puts "HTree not found, will not mangle relative links in <description/>"
-end
 
 require 'mrss'
 
@@ -137,35 +132,13 @@ config['collections'].each { |collection,rss_urls|
 
             items_new, items_updated = 0, 0
             rss.items.each { |item|
+              description = item.description
+
               # Link mangling
               begin
                 link = URI::join((rss.link.to_s == '') ? uri.to_s : rss.link.to_s, item.link || rss.link).to_s
               rescue URI::Error
                 link = item.link
-              end
-              # Description mangling
-              description = item.description
-              if defined? HTree
-                begin
-                  html = HTree("<html><body>#{description}</body></html>").to_rexml
-                  html.each_element('//a') { |a|
-                    begin
-                      a.attributes['href'] = URI::join(link, a.attributes['href'].to_s).to_s
-                    rescue URI::Error
-                      puts "Cannot rewrite relative URL: #{a.attributes['href'].inspect}" unless a.attributes['href'] =~ /^[a-z]{2,10}:/
-                    end
-                  }
-                  html.each_element('//img') { |img|
-                    begin
-                      img.attributes['src'] = URI::join(link, img.attributes['src'].to_s).to_s
-                    rescue URI::Error
-                      puts "Cannot rewrite relative URL: #{img.attributes['href'].inspect}" unless img.attributes['href'] =~ /^[a-z]{2,10}:/
-                    end
-                  }
-                  description = html.elements['/html/body'].children.to_s
-                rescue HTree::Error => e
-                  $stderr.puts "Oops: #{e}"
-                end
               end
 
               # Push into database

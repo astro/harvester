@@ -7,6 +7,46 @@ require 'rexml/document'
 require 'xml/xslt'
 require 'time'
 require 'iconv'
+begin
+  require 'htree'
+rescue LoadError
+  $stderr.puts "HTree not found, will not mangle relative links in <description/>"
+end
+
+
+class LinkAbsolutizer
+  def initialize(body)
+    @body = body
+  end
+
+  def absolutize(base)
+    if defined? HTree
+      begin
+        html = HTree("<html><body>#{@body}</body></html>").to_rexml
+        html.each_element('//a') { |a|
+          begin
+            a.attributes['href'] = URI::join(base, a.attributes['href'].to_s).to_s
+          rescue URI::Error
+            puts "Cannot rewrite relative URL: #{a.attributes['href'].inspect}" unless a.attributes['href'] =~ /^[a-z]{2,10}:/
+          end
+        }
+        html.each_element('//img') { |img|
+          begin
+            img.attributes['src'] = URI::join(base, img.attributes['src'].to_s).to_s
+          rescue URI::Error
+            puts "Cannot rewrite relative URL: #{img.attributes['href'].inspect}" unless img.attributes['href'] =~ /^[a-z]{2,10}:/
+          end
+        }
+        html.elements['/html/body'].children.to_s
+      rescue HTree::Error => e
+        $stderr.puts "Oops: #{e}"
+        @body
+      end
+    else
+      @body
+    end
+  end
+end
 
 class String
   def to_time
@@ -113,7 +153,9 @@ class XSLTFunctions
 
   def item_description(rss, item_link)
     @dbi.select_all("SELECT description FROM items WHERE rss=? AND link=?", rss, item_link) { |desc,|
-      return EntityTranslator.translate_entities(desc, false)
+      desc = EntityTranslator.translate_entities(desc, false)
+      desc = LinkAbsolutizer.new(desc).absolutize(item_link)
+      return desc
     }
     ''
   end

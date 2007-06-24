@@ -8,9 +8,9 @@ require 'xml/xslt'
 require 'time'
 require 'iconv'
 begin
-  require 'htree'
+  require 'hpricot'
 rescue LoadError
-  $stderr.puts "HTree not found, will not mangle relative links in <description/>"
+  $stderr.puts "Hpricot not found, will not mangle relative links in <description/>"
 end
 
 
@@ -20,25 +20,31 @@ class LinkAbsolutizer
   end
 
   def absolutize(base)
-    if defined? HTree
+    if defined? Hpricot
       begin
-        html = HTree("<html><body>#{@body}</body></html>").to_rexml
-        html.each_element('//a') { |a|
+        html = Hpricot("<html><body>#{@body}</body></html>")
+        (html/'a').each { |a|
           begin
-            a.attributes['href'] = URI::join(base, a.attributes['href'].to_s).to_s
+            f = a.attributes['href']
+            t = URI::join(base, f.to_s).to_s
+            puts "Rewriting #{f.inspect} => #{t.inspect}" if f != t
+            a.attributes['href'] = t
           rescue URI::Error
             puts "Cannot rewrite relative URL: #{a.attributes['href'].inspect}" unless a.attributes['href'] =~ /^[a-z]{2,10}:/
           end
         }
-        html.each_element('//img') { |img|
+        (html/'img').each { |img|
           begin
-            img.attributes['src'] = URI::join(base, img.attributes['src'].to_s).to_s
+            f = img.attributes['src']
+            t = URI::join(base, f.to_s).to_s
+            puts "Rewriting #{f.inspect} => #{t.inspect}" if f != t
+            img.attributes['src'] = t
           rescue URI::Error
             puts "Cannot rewrite relative URL: #{img.attributes['href'].inspect}" unless img.attributes['href'] =~ /^[a-z]{2,10}:/
           end
         }
-        html.elements['/html/body'].children.to_s
-      rescue HTree::Error => e
+        html.search('/html/body/*').to_s
+      rescue Hpricot::Error => e
         $stderr.puts "Oops: #{e}"
         @body
       end

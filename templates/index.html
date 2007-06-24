@@ -98,53 +98,57 @@
           </xsl:call-template>
         </div>
 
-        <xsl:variable name="blogs" select="collection[@name='blogs']"/>
-        <xsl:for-each select="hv:collection-items('blogs')/item">
-          <xsl:variable name="rss" select="string(rss)"/>
-          <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
-          <div class="entry">
-            <h2>
-              <a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a>
-            </h2>
-            <div class="entrydate"><xsl:value-of select="concat(date:day-in-month(date),'.',date:month-in-year(date),'. ',format-number(date:hour-in-day(date),'00'),':',format-number(date:minute-in-hour(date),'00'))"/></div>
-            <h3><a href="{link}"><xsl:value-of select="title"/></a></h3>
-            <div class="entrydesc">
-              <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
+	<div class="hfeed">
+          <xsl:variable name="blogs" select="collection[@name='blogs']"/>
+          <xsl:for-each select="hv:collection-items('blogs')/item">
+            <xsl:variable name="rss" select="string(rss)"/>
+            <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
+            <div class="entry hentry">
+              <h2>
+		<a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a>
+              </h2>
+              <div class="entrydate published" title="{date}">
+		<xsl:value-of select="concat(date:day-in-month(date),'.',date:month-in-year(date),'. ',format-number(date:hour-in-day(date),'00'),':',format-number(date:minute-in-hour(date),'00'))"/>
+	      </div>
+              <h3 class="entry-title"><a href="{link}" rel="bookmark"><xsl:value-of select="title"/></a></h3>
+              <div class="entrydesc entry-content">
+		<xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
+              </div>
+
+              <xsl:variable name="enclosures" select="hv:item-enclosures(string($rss), string(link))"/>
+              <xsl:if test="count($enclosures/enclosure) &gt; 0">
+		<ul>
+                  <xsl:for-each select="$enclosures/enclosure">
+                    <xsl:variable name="filename">
+                      <xsl:call-template name="basename">
+			<xsl:with-param name="path" select="href"/>
+                      </xsl:call-template>
+                    </xsl:variable>
+                    <li>
+                      <xsl:choose>
+			<xsl:when test="string-length(string(title)) &gt; 0">
+                          <xsl:value-of select="title"/>
+                          (<a href="{href}" rel="enclosure"><xsl:value-of select="$filename"/></a>)
+			</xsl:when>
+			<xsl:otherwise>
+                          <a href="{href}" rel="enclosure"><xsl:value-of select="$filename"/></a>
+			</xsl:otherwise>
+                      </xsl:choose>
+
+                      <xsl:text> </xsl:text>
+
+                      <xsl:call-template name="format-enclosure-length">
+			<xsl:with-param name="length" select="number(length)"/>
+                      </xsl:call-template>
+                    </li>
+                  </xsl:for-each>
+		</ul>
+              </xsl:if>
+
+              <div class="entryfoot"><a href="{link}" title="{link}">mehr...</a></div>
             </div>
-
-            <xsl:variable name="enclosures" select="hv:item-enclosures(string($rss), string(link))"/>
-            <xsl:if test="count($enclosures/enclosure) &gt; 0">
-              <ul>
-                <xsl:for-each select="$enclosures/enclosure">
-                  <xsl:variable name="filename">
-                    <xsl:call-template name="basename">
-                      <xsl:with-param name="path" select="href"/>
-                    </xsl:call-template>
-                  </xsl:variable>
-                  <li>
-                    <xsl:choose>
-                      <xsl:when test="string-length(string(title)) &gt; 0">
-                        <xsl:value-of select="title"/>
-                        (<a href="{href}"><xsl:value-of select="$filename"/></a>)
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <a href="{href}"><xsl:value-of select="$filename"/></a>
-                      </xsl:otherwise>
-                    </xsl:choose>
-
-                    <xsl:text> </xsl:text>
-
-                    <xsl:call-template name="format-enclosure-length">
-                      <xsl:with-param name="length" select="number(length)"/>
-                    </xsl:call-template>
-                  </li>
-                </xsl:for-each>
-              </ul>
-            </xsl:if>
-
-            <div class="entryfoot"><a href="{link}" title="{link}">mehr...</a></div>
-          </div>
-       </xsl:for-each>
+	  </xsl:for-each>
+	</div>
     </body>
   </html>
 </xsl:template>
@@ -154,17 +158,17 @@
 
   <xsl:for-each select="collection[@name=$collection]/feed">
     <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
-    <div class="ticker">
+    <div class="ticker hfeed">
       <h2><a href="{link}"><xsl:value-of select="title"/></a></h2>
       <ul class="tickerlinks">
         <xsl:for-each select="hv:feed-items(string(rss), 8)/item">
-          <li>
+          <li class="hentry">
             <xsl:choose>
               <xsl:when test="string-length(title) &gt; 25">
-                <a href="{link}" title="{title}"><xsl:value-of select="substring(title, 1, 20)"/>...</a>
+                <a href="{link}" title="{title}" rel="bookmark" class="entry-title"><xsl:value-of select="substring(title, 1, 20)"/>...</a>
               </xsl:when>
               <xsl:otherwise>
-                <a href="{link}"><xsl:value-of select="title"/></a>
+                <a href="{link}" rel="bookmark" class="entry-title"><xsl:value-of select="title"/></a>
               </xsl:otherwise>
             </xsl:choose>
           </li>

@@ -145,3 +145,19 @@ h1 {
 	padding: 1px 0px 1px 5px;
 	margin: 0px;
 }
+
+
+.chart { 
+        display: none;
+        position: absolute;
+        z-index: 1;
+        background-color: white;
+        right: 2px;
+        margin-top: 15px;
+        margin-right: 16px;
+	padding: 10px;
+        opacity: 0.85;
+}
+.head:hover .chart { 
+        display: block;
+}

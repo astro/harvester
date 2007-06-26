@@ -3,6 +3,7 @@
 TABLE_SUBSCRIPTIONS = 'jabbersubscriptions'
 TABLE_SETTINGS = 'jabbersettings'
 
+require 'fastthread'
 require 'rubygems'
 require 'dbi'
 require 'yaml'
@@ -410,21 +411,22 @@ loop {
     chart_last_update = File::ctime(chart_filename)
 
     photo = IO::readlines(chart_filename).to_s
-    avatar_hash = Digest::SHA1.new(photo).hexdigest
+    avatar_hash = Digest::SHA1.hexdigest(photo)
     vcard = Jabber::Vcard::IqVcard.new('NICKNAME' => 'Astrobot',
                                        'FN' => 'Harvester Jabber notification',
                                        'URL' => 'http://astroblog.spaceboyz.net/harvester/',
                                        'PHOTO/TYPE' => 'image/jpeg',
                                        'PHOTO/BINVAL' => Base64::encode64(photo))
+    Jabber::Vcard::Helper::set(cl, vcard)
     resend_presence = true
   end
 
   if resend_presence
     pres = Jabber::Presence.new(:chat,
                                 "Sent #{messages_sent} messages in #{duration_to_s(Time.new - startup)}. Chewed #{links.size} feed items in the last 48 hours.")
-    x = pres.add('x')
+    x = pres.add(REXML::Element.new('x'))
     x.add_namespace 'vcard-temp:x:update'
-    x.add('photo').text = avatar_hash
+    x.add(REXML::Element.new('photo')).text = avatar_hash
     cl.send pres
   end
 

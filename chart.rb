@@ -42,8 +42,10 @@ dbi.select_all("select date(items.date) as date,sources.collection from items le
   c.add_one(collection, date.day)
 }
 
-g = Gruff::Line.new(400)
+g = Gruff::Line.new(300)
 g.title = "Harvested items per day"
+g.x_axis_label = "Days"
+g.y_axis_label = "Items"
 
 c.each(&g.method(:data))
 

@@ -11,6 +11,7 @@ require 'xmpp4r/discovery'
 require 'xmpp4r/version'
 require 'xmpp4r/roster'
 require 'xmpp4r/dataforms'
+require 'xmpp4r/vcard'
 
 Jabber::debug = true
 
@@ -300,7 +301,13 @@ dbi.execute("SELECT link FROM last48hrs").each { |link,|
   links << link
 }
 
+chart_last_update = Time.at(0)
+chart_filename = "#{config['settings']['output']}/chart.jpg"
+avatar_hash = ""
+
 loop {
+  resend_presence = false
+
   ###
   # Update collections
   ###
@@ -330,6 +337,8 @@ loop {
     unless links.include? link
       puts "New: #{link} (#{blogtitle}: #{title})"
       notifications[collection] += [[blogtitle, title, link]]
+
+      resend_presence = true
     end
     
     new_links << link
@@ -394,8 +403,29 @@ loop {
 
   links = new_links
 
-  if notifications != {}
-    cl.send Jabber::Presence.new(:chat, "Sent #{messages_sent} messages in #{duration_to_s(Time.new - startup)}. Chewed #{links.size} feed items in the last 48 hours.")
+  ##
+  # Avatar
+  ##
+  if File::ctime(chart_filename) > chart_last_update
+    chart_last_update = File::ctime(chart_filename)
+
+    photo = IO::readlines(chart_filename).to_s
+    avatar_hash = Digest::SHA1.new(photo).hexdigest
+    vcard = Jabber::Vcard::IqVcard.new('NICKNAME' => 'Astrobot',
+                                       'FN' => 'Harvester Jabber notification',
+                                       'URL' => 'http://astroblog.spaceboyz.net/harvester/',
+                                       'PHOTO/TYPE' => 'image/jpeg',
+                                       'PHOTO/BINVAL' => Base64::encode64(photo))
+    resend_presence = true
+  end
+
+  if resend_presence
+    pres = Jabber::Presence.new(:chat,
+                                "Sent #{messages_sent} messages in #{duration_to_s(Time.new - startup)}. Chewed #{links.size} feed items in the last 48 hours.")
+    x = pres.add('x')
+    x.add_namespace 'vcard-temp:x:update'
+    x.add('photo').text = avatar_hash
+    cl.send pres
   end
 
   ###

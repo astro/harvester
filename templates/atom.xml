@@ -21,7 +21,26 @@
     <link href="http://astroblog.spaceboyz.net/harvester/atom.xml" rel="self" type="application/atom+xml"/>
     <link href="http://astroblog.spaceboyz.net/harvester/rss.rdf" rel="alternate" type="application/rss+xml"/>
 
-    <subtitle>Blog Harvester sammelt Blogs von Menschen rund um Astro</subtitle>
+    <subtitle type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+	<p>
+	  Blog Harvester sammelt Blogs von Menschen rund um Astro.
+	  Enthalten sind:
+	</p>
+	<ul>
+          <xsl:for-each select="collection[@name='blogs']/feed">
+            <xsl:sort select="translate(title,
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            'abcdefghijklmnopqrstuvwxyz')"/>
+	    <li>
+              <a href="{link}"
+              title="{description}"><xsl:value-of select="title"/></a>
+	    </li>
+          </xsl:for-each>
+	</ul>
+	<img src="chart.jpg"/>
+      </div>
+    </subtitle>
     <updated><xsl:value-of select="date:date-time()"/></updated>
 
     <xsl:variable name="blogs" select="collection[@name='blogs']"/>

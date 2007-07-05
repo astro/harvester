@@ -1,108 +1,173 @@
-/* Meta ------------------------------------- */
+/*
+ * harvester.css
+ *
+ * Description: Stylesheet zur Webseite
+ * 
+ * Website: Blog Harvester
+ *          http://astroblog.spaceboyz.net/harvester/
+ * Layout:  3-spaltig links fest, mittig variabel, rechts fest
+ *          Textfarben #303030 #C00000 #FF6600 6699CC
+ * Browser: IE6 (no chart), IE7, Firefox, Opera, Safari
+ * Author: Tigion, http://www.tigion.de/
+ * Version: 05.07.2007
+ */
+
+/* default */
+
+* {
+  border: 0 none;
+  margin: 0;
+  padding: 0;
+}
+
+/* body */ /* Meta ------------------------------------- */
+
 body {
-	font-size: small;
+	font-size: 62.5%;
 	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
 	color: #303030;
 	background-color: #E0E0E0;
-	margin: 0px;
-	padding: 0px;
+  text-align: left;
 }
-a:link, a:visited {
+a {
 	text-decoration: none;
 	color: #C00000;
 }
 a:hover {
 	text-decoration: underline;
-	color: #C00000;
 }
 a:active {
-	text-decoration: none;
 	color: #FFA500;
 }
 h1 {
-	/* border: 1px solid #afafaf; */
 	background-color: #FFFFFF;
-	color: #303030;
-	font-weight: bold;
-	font-size: xx-large;
+	font-size: 3em;
 	text-align: center;
-	margin: 10px 15px 0px 15px;
-	padding: 10px;
+	margin-bottom: 0.6em;
+	padding: 0.3em;
 }
+
+/* Layout */
+
+/* left ticker */
+.tickers1 {
+	float: left;
+	width: 20em;
+  overflow: hidden;
+}
+
+/* blog entries */
+.hfeed {
+  margin: 0 22em;
+}
+
+/* right ticker */
+.tickers2 {
+	float: right;
+	width: 20em;
+  overflow: hidden;
+}
+
 /* Blogeintraege ------------------------------------- */
+
 .entry {
-	/* border: 1px solid #afafaf; */
-	background-color: white;
-	margin: 15px 19em 10px 19em;
-	text-align: left;
+	background-color: #fff;
+  margin-bottom: 0.9em;
+  font-size: 1.2em;
+  overflow: hidden;
+  width: 98%; /* fix ie6 */
 }
+
+/* fix ie6 */
+html>body .entry {
+  width: 100%;
+}
+
+/* date - blog entry */
+.entrydate {
+  float: right;
+  margin-top: -2em;
+  padding-right: 1em;
+	font-size: 0.8em;
+	text-align: right;
+	color: white;
+}
+
+/* text - blog entry */
+.entrydesc {
+	text-align: justify;
+	font-size: 1.0em;
+  line-height: 1.4em;
+	padding: 0 1.2em;
+}
+
+/* link - blog entry */
+.entryfoot {
+	font-size: 0.8em;
+	padding: 1em;
+	text-align: right;
+}
+
+/* title / link - blog */
 .entry h2 {
-	font-size: small;
-	font-weight: bold;
-	margin: 0px 0px 10px 0px;
-	padding: 5px 10px 5px 10px;
-	/* background-color: #ff6600; */
+	font-size: 1.0em;
+  padding: 0.5em 1em;
 	background-color: #ff6600;
 	color: white;
 }
 .entry h2 a {
 	color: white;
 }
+
+/* title / link - blog entry */
+.entry h3 {
+	font-size: 1.3em;
+	padding: 1.0em 0.8em 0.4em;
+}
 .entry h3 a {
 	color: #303030;
 }
-.entrydate {
-	font-size: x-small;
-	padding: 0 10px 10px 10px;
-	margin: -30px 0 0 0;
-	text-align: right;
-	color: white;
+
+.entry p {
+  margin: 0.8em 0;
 }
-.entry h3 {
-	padding: 0px;
-	margin: 0px;
-	font-size: medium;
-	font-weight: bold;
-	padding: 10px 10px 0px 10px;
+
+.entry ul  {
+  margin: 1em 0 0 3em;
 }
-.entrydesc {
-	text-align: justify;
-	font-size: x-small;
-	padding: 10px 10px 10px 10px;
-	margin: 0px;
+
+.entry .entrydesc ul  {
+  margin: 0.8em 0 0 1.8em;
 }
-.entryfoot {
-	font-size: xx-small;
-	padding: 0 10px 10px 10px;
-	text-align: right;
+
+.entry pre, code {
+  background-color: #eee;
+  color: #666;
+  padding: 1em; 
+  margin: 1em;
+  border: 1px solid #ddd;
+  display: block;
+  overflow: auto;
+  font: 0.9em "Andale Mono", "Courier New", Courier, Fixed, mono;
 }
+
+.entry blockquote {
+  margin: 1em;
+  padding-left: 1em;
+  border-left: 5px solid #e0e0e0;
+  color: #666;
+}
+
 /* Seitenleisten ------------------------------------- */
-.tickers1 {
-	float: left;
-	width: 18em;
-	padding: 0px;
-	margin: 5px;
-}
-.tickers2 {
-	float: right;
-	width: 18em;
-	padding: 0px;
-	margin: 5px;
-}
+
 .ticker {
 	background-color: white;
-	margin: 10px 10px 10px 10px;
-	padding: 0px;
-	text-align: left;
-	width: 16em;
-	vertical-align: top;
+  margin: 0 0 1em;
+  font-size: 0.9em;
 }
 .ticker h2 {
-	font-size: small;
-	font-weight: bold;
-	padding: 5px 10px 5px 10px;
-	margin: 0px;
-	/* background-color: #ff6600; */
+	font-size: 1.3em;
+	padding: 0.5em 1em;
 	background-color: #6699cc;
 	color: white;
 }
@@ -111,15 +176,11 @@ h1 {
 	text-decoration: none;
 }
 .tickerlinks {
-	text-align: left;
-	padding: 5px 0px 5px 0px;
-	margin: 0px;
+	padding: 0.5em;
 }
 .tickerlinks li {
-	font-size: xx-small;
-	text-align: left;
 	list-style: none;
-	padding: 1px 10px 1px 10px;
+	padding: 0.1em 0.8em;
 }
 .tickerlinks li a {
 	color: #303030;
@@ -129,24 +190,24 @@ h1 {
 	text-decoration: underline;
 }
 .ticker p {
-	font-size: xx-small;
-	padding: 5px 10px 5px 10px;
-	margin: 0px;
-	text-align: left;
+	padding: 1.0em;
 	font-style: italic;
+}
+.ticker p + p {
+	padding-top: 0;
 }
 .tickerlist {
 	list-style: none;
-	font-size: xx-small;
-	padding: 5px 0px 5px 5px;
-	margin: 0px;
+	padding: 0.5em 1.0em;
 }
 .tickerlist li {
-	padding: 1px 0px 1px 5px;
-	margin: 0px;
+	padding-bottom: 0.4em;
+}
+.tickerlist li a[href$=".bz2"] {
+  display: block;
 }
 
-
+/* chart */
 .chart { 
         display: none;
         position: absolute;
@@ -155,9 +216,11 @@ h1 {
         right: 2px;
         margin-top: 10px;
         margin-right: 15px;
-	padding: 10px;
+        padding: 10px;
         opacity: 0.85;
 }
+
 .head:hover .chart { 
         display: block;
 }
+

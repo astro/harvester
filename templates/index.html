@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
-  xmlns:date="http://exslt.org/dates-and-times"
-  exclude-result-prefixes="xsl hv date">
-
-<xsl:output method="xml"
-            version="1.0"
-            encoding="utf-8"
-            doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
-            doctype-system="DTD/xhtml1-strict.dtd"
-            indent="yes"/>
-
-
-<xsl:template match="/collections">
-  <html xmlns="http://www.w3.org/1999/xhtml" lang="de">
-    <head>
-      <title>Blog Harvester</title>
-      <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="atom.xml" />
-      <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="rss.rdf" />
-      <link rel="alternate" type="application/atom+xml" title="ATOM 1.0 (all)" href="atom-all.xml" />
-      <link rel="alternate" type="application/rss+xml" title="RSS 2.0 (all)" href="rss-all.rdf" />
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-      <link rel="stylesheet" type="text/css" href="harvester.css"/>
-      <link rel="shortcut icon" type="image/gif" href="harvester.gif"/>
-    </head>
-
-    <body>
-      <div class="head">
-	<h1>Blog Harvester</h1>
-	<img src="chart.jpg" class="chart"/>
-      </div>
-
-      <div class="tickers1">
-        <div class="ticker">
-          <h2>Harvesting</h2>
-          <ul class="tickerlinks">
-            <xsl:for-each select="collection[@name='blogs']/feed">
-              <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
-              <li><a href="{link}" title="{description}"><xsl:value-of select="title"/></a></li>
-            </xsl:for-each>
-          </ul>
-        </div>
-        <div class="ticker">
-          <h2>Apropos</h2>
-          <p>
-            The Harvester is made of fresh flesh from the blogosphere,
-            clean design by Tigion
-            and hacked-together Ruby scripts by Astro,
-            improved by Neingeist and Josef.
-          </p>
-        </div>
-        <div class="ticker">
-          <h2>To be fed</h2>
-          <p>
-            Just blogs: <a href="atom.xml">ATOM 1.0</a> or <a href="rss.rdf">RSS 2.0</a>,
-          </p>
-          <p>
-            All collections: <a href="atom-all.xml">ATOM 1.0</a> or <a href="rss-all.rdf">RSS 2.0</a>
-          </p>
-        </div>
-        <div class="ticker">
-          <h2>Be notified</h2>
-          <p>Start Jabber and talk to <a href="xmpp:astrobot@spaceboyz.net">AstroBot</a> to receive the freshest of all!</p>
-        </div>
-        <div class="ticker">
-          <h2>Questions</h2>
-          <p>Missing something?<br/>Contact <a href="mailto:astro@spaceboyz.net">Astro</a> via Mail or Jabber: astro@spaceboyz.net</p>
-        </div>
-        <div class="ticker">
-          <h2>Hack it...</h2>
-          <p>
-            <a href="https://wiki.c3d2.de/Harvester">Project info</a>,
-            <a href="svn://svn.c3d2.de/harvester/trunk/harvester">Repository</a>,
-            <a href="http://trac.c3d2.de/harvester">Trac</a>,
-            <a href="http://trac.c3d2.de/harvester/browser/trunk/harvester/">Source browser</a>
-          </p>
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
+		xmlns:date="http://exslt.org/dates-and-times"
+		exclude-result-prefixes="xsl hv date">
+  
+  <xsl:output method="xml"
+              version="1.0"
+              encoding="utf-8"
+              doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+              doctype-system="DTD/xhtml1-strict.dtd"
+              indent="yes"/>
+  
+  
+  <xsl:template match="/collections">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+      <head>
+	<title>Blog Harvester</title>
+	<link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="atom.xml" />
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="rss.rdf" />
+	<link rel="alternate" type="application/atom+xml" title="ATOM 1.0 (all)" href="atom-all.xml" />
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0 (all)" href="rss-all.rdf" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" type="text/css" href="harvester.css"/>
+	<link rel="shortcut icon" type="image/gif" href="harvester.gif"/>
+      </head>
+      
+      <body>
+	<div class="head">
+	  <h1>Blog Harvester</h1>
+	  <img src="chart.jpg" class="chart"/>
+	</div>
+	
+	<div class="tickers1">
+          <div class="ticker">
+            <h2>Harvesting</h2>
+            <ul class="tickerlinks">
+              <xsl:for-each select="collection[@name='blogs']/feed">
+		<xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+		<li><a href="{link}" title="{description}"><xsl:value-of select="title"/></a></li>
+              </xsl:for-each>
+            </ul>
           </div>
-        <div class="ticker">
-          <h2>...or learn more</h2>
-          <ul class="tickerlist">
-            <li><a href="../harvester-0.6.tar.bz2">harvester-0.6.tar.bz2</a> (14148 Bytes, <a href="../harvester-0.6.tar.bz2.sig">Sig</a>)</li>
-            <li><a href="../harvester-0.5.tar.bz2">harvester-0.5.tar.bz2</a> (16101 Bytes, <a href="../harvester-0.5.tar.bz2.sig">Sig</a>)</li>
-            <li><a href="../harvester-0.4.tar.bz2">harvester-0.4.tar.bz2</a> (9731 Bytes, <a href="../harvester-0.4.tar.bz2.sig">Sig</a>)</li>
-            <li><a href="../harvester-0.3.2.tar.bz2">harvester-0.3.2.tar.bz2</a> (8663 Bytes, <a href="../harvester-0.3.2.tar.bz2.sig">Sig</a>)</li>
-            <li><a href="../harvester-0.3.1.tar.bz2">harvester-0.3.1.tar.bz2</a> (8519 Bytes, <a href="../harvester-0.3.1.tar.bz2.sig">Sig</a>)</li>
-            <li><a href="../harvester-0.3.tar.bz2">harvester-0.3.tar.bz2</a> (8411 Bytes, <a href="../harvester-0.3.tar.bz2.sig">Sig</a>)</li>
-            <li><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)</li>
-          </ul>
+          <div class="ticker">
+            <h2>Apropos</h2>
+            <p>
+              The Harvester is made of fresh flesh from the blogosphere,
+              clean design by Tigion
+              and hacked-together Ruby scripts by Astro,
+              improved by Neingeist and Josef.
+            </p>
           </div>
-
+          <div class="ticker">
+            <h2>To be fed</h2>
+            <p>
+              Just blogs: <a href="atom.xml">ATOM 1.0</a> or <a href="rss.rdf">RSS 2.0</a>,
+            </p>
+            <p>
+              All collections: <a href="atom-all.xml">ATOM 1.0</a> or <a href="rss-all.rdf">RSS 2.0</a>
+            </p>
+          </div>
+          <div class="ticker">
+            <h2>Be notified</h2>
+            <p>Start Jabber and talk to <a href="xmpp:astrobot@spaceboyz.net">AstroBot</a> to receive the freshest of all!</p>
+          </div>
+          <div class="ticker">
+            <h2>Questions</h2>
+            <p>Missing something?<br/>Contact <a href="mailto:astro@spaceboyz.net">Astro</a> via Mail or Jabber: astro@spaceboyz.net</p>
+          </div>
+          <div class="ticker">
+            <h2>Hack it...</h2>
+            <p>
+              <a href="https://wiki.c3d2.de/Harvester">Project info</a>,
+              <a href="svn://svn.c3d2.de/harvester/trunk/harvester">Repository</a>,
+              <a href="http://trac.c3d2.de/harvester">Trac</a>,
+              <a href="http://trac.c3d2.de/harvester/browser/trunk/harvester/">Source browser</a>
+            </p>
+          </div>
+          <div class="ticker">
+            <h2>...or learn more</h2>
+            <ul class="tickerlist">
+              <li><a href="../harvester-0.6.tar.bz2">harvester-0.6.tar.bz2</a> (14148 Bytes, <a href="../harvester-0.6.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.5.tar.bz2">harvester-0.5.tar.bz2</a> (16101 Bytes, <a href="../harvester-0.5.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.4.tar.bz2">harvester-0.4.tar.bz2</a> (9731 Bytes, <a href="../harvester-0.4.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.3.2.tar.bz2">harvester-0.3.2.tar.bz2</a> (8663 Bytes, <a href="../harvester-0.3.2.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.3.1.tar.bz2">harvester-0.3.1.tar.bz2</a> (8519 Bytes, <a href="../harvester-0.3.1.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.3.tar.bz2">harvester-0.3.tar.bz2</a> (8411 Bytes, <a href="../harvester-0.3.tar.bz2.sig">Sig</a>)</li>
+              <li><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)</li>
+            </ul>
+          </div>
+	  
           <xsl:call-template name="ticker-boxen">
             <xsl:with-param name="collection" select="'ticker'"/>
           </xsl:call-template>
-        </div>
-
+	</div>
+	
         <div class="tickers2">
           <xsl:call-template name="ticker-boxen">
             <xsl:with-param name="collection" select="'links'"/>
           </xsl:call-template>
         </div>
-
+	
 	<div class="hfeed">
           <xsl:variable name="blogs" select="collection[@name='blogs']"/>
           <xsl:for-each select="hv:collection-items('blogs')/item">
@@ -118,7 +118,7 @@
               <div class="entrydesc entry-content">
 		<xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
               </div>
-
+	      
               <xsl:variable name="enclosures" select="hv:item-enclosures(string($rss), string(link))"/>
               <xsl:if test="count($enclosures/enclosure) &gt; 0">
 		<ul>
@@ -138,9 +138,9 @@
                           <a href="{href}" rel="enclosure"><xsl:value-of select="$filename"/></a>
 			</xsl:otherwise>
                       </xsl:choose>
-
+		      
                       <xsl:text> </xsl:text>
-
+		      
                       <xsl:call-template name="format-enclosure-length">
 			<xsl:with-param name="length" select="number(length)"/>
                       </xsl:call-template>
@@ -148,74 +148,74 @@
                   </xsl:for-each>
 		</ul>
               </xsl:if>
-
+	      
               <div class="entryfoot"><a href="{link}" title="{link}">mehr...</a></div>
             </div>
 	  </xsl:for-each>
 	</div>
-    </body>
-  </html>
-</xsl:template>
-
-<xsl:template name="ticker-boxen">
-  <xsl:param name="collection"/>
-
-  <xsl:for-each select="collection[@name=$collection]/feed">
-    <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
-    <div class="ticker hfeed">
-      <h2><a href="{link}"><xsl:value-of select="title"/></a></h2>
-      <ul class="tickerlinks">
-        <xsl:for-each select="hv:feed-items(string(rss), 8)/item">
-          <li class="hentry">
-            <xsl:choose>
-              <xsl:when test="string-length(title) &gt; 25">
-                <a href="{link}" title="{title}" rel="bookmark" class="entry-title"><xsl:value-of select="substring(title, 1, 20)"/>...</a>
-              </xsl:when>
-              <xsl:otherwise>
-                <a href="{link}" rel="bookmark" class="entry-title"><xsl:value-of select="title"/></a>
-              </xsl:otherwise>
-            </xsl:choose>
-          </li>
-        </xsl:for-each>
-      </ul>
-    </div>
-  </xsl:for-each>
-</xsl:template>
-
-<xsl:template name="format-enclosure-length">
-  <xsl:param name="length"/>
-
-  <xsl:if test="$length">
+      </body>
+    </html>
+  </xsl:template>
+  
+  <xsl:template name="ticker-boxen">
+    <xsl:param name="collection"/>
+    
+    <xsl:for-each select="collection[@name=$collection]/feed">
+      <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+      <div class="ticker hfeed">
+	<h2><a href="{link}"><xsl:value-of select="title"/></a></h2>
+	<ul class="tickerlinks">
+          <xsl:for-each select="hv:feed-items(string(rss), 8)/item">
+            <li class="hentry">
+              <xsl:choose>
+		<xsl:when test="string-length(title) &gt; 25">
+                  <a href="{link}" title="{title}" rel="bookmark" class="entry-title"><xsl:value-of select="substring(title, 1, 20)"/>...</a>
+		</xsl:when>
+		<xsl:otherwise>
+                  <a href="{link}" rel="bookmark" class="entry-title"><xsl:value-of select="title"/></a>
+		</xsl:otherwise>
+              </xsl:choose>
+            </li>
+          </xsl:for-each>
+	</ul>
+      </div>
+    </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template name="format-enclosure-length">
+    <xsl:param name="length"/>
+    
+    <xsl:if test="$length">
+      <xsl:choose>
+	<xsl:when test="$length &lt; 1024">
+          <xsl:value-of select="$length"/> Bytes
+	</xsl:when>
+	<xsl:when test="$length &lt; 1048576">
+          <xsl:value-of select="format-number($length div 1024, '0.0#')"/> KB
+	</xsl:when>
+	<xsl:when test="$length &lt; 1073741824">
+          <xsl:value-of select="format-number($length div 1048576, '0.0#')"/> MB
+	</xsl:when>
+	<xsl:otherwise>
+          <xsl:value-of select="format-number($length div 1073741824, '0.0#')"/> GB
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template name="basename">
+    <xsl:param name="path"/>
+    
     <xsl:choose>
-      <xsl:when test="$length &lt; 1024">
-        <xsl:value-of select="$length"/> Bytes
-      </xsl:when>
-      <xsl:when test="$length &lt; 1048576">
-        <xsl:value-of select="format-number($length div 1024, '0.0#')"/> KB
-      </xsl:when>
-      <xsl:when test="$length &lt; 1073741824">
-        <xsl:value-of select="format-number($length div 1048576, '0.0#')"/> MB
+      <xsl:when test="contains($path, '/')">
+	<xsl:call-template name="basename">
+          <xsl:with-param name="path" select="substring-after($path, '/')"/>
+	</xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="format-number($length div 1073741824, '0.0#')"/> GB
+	<xsl:value-of select="$path"/>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:if>
-</xsl:template>
-
-<xsl:template name="basename">
-  <xsl:param name="path"/>
-
-  <xsl:choose>
-    <xsl:when test="contains($path, '/')">
-      <xsl:call-template name="basename">
-        <xsl:with-param name="path" select="substring-after($path, '/')"/>
-      </xsl:call-template>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="$path"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
+  </xsl:template>
+  
 </xsl:stylesheet>

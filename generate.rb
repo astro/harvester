@@ -110,7 +110,7 @@ class XSLTFunctions
 
   def initialize(dbi)
     @dbi = dbi
-    %w(collection-items feed-items item-description item-enclosures).each { |func|
+    %w(collection-items feed-items item-description item-images item-enclosures).each { |func|
       XML::XSLT.extFunction(func, FUNC_NAMESPACE, self)
     }
   end
@@ -164,6 +164,15 @@ class XSLTFunctions
       return desc
     }
     ''
+  end
+
+  def item_images(rss, item_link)
+    desc = "<description>" + item_description(rss, item_link) + "</description>"
+    images = REXML::Element.new('images')
+    REXML::Document.new(desc.to_s).root.each_element('//img') { |img|
+      images.add img
+    }
+    images
   end
 
   def item_enclosures(rss, link)

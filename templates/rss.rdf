@@ -23,8 +23,7 @@
           &lt;li&gt;&lt;a href="<xsl:value-of select="link"/>" title="<xsl:value-of select="description"/>"&gt;<xsl:value-of select="title"/>&lt;/a&gt;&lt;/li&gt;
         </xsl:for-each>
         &lt;/ul&gt;
-	&lt;img src="chart.jpg"/&gt;
-      </description>
+	&lt;img src="chart.jpg"/&gt;</description>
 
       <xsl:variable name="blogs" select="collection[@name='blogs']"/>
       <xsl:for-each select="hv:collection-items('blogs')/item">

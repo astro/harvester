@@ -56,6 +56,23 @@ h1 {
   overflow: hidden;
 }
 
+/* photos */
+ul.photos { 
+        padding: 0;
+        margin: 0;
+        text-align: center;
+}
+ul.photos li { 
+        list-style: none;
+        margin: 0;
+        padding: 0;
+}
+ul.photos li a img {
+        border: 0;
+        margin: 0.5em auto;
+        width: 85%;
+}
+
 /* blog entries */
 .hfeed {
   margin: 0 22em;

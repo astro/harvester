@@ -90,6 +90,27 @@
               <li><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)</li>
             </ul>
           </div>
+
+	  <div class="ticker">
+	    <h2>Photos</h2>
+
+	    <ul class="photos">
+	      <xsl:for-each select="hv:collection-items('photos')/item">
+
+		<xsl:variable name="title" select="title"/>
+		<xsl:variable name="link" select="link"/>
+
+		<xsl:for-each select="hv:item-images(string(rss),
+				      string(link))//img">
+		  <li>
+		    <a href="{$link}">
+		      <img src="{@src}" title="{$title}"/>
+		    </a>
+		  </li>
+		</xsl:for-each>
+	      </xsl:for-each>
+	    </ul>
+	  </div>
 	  
           <xsl:call-template name="ticker-boxen">
             <xsl:with-param name="collection" select="'ticker'"/>

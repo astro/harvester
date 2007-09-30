@@ -1,0 +1,39 @@
+--- db.sql.orig	2007-08-16 17:41:45.000000000 +0200
++++ db.sql	2007-09-30 13:55:12.000000000 +0200
+@@ -5,7 +5,7 @@
+   title varchar(255),
+   link varchar(255),
+   description text,
+-  unique (collection, rss)
++  unique (collection(166), rss(166))
+ );
+ 
+ create table items (
+@@ -14,7 +14,7 @@
+   link varchar(255),
+   date timestamp,
+   description text,
+-  unique (rss, link)
++  unique (rss(166), link(166))
+ );
+ 
+ create table enclosures (
+@@ -24,15 +24,15 @@
+   mime varchar(255),
+   title varchar(255),
+   length int,
+-  unique (rss, link, href)
++  unique (rss(100), link(100), href(100))
+ );
+ 
+-create view last48hrs as select items.rss, items.title, items.link, sources.title as blogtitle, sources.collection from items, sources where items.rss = sources.rss and now() - interval '48 hour' < items.date order by date;
++create view last48hrs as select items.rss, items.title, items.link, sources.title as blogtitle, sources.collection from items, sources where items.rss = sources.rss and now() - interval 48 hour < items.`date` order by date;
+ 
+ create table jabbersubscriptions (
+   jid varchar(255) not null,
+   collection varchar(255) not null,
+-  unique (jid, collection)
++  unique (jid(166), collection(166))
+ );
+ 
+ create table jabbersettings (

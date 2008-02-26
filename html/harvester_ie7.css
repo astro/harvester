@@ -1,0 +1,15 @@
+/*
+ * harvester_ie7.css
+ *
+ * Description: Anpassungen des Defaultstylesheets 'harvester.css'
+                für IE7
+ * 
+ */
+
+/* ------------------------------------------------------ */
+/* Blogeintraege */
+/* ------------------------------------------------------ */
+
+.entry pre, .entry code {
+  overflow: scroll;
+}

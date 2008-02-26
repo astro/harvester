@@ -5,14 +5,17 @@
  * 
  * Website: Blog Harvester
  *          http://astroblog.spaceboyz.net/harvester/
+ *          http://www.blog-harvester.de/
  * Layout:  3-spaltig links fest, mittig variabel, rechts fest
  *          Textfarben #303030 #C00000 #FF6600 6699CC
  * Browser: IE6 (no chart), IE7, Firefox, Opera, Safari
- * Author: Tigion, http://www.tigion.de/
- * Version: 05.07.2007
+ * Author: Tigion, http://tigion.de/
+ * Version: 21.02.2008
  */
 
+/* ------------------------------------------------------ */
 /* default */
+/* ------------------------------------------------------ */
 
 * {
   border: 0 none;
@@ -20,39 +23,45 @@
   padding: 0;
 }
 
-/* body */ /* Meta ------------------------------------- */
+/* body & Meta */
 
 body {
-	font-size: 62.5%;
-	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
-	color: #303030;
-	background-color: #E0E0E0;
+  font-size: 62.5%;
+  font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+  color: #303030;
+  background-color: #E0E0E0;
   text-align: left;
 }
+
 a {
-	text-decoration: none;
-	color: #C00000;
-}
-a:hover {
-	text-decoration: underline;
-}
-a:active {
-	color: #FFA500;
-}
-h1 {
-	background-color: #FFFFFF;
-	font-size: 3em;
-	text-align: center;
-	margin-bottom: 0.6em;
-	padding: 0.3em;
+  text-decoration: none;
+  color: #C00000;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: #FFA500;
+}
+
+h1 {
+  background-color: #FFFFFF;
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 0.6em;
+  padding: 0.3em;
+}
+
+/* ------------------------------------------------------ */
 /* Layout */
+/* ------------------------------------------------------ */
 
 /* left ticker */
 .tickers1 {
-	float: left;
-	width: 20em;
+  float: left;
+  width: 20em;
   overflow: hidden;
 }
 
@@ -62,11 +71,13 @@ ul.photos {
         margin: 0;
         text-align: center;
 }
+
 ul.photos li { 
         list-style: none;
         margin: 0;
         padding: 0;
 }
+
 ul.photos li a img {
         border: 0;
         margin: 0.5em auto;
@@ -80,24 +91,20 @@ ul.photos li a img {
 
 /* right ticker */
 .tickers2 {
-	float: right;
-	width: 20em;
+  float: right;
+  width: 20em;
   overflow: hidden;
 }
 
-/* Blogeintraege ------------------------------------- */
+/* ------------------------------------------------------ */
+/* blog entries */
+/* ------------------------------------------------------ */
 
 .entry {
-	background-color: #fff;
+  background-color: #fff;
   margin-bottom: 0.9em;
   font-size: 1.2em;
   overflow: hidden;
-  width: 98%; /* fix ie6 */
-}
-
-/* fix ie6 */
-html>body .entry {
-  width: 100%;
 }
 
 /* date - blog entry */
@@ -105,44 +112,46 @@ html>body .entry {
   float: right;
   margin-top: -2em;
   padding-right: 1em;
-	font-size: 0.8em;
-	text-align: right;
-	color: white;
+  font-size: 0.8em;
+  text-align: right;
+  color: white;
 }
 
 /* text - blog entry */
 .entrydesc {
-	text-align: justify;
-	font-size: 1.0em;
+  text-align: justify;
+  font-size: 1.0em;
   line-height: 1.4em;
-	padding: 0 1.2em;
+  padding: 0 1.2em;
 }
 
 /* link - blog entry */
 .entryfoot {
-	font-size: 0.8em;
-	padding: 1em;
-	text-align: right;
+  font-size: 0.8em;
+  padding: 1em;
+  text-align: right;
 }
 
 /* title / link - blog */
 .entry h2 {
-	font-size: 1.0em;
+  font-size: 1.0em;
   padding: 0.5em 1em;
-	background-color: #ff6600;
-	color: white;
+  background-color: #ff6600;
+  color: white;
 }
+
 .entry h2 a {
-	color: white;
+  color: white;
 }
 
 /* title / link - blog entry */
 .entry h3 {
-	font-size: 1.3em;
-	padding: 1.0em 0.8em 0.4em;
+  font-size: 1.3em;
+  padding: 1.0em 0.8em 0.4em;
 }
+
 .entry h3 a {
-	color: #303030;
+  color: #303030;
 }
 
 .entry p {
@@ -157,7 +166,7 @@ html>body .entry {
   margin: 0.8em 0 0 1.8em;
 }
 
-.entry pre, code {
+.entry pre, .entry code {
   background-color: #eee;
   color: #666;
   padding: 1em; 
@@ -166,6 +175,7 @@ html>body .entry {
   display: block;
   overflow: auto;
   font: 0.9em "Andale Mono", "Courier New", Courier, Fixed, mono;
+  white-space: nowrap;
 }
 
 .entry blockquote {
@@ -175,54 +185,71 @@ html>body .entry {
   color: #666;
 }
 
-/* Seitenleisten ------------------------------------- */
+/* ------------------------------------------------------ */
+/* sidebars */
+/* ------------------------------------------------------ */
 
 .ticker {
-	background-color: white;
+  background-color: white;
   margin: 0 0 1em;
   font-size: 0.9em;
 }
+
 .ticker h2 {
-	font-size: 1.3em;
-	padding: 0.5em 1em;
-	background-color: #6699cc;
-	color: white;
+  font-size: 1.3em;
+  padding: 0.5em 1em;
+  background-color: #6699cc;
+  color: white;
 }
+
 .ticker h2 a {
-	color: white;
-	text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
+
 .tickerlinks {
-	padding: 0.5em;
+  padding: 0.5em;
 }
+
 .tickerlinks li {
-	list-style: none;
-	padding: 0.1em 0.8em;
+  list-style: none;
+  padding: 0.1em 0.8em;
 }
+
 .tickerlinks li a {
-	color: #303030;
-	text-decoration: none;
+  color: #303030;
+  text-decoration: none;
 }
+
 .tickerlinks li a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
+
 .ticker p {
-	padding: 1.0em;
-	font-style: italic;
+  padding: 1.0em;
+  font-style: italic;
 }
+
 .ticker p + p {
-	padding-top: 0;
+  padding-top: 0;
 }
+
 .tickerlist {
-	list-style: none;
-	padding: 0.5em 1.0em;
+  list-style: none;
+  padding: 0.5em 1.0em;
 }
+
 .tickerlist li {
-	padding-bottom: 0.4em;
+  padding-bottom: 0.4em;
 }
+
 .tickerlist li a[href$=".bz2"] {
   display: block;
 }
+
+/* ------------------------------------------------------ */
+/* extras */
+/* ------------------------------------------------------ */
 
 /* chart */
 .chart { 
@@ -240,4 +267,3 @@ html>body .entry {
 .head:hover .chart { 
         display: block;
 }
-

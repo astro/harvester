@@ -1,0 +1,21 @@
+/*
+ * harvester_lte_ie6.css
+ *
+ * Description: Anpassungen des Defaultstylesheets 'harvester.css'
+                für IE6 und aelter Versionen
+ * 
+ */
+
+/* ------------------------------------------------------ */
+/* Blogeintraege */
+/* ------------------------------------------------------ */
+
+.entry {
+  width: 98%; /* dirty hack */
+}
+
+.entry pre,
+.entry code {
+  width: 90%; /* dirty hack */
+  overflow: scroll;
+}

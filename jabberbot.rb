@@ -216,7 +216,7 @@ cl.add_iq_callback { |iq|
 
     user = iq.from.strip.to_s
 
-    if (x.nil? or x.type != :submit) and command.attributes['action'].nil?
+    if x.nil? or x.type != :submit
       puts "#{iq.from} requested data form"
       command.attributes['status'] = 'executing'
       command.attributes['sessionid'] = Jabber::IdGenerator.instance.generate_id

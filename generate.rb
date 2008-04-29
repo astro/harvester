@@ -4,7 +4,11 @@ require 'singleton'
 require 'dbi'
 require 'yaml'
 require 'rexml/document'
-require 'xml/xslt'
+begin
+  require 'xml/xslt'
+rescue LoadError
+  require 'xml/libxslt'
+end
 require 'time'
 require 'iconv'
 begin
@@ -25,22 +29,22 @@ class LinkAbsolutizer
         html = Hpricot("<html><body>#{@body}</body></html>")
         (html/'a').each { |a|
           begin
-            f = a.attributes['href']
+            f = a.get_attribute('href')
             t = URI::join(base, f.to_s).to_s
             puts "Rewriting #{f.inspect} => #{t.inspect}" if f != t
-            a.attributes['href'] = t
+            a.set_attribute('href', t)
           rescue URI::Error
-            puts "Cannot rewrite relative URL: #{a.attributes['href'].inspect}" unless a.attributes['href'] =~ /^[a-z]{2,10}:/
+            puts "Cannot rewrite relative URL: #{a.get_attribute('href').inspect}" unless a.get_attribute('href') =~ /^[a-z]{2,10}:/
           end
         }
         (html/'img').each { |img|
           begin
-            f = img.attributes['src']
+            f = img.get_attribute('src')
             t = URI::join(base, f.to_s).to_s
             puts "Rewriting #{f.inspect} => #{t.inspect}" if f != t
-            img.attributes['src'] = t
+            img.set_attribute('src', t)
           rescue URI::Error
-            puts "Cannot rewrite relative URL: #{img.attributes['href'].inspect}" unless img.attributes['href'] =~ /^[a-z]{2,10}:/
+            puts "Cannot rewrite relative URL: #{img.get_attribute('href').inspect}" unless img.get_attribute('href') =~ /^[a-z]{2,10}:/
           end
         }
         html.search('/html/body/*').to_s

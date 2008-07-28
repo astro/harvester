@@ -135,7 +135,7 @@
             <xsl:variable name="rss" select="string(rss)"/>
             <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
             <div class="entry hentry">
-              <h2>
+              <h2 class="blog-title">
 		<a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a>
               </h2>
               <div class="entrydate published" title="{date}">

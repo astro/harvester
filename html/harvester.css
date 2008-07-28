@@ -10,7 +10,7 @@
  *          Textfarben #303030 #C00000 #FF6600 6699CC
  * Browser: IE6 (no chart), IE7, Firefox, Opera, Safari
  * Author: Tigion, http://tigion.de/
- * Version: 21.02.2008
+ * Version: 28.07.2008
  */
 
 /* ------------------------------------------------------ */
@@ -67,21 +67,21 @@ h1 {
 
 /* photos */
 ul.photos { 
-        padding: 0;
-        margin: 0;
-        text-align: center;
+  padding: 0;
+  margin: 0;
+  text-align: center;
 }
 
 ul.photos li { 
-        list-style: none;
-        margin: 0;
-        padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 ul.photos li a img {
-        border: 0;
-        margin: 0.5em auto;
-        width: 85%;
+  border: 0;
+  margin: 0.5em auto;
+  width: 85%;
 }
 
 /* blog entries */
@@ -133,40 +133,61 @@ ul.photos li a img {
 }
 
 /* title / link - blog */
-.entry h2 {
+.entry h2.blog-title {
   font-size: 1.0em;
   padding: 0.5em 1em;
   background-color: #ff6600;
   color: white;
 }
 
-.entry h2 a {
+.entry h2.blog-title a {
   color: white;
 }
 
 /* title / link - blog entry */
-.entry h3 {
+.entry h3.entry-title {
   font-size: 1.3em;
   padding: 1.0em 0.8em 0.4em;
 }
 
-.entry h3 a {
+.entry h3.entry-title a {
   color: #303030;
-}
-
-.entry p {
-  margin: 0.8em 0;
 }
 
 .entry ul  {
   margin: 1em 0 0 3em;
 }
 
-.entry .entrydesc ul  {
-  margin: 0.8em 0 0 1.8em;
+/* ------------------------------------------------------ */
+/* blog entry content (description) */
+/* ------------------------------------------------------ */
+
+.entry-content h2, .entry-content h3 {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: #303030;
 }
 
-.entry pre, .entry code {
+.entry-content h2 {
+  font-size: 1.2em;
+  margin: 1.0em 0 0.8em 0;
+}
+
+.entry-content h3 {
+  font-size: 1.0em;
+  margin: 1.0em 0 0.8em 0;
+}
+
+.entry-content p {
+  margin: 0.8em 0;
+}
+
+.entry-content ul, .entry-content ol  {
+  margin: 0.8em 0 0.8em 1.8em;
+}
+
+.entry-content pre, .entry-content code {
   background-color: #eee;
   color: #666;
   padding: 1em; 
@@ -175,10 +196,17 @@ ul.photos li a img {
   display: block;
   overflow: auto;
   font: 0.9em "Andale Mono", "Courier New", Courier, Fixed, mono;
+}
+
+.entry-content pre {
+  white-space: pre;
+}
+
+.entry-content code {
   white-space: nowrap;
 }
 
-.entry blockquote {
+.entry-content blockquote {
   margin: 1em;
   padding-left: 1em;
   border-left: 5px solid #e0e0e0;
@@ -253,17 +281,17 @@ ul.photos li a img {
 
 /* chart */
 .chart { 
-        display: none;
-        position: absolute;
-        z-index: 1;
-        background-color: white;
-        right: 2px;
-        margin-top: 10px;
-        margin-right: 15px;
-        padding: 10px;
-        opacity: 0.85;
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  right: 2px;
+  margin-top: 10px;
+  margin-right: 15px;
+  padding: 10px;
+  opacity: 0.85;
 }
 
 .head:hover .chart { 
-        display: block;
+  display: block;
 }

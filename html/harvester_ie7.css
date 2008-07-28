@@ -10,6 +10,6 @@
 /* Blogeintraege */
 /* ------------------------------------------------------ */
 
-.entry pre, .entry code {
+.entry-content pre, .entry-content code {
   overflow: scroll;
 }

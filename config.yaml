@@ -1,63 +1,24 @@
 ---
 db:
-  driver: dbi:Pg:harvester:localhost
-  user: astro
-  password: ***
+  driver: dbi:Mysql:harvester:localhost
+  user: root
+  password: tototo
 settings:
   size limit: 102400
   timeout: 90
   templates: templates
   output: html
 jabber:
-  jid: astrobot@spaceboyz.net/harvester
-  password: ***
+  jid: bot@cepheide.org/harvester
+  password: 
   interval: 120
 collections:
   ticker:
-  - http://www.c3d2.de/news-atom.xml
-  - http://planet.c3bi.de/rss20.xml
-  - http://www.blacksec.org/index2.php?option=com_rss&feed=RSS0.91&no_html=1
-  - http://planet.entropia.de/rss.rdf
-  - http://bruteforce.blogg.de/rss.xml
-  - http://asocio.no-ip.com/unter-schwarzer-flagge/?feed=rss2
   projects:
-  - "http://trac.c3d2.de/harvester/timeline?max=20&daysback=2&format=rss"
+  - http://hackerspace.net/vhsroom.atom
   links:
-  - http://del.icio.us/rss/fukami
-  - http://del.icio.us/rss/astro1138
-  - http://del.icio.us/rss/toidinamai
-  - http://del.icio.us/rss/r0b0
-  - http://del.icio.us/rss/pentabarf
-  - http://del.icio.us/rss/tigion
-  - http://del.icio.us/rss/turbo24prg
-  - http://del.icio.us/rss/mechko
-  - http://del.icio.us/rss/DerTobendeGummihammer
-  - http://del.icio.us/rss/Alien8
-  - http://del.icio.us/rss/boelthorn
-  - http://del.icio.us/rss/rabuju
-  - http://del.icio.us/rss/cosmoFlash
-  - http://del.icio.us/rss/Shnifti
-  - http://del.icio.us/rss/stepardo
-  - http://del.icio.us/rss/pq3x10
+  - http://del.icio.us/rss/hackerspace
   blogs:
-  - http://astroblog.spaceboyz.net/atom.rb
-  - http://blog.tigion.de/feed/
-  - http://fukami.vakuum.net/feed/
-  - http://blog.daemonized.de/feed/
-  - http://www.psycast.de/blog/rss.php?ver=2
-  - http://www.kuarepoti-dju.net/wp-rss2.php
-  - http://89.238.64.223/semaphor/semaphor.php?item=blogRss
-  - http://www.marvinnet.org/?feed=rss2
-  - http://d-ventures.heartofgold.de/?feed=rss2
-  - http://jelena.blogsome.com/feed/rdf/
-  - http://equiblog.diac24.net/$rss:full4
-  - http://matthias.bsd-crew.de/blog/?feed=atom
-  - http://blog.toidinamai.de/atom
-  - http://berzerkely.net/archives.rss
-  - http://bsd-crew.de/~riot/rss.xml
-  - http://www.haltetdenbeat.de/feed/
-  - http://leonweber.de/blog/feed/
-  - http://stepardos.blogspot.com/feeds/posts/default
+  - http://hackerspace.net/blog.atom
+  - http://vancouver.hackspace.ca/?q=node/4
   photos:
-  - "http://api.flickr.com/services/feeds/photos_public.gne?id=73915810@N00&format=atom"
-  - "http://api.flickr.com/services/feeds/photos_public.gne?id=58728439@N00&format=atom"

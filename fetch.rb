@@ -13,7 +13,12 @@ class GodObject
 
   def self.method_missing m, *a
     puts "Sending #{m}(#{a.inspect}) to #{inspect}"
-    instance.send m, *a
+    if block_given?
+      b = lambda { |*c| yield *c }
+      instance.send m, *a, &b
+    else
+      instance.send m, *a
+    end
   end
 end
 
@@ -98,17 +103,16 @@ class DNSCache < GodObject
 end
 
 class HTTPConnection
-  module C
+  module LineConnection
     attr_accessor :handler
+    attr_accessor :mode
+    attr_accessor :packet_length
 
     def connection_completed
       @handler.opened!
-      @state = :headers
-      @headers = ['']
-      @chunked = false
-      @length = 0
-      @dumb = true
-      @body = ''
+      @mode = :line
+      @line = ''
+      @packet_length = nil
     end
 
     def send_requests(requests)
@@ -117,126 +121,45 @@ class HTTPConnection
     end
 
     def receive_data(data)
-      send "receive_#{@state}", data
+      while data.size > 0
+        data = send "receive_#{@mode}", data
+      end
     end
 
     def unbind
-      if @dumb
-        @handler.handle_eof
-      end
       @handler.handle_disconnected!
     end
 
     private
 
-    def receive_headers(data)
-      puts "receive_headers: #{data.inspect}"
-      while data.size > 0
-        line, rest = data.split("\n", 2)
-        data = rest
-
-        line.strip!
-        @headers[-1] += line
-        if @headers.last == ''
-          @headers.pop
-          http_ver, status, status_text = @headers.shift.split(' ', 3)
-          header_hash = {}
-          @headers.each { |header|
-            k, v = header.split(': ', 2)
-            header_hash[k.downcase] = v
-          }
-          @handler.handle_response(status, status_text, header_hash)
-
-          # Reset for the next header
-          @headers = ['']
-
-          if header_hash['transfer-encoding'] == 'chunked'
-            @dumb = false
-            @chunked = true
-            @state = :chunklen
-            receive_chunklen data
-          elsif (l = header_hash['content-length'])
-            @dumb = false
-            @chunked = false
-            @length = l.to_i
-            @state = :body
-            receive_body data          
-          else
-            @dumb = true
-            @state = :body
-            receive_body data          
-          end
-
-          break
-        else
-          @headers << ''
-        end
-      end
-    end
-
-    def receive_body(data)
-      p data
-      if @dumb
-        body = data
-        @handler.handle_chunk(body)
+    def receive_line(data)
+      l, data = data.split("\n", 2)
+      @line += l
+      if data
+        @handler.handle_line @line
+        @line = ''
+        data
       else
-        body = (@length > 0) ? data[0..(@length - 1)] : ''
-        rest = data[@length..-1].to_s
-        puts "#{@length} #{body.size} #{data.size}"
-        @length -= body.size
-
-        @handler.handle_chunk(body)
-
-        if rest != ''
-          if @chunked
-            @state = :chunklen
-            receive_chunklen rest
-          else
-            @handler.handle_eof
-            @state = :headers
-            receive_headers rest
-          end
-        end
+        ''
       end
     end
 
-    def receive_chunklen(data)
-      @body += data
-      if ((c, rest) = @body.split("\n", 2)) && c
-        c.strip!
-        if c == ''
-          @body = ''
-          receive_chunklen rest
+    def receive_packet(data)
+      if @packet_length
+        chunk = (@packet_length > 0) ? data[0..(@packet_length - 1)] : ''
+        @handler.handle_packet_chunk data if chunk != ''
+        data = data[@packet_length..-1].to_s
+        @packet_length -= chunk.size
+
+        if @packet_length < 1
+          @handler.handle_packet_end
+          data
         else
-          @length = c.to_i(16)
-          puts "#{c.inspect} -> #{@length}"
-          if @length > 0
-            @state = :body
-            receive_body rest
-          else
-            @handler.handle_eof
-            @trailerline = ''
-            @state = :chunktrailer
-            receive_chunktrailer rest
-          end
+          ''
         end
-      end
-    end
-
-    def receive_chunktrailer(data)
-      while data.size > 0
-        line, rest = data.split("\n", 2)
-        @trailerline += line
-
-        if rest
-          if @trailerline.strip == ''
-            @state = :headers
-            receive_headers rest
-          else
-            puts "discarding trailerline #{@trailerline.inspect}"
-            @trailerline = ''
-          end
-        end
+      else
+        @handler.handle_chunk data
+        ''
       end
     end
   end
@@ -246,11 +169,14 @@ class HTTPConnection
     @host = host
     @port = port
     open_connection
+    @state = :status
+    @code, @status = nil, nil
+    @headers = {}
   end
 
   def open_connection
     @opened = false
-    @c = EM.connect @host, @port, C
+    @c = EM.connect @host, @port, LineConnection
     @c.handler = self
   end
 
@@ -268,25 +194,93 @@ class HTTPConnection
     end
   end
 
+  def tell_requester(what, *msg)
+    block = @requests.first[1]
+    block.call what, *msg
+    if what == :end
+      @requests.shift
+    end
+  end
+
+  def handle_line(line)
+    line.strip!
+    puts "line in #{@state}: #{line.inspect}"
+
+    case @state
+    when :status
+      http_ver, code, @status = line.split(' ', 3)
+      @code = code.to_i
+      @state = :headers
+    when :headers
+      if line != ''
+        k, v = line.split(': ', 2)
+        @headers[k] = v
+      else
+        # Headers finished
+        tell_requester :response, @code, @status, @headers
+        if @headers['Transfer-Encoding'] == 'chunked'
+          @chunked = true
+          @dumb = false
+          @state = :chunk_length
+        elsif (l = @headers['Content-Length'])
+          @chunked = false
+          @dumb = false
+          @c.mode = :packet
+          @c.packet_length = l.to_i
+          @state = :body
+        elsif (@code >= 100 && @code <= 199) || @code == 204 || @code == 304
+          tell_requester :end
+          @state = :status
+        else
+          @chunked = false
+          @dumb = true
+          @c.mode = :packet
+          @c.packet_length = nil
+          @state = :body
+        end
+      end
+    when :chunk_length
+      if line != ''
+        @c.packet_length = line.to_i(16)
+        if @c.packet_length == 0
+          tell_requester :end
+          @state = :chunk_trailer
+        else
+          @c.mode = :packet
+          @state = :body
+        end
+      end
+    when :chunk_trailer
+      if line == ''
+        @state = :status
+      end
+    end
+  end
+
+  def handle_packet_chunk(data)
+    tell_requester :body, data
+  end
+
+  def handle_packet_end
+    @c.mode = :line
+    if @chunked
+      @state = :chunk_length
+    else
+      @state = :headers
+      tell_requester :end
+    end
+  end
+
   def handle_disconnected!
+    if @dumb
+      tell_requester :end
+    end
+
     @opened = false
     @c = nil
     if @requests.size > 0
       open_connection
     end
-  end
-
-  def handle_response(status, text, headers)
-    puts "#{object_id} response: #{status} #{text} #{headers.inspect}"
-  end
-
-  def handle_chunk(data)
-    puts "#{object_id} body: #{data.inspect}"
-  end
-
-  def handle_eof
-    puts "#{object_id} eof"
-    @requests.shift
   end
 
   private
@@ -413,15 +407,37 @@ class TransferManager < GodObject
 end
 
 EM.run do
-  reader = EM.spawn { |*m| puts "reader: #{m.inspect}" }
+  reader = EM.spawn { |w,*m|
+    case w
+    when :body
+      b, = m
+      puts "reader: #{b[0..10].inspect} (#{b.size})"
+    else
+      puts "reader: #{w} #{m.inspect}"
+    end
+  }
   #YAML::load_file('config.yaml')['collections'].each { |cat,urls|
   #  urls.each { |url|
   #    TransferManager.get(url, reader)
   #  }
   #}
 %w(
-http://spaceboyz.net/~astro/gitorious/
-http://spaceboyz.net/
+http://feeds.delicious.com/rss/fukami
+http://feeds.delicious.com/rss/astro1138
+http://feeds.delicious.com/rss/toidinamai
+http://feeds.delicious.com/rss/r0b0
+http://feeds.delicious.com/rss/pentabarf
+http://feeds.delicious.com/rss/tigion
+http://feeds.delicious.com/rss/turbo24prg
+http://feeds.delicious.com/rss/mechko
+http://feeds.delicious.com/rss/DerTobendeGummihammer
+http://feeds.delicious.com/rss/Alien8
+http://feeds.delicious.com/rss/boelthorn
+http://feeds.delicious.com/rss/rabuju
+http://feeds.delicious.com/rss/cosmoFlash
+http://feeds.delicious.com/rss/Shnifti
+http://feeds.delicious.com/rss/stepardo
+http://feeds.delicious.com/rss/pq3x10
 ).each{|u|
     TransferManager.get(u, reader) }
   TransferManager.go!

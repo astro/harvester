@@ -1,5 +1,433 @@
 #!/usr/bin/env ruby
 
+require 'yaml'
+require 'eventmachine'
+require 'dnsruby'
+require 'uri'
+
+Dnsruby::Resolver::use_eventmachine true
+Dnsruby::Resolver::start_eventmachine_loop false
+
+class GodObject
+  include Singleton
+
+  def self.method_missing m, *a
+    puts "Sending #{m}(#{a.inspect}) to #{inspect}"
+    instance.send m, *a
+  end
+end
+
+class DNSName
+  def self.parse_ip_address(ip)
+    begin
+      Dnsruby::IPv4::create(ip)
+    rescue ArgumentError
+      begin
+        Dnsruby::IPv6::create(ip)
+      rescue ArgumentError
+        nil
+      end
+    end
+  end
+
+  def initialize(dns, name)
+    if address = DNSName.parse_ip_address(name)
+      @result = [:succeed, [address.to_s]]
+    else
+      df = dns.send_async(Dnsruby::Message.new(name))
+      df.callback &method(:on_success)
+      df.errback &method(:on_fail)
+      @result = nil
+    end
+    @deferrables = []
+  end
+
+  def defer
+    d = EM::DefaultDeferrable.new
+    if @result
+      apply_result_to d
+    else
+      @deferrables << d
+    end
+    d
+  end
+
+  private
+
+  def apply_result_to(d)
+    d.send *@result
+    d.send *@result
+  end
+
+  def apply_result_to_all
+    @deferrables.each { |d|
+      apply_result_to d
+    }
+    @deferrables = []
+  end
+
+  def on_success(msg)
+    addresses = msg.answer.select { |a|
+      a.kind_of?(Dnsruby::RR::IN::A) ||
+      a.kind_of?(Dnsruby::RR::IN::AAAA)
+    }.map { |a| a.address.to_s }
+    @result = [:succeed, addresses]
+    apply_result_to_all
+  end
+
+  def on_fail(msg, err)
+    @result = [:fail, err]
+    apply_result_to_all
+  end
+end
+
+class DNSCache < GodObject
+  def initialize
+    @dns = Dnsruby::Resolver.new
+    @queries = {}
+  end
+
+  def resolve(name)
+    q = if @queries.has_key? name
+          @queries[name]
+        else
+          @queries[name] = DNSName.new(@dns, name)
+        end
+    q.defer
+  end
+end
+
+class HTTPConnection
+  module C
+    attr_accessor :handler
+
+    def connection_completed
+      @handler.opened!
+      @state = :headers
+      @headers = ['']
+      @chunked = false
+      @length = 0
+      @dumb = true
+      @body = ''
+    end
+
+    def send_requests(requests)
+      send_data requests.to_s
+      puts "sent requests: #{requests.to_s.inspect}"
+    end
+
+    def receive_data(data)
+      send "receive_#{@state}", data
+    end
+
+    def unbind
+      if @dumb
+        @handler.handle_eof
+      end
+      @handler.handle_disconnected!
+    end
+
+    private
+
+    def receive_headers(data)
+      puts "receive_headers: #{data.inspect}"
+      while data.size > 0
+        line, rest = data.split("\n", 2)
+        data = rest
+
+        line.strip!
+        @headers[-1] += line
+        if @headers.last == ''
+          @headers.pop
+          http_ver, status, status_text = @headers.shift.split(' ', 3)
+          header_hash = {}
+          @headers.each { |header|
+            k, v = header.split(': ', 2)
+            header_hash[k.downcase] = v
+          }
+          @handler.handle_response(status, status_text, header_hash)
+
+          # Reset for the next header
+          @headers = ['']
+
+          if header_hash['transfer-encoding'] == 'chunked'
+            @dumb = false
+            @chunked = true
+            @state = :chunklen
+            receive_chunklen data
+          elsif (l = header_hash['content-length'])
+            @dumb = false
+            @chunked = false
+            @length = l.to_i
+            @state = :body
+            receive_body data          
+          else
+            @dumb = true
+            @state = :body
+            receive_body data          
+          end
+
+          break
+        else
+          @headers << ''
+        end
+      end
+    end
+
+    def receive_body(data)
+      p data
+      if @dumb
+        body = data
+        @handler.handle_chunk(body)
+      else
+        body = (@length > 0) ? data[0..(@length - 1)] : ''
+        rest = data[@length..-1].to_s
+        puts "#{@length} #{body.size} #{data.size}"
+        @length -= body.size
+
+        @handler.handle_chunk(body)
+
+        if rest != ''
+          if @chunked
+            @state = :chunklen
+            receive_chunklen rest
+          else
+            @handler.handle_eof
+            @state = :headers
+            receive_headers rest
+          end
+        end
+      end
+    end
+
+    def receive_chunklen(data)
+      @body += data
+      if ((c, rest) = @body.split("\n", 2)) && c
+        c.strip!
+        if c == ''
+          @body = ''
+          receive_chunklen rest
+        else
+          @length = c.to_i(16)
+          puts "#{c.inspect} -> #{@length}"
+          if @length > 0
+            @state = :body
+            receive_body rest
+          else
+            @handler.handle_eof
+            @trailerline = ''
+            @state = :chunktrailer
+            receive_chunktrailer rest
+          end
+        end
+      end
+    end
+
+    def receive_chunktrailer(data)
+      while data.size > 0
+        line, rest = data.split("\n", 2)
+        @trailerline += line
+
+        if rest
+          if @trailerline.strip == ''
+            @state = :headers
+            receive_headers rest
+          else
+            puts "discarding trailerline #{@trailerline.inspect}"
+            @trailerline = ''
+          end
+        end
+      end
+    end
+  end
+
+  def initialize(host, port)
+    @requests = []
+    @host = host
+    @port = port
+    open_connection
+  end
+
+  def open_connection
+    @opened = false
+    @c = EM.connect @host, @port, C
+    @c.handler = self
+  end
+
+  def opened!
+    @opened = true
+    may_send
+  end
+
+  def request(text, &block)
+    @requests << [text, block]
+    if @c
+      may_send
+    else
+      open_connection
+    end
+  end
+
+  def handle_disconnected!
+    @opened = false
+    @c = nil
+    if @requests.size > 0
+      open_connection
+    end
+  end
+
+  def handle_response(status, text, headers)
+    puts "#{object_id} response: #{status} #{text} #{headers.inspect}"
+  end
+
+  def handle_chunk(data)
+    puts "#{object_id} body: #{data.inspect}"
+  end
+
+  def handle_eof
+    puts "#{object_id} eof"
+    @requests.shift
+  end
+
+  private
+
+  def may_send
+    if @opened
+      @c.send_requests(@requests.map { |r| r[0] })
+    end
+  end
+end
+
+class ConnectionPool < GodObject
+  def initialize
+    @connections = {}
+  end
+
+  def request(scheme, host, port, text, &block)
+    target = [scheme, host, port]
+    c = if @connections.has_key? target
+          @connections[target]
+        else
+          @connections[target] = new_connection(*target)
+        end
+    c.request(text, &block)
+  end
+
+  private
+
+  def new_connection(scheme, host, port)
+    case scheme
+    when 'http' then HTTPConnection
+    else raise "Unsupported URL scheme: #{scheme}"
+    end.new(host, port)
+  end
+end
+
+class Transfer
+  def initialize(url)
+    @can_go = false
+    @has_addresses = false
+    @error = nil
+
+    @uri = URI::parse(url)
+    d = DNSCache.resolve(@uri.host)
+    d.callback { |addresses|
+      puts "dns for #{@uri.host}: #{addresses.inspect}"
+      @addresses = addresses
+      @has_addresses = true
+      may_go
+    }
+    d.errback { |err|
+      puts "dns for #{@uri.host}: #{err}"
+      @error = err.to_s
+      @has_addresses = true
+      may_go
+    }
+
+    @receivers = []
+  end
+
+  def get(spawnable)
+    @receivers << spawnable
+  end
+
+  def go!
+    @can_go = true
+    may_go
+  end
+
+  private
+
+  def notify_receivers(*msg)
+    @receivers.each { |r| r.notify *msg }
+  end
+
+  def may_go
+    if @can_go && @has_addresses
+      if @error
+        notify_receivers :error, @error
+      else
+        # TODO: RR-addresses
+        request_headers = {
+          'Host' => @uri.host,
+          'Connection' => 'Keep-Alive',
+          'Accept-Encoding' => 'chunked, identity'}
+        ConnectionPool.request(@uri.scheme, @addresses[0], @uri.port,
+                               "GET #{@uri.request_uri} HTTP/1.1\r\n" +
+                               request_headers.map { |k,v|
+                                 "#{k}: #{v}\r\n"
+                               }.to_s +
+                               "\r\n") { |*msg|
+          notify_receivers *msg
+        }
+      end
+    end
+  end
+end
+
+class TransferManager < GodObject
+  def initialize
+    @transfers = {}
+  end
+
+  def get(url, spawnable)
+    t = if @transfers.has_key? url
+          @transfers[url]
+        else
+          @transfers[url] = Transfer.new(url)
+        end
+    t.get spawnable
+  end
+
+  ##
+  # Call this after everybody has made his get request, so nobody gets
+  # chunks starts at the half of the stream just because he has
+  # requested too late and the network was too fast.
+  #
+  # TODO: this can be solved more elegantly
+  def go!
+    @transfers.each { |url,t|
+      t.go!
+    }
+  end
+end
+
+EM.run do
+  reader = EM.spawn { |*m| puts "reader: #{m.inspect}" }
+  #YAML::load_file('config.yaml')['collections'].each { |cat,urls|
+  #  urls.each { |url|
+  #    TransferManager.get(url, reader)
+  #  }
+  #}
+%w(
+http://spaceboyz.net/~astro/gitorious/
+http://spaceboyz.net/
+).each{|u|
+    TransferManager.get(u, reader) }
+  TransferManager.go!
+end
+
+=begin
 require 'dbi'
 require 'yaml'
 require 'uri'
@@ -189,3 +617,4 @@ pending_lock.synchronize {
     puts "[#{rss_url.ljust maxurlsize}] Timed out"
   }
 }
+=end

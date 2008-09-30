@@ -4,6 +4,7 @@ require 'yaml'
 require 'eventmachine'
 require 'dnsruby'
 require 'uri'
+require 'zlib'
 
 Dnsruby::Resolver::use_eventmachine true
 Dnsruby::Resolver::start_eventmachine_loop false
@@ -102,6 +103,7 @@ class DNSCache < GodObject
   end
 end
 
+# TODO: SSL, connection reviving when was idle
 class HTTPConnection
   module LineConnection
     attr_accessor :handler
@@ -172,6 +174,7 @@ class HTTPConnection
     @state = :status
     @code, @status = nil, nil
     @headers = {}
+    @content_decoder = nil
   end
 
   def open_connection
@@ -195,16 +198,22 @@ class HTTPConnection
   end
 
   def tell_requester(what, *msg)
+    if @requests.size < 1
+      # Why is there more data?
+      @c.close_connection if @c
+      return
+    end
+
     block = @requests.first[1]
     block.call what, *msg
     if what == :end
       @requests.shift
+      @c.close_connection if @requests.size < 1 and @c
     end
   end
 
   def handle_line(line)
     line.strip!
-    puts "line in #{@state}: #{line.inspect}"
 
     case @state
     when :status
@@ -238,6 +247,15 @@ class HTTPConnection
           @c.packet_length = nil
           @state = :body
         end
+
+        @content_decoder = case @headers['Content-Encoding']
+                           when 'deflate'
+                             z = Zlib::Inflate.new(nil)
+                             z.method :inflate
+                           when nil
+                           else
+                             raise "Unknown Content-Encoding: #{@headers['Content-Encoding']}"
+                           end
       end
     when :chunk_length
       if line != ''
@@ -258,10 +276,19 @@ class HTTPConnection
   end
 
   def handle_packet_chunk(data)
+    if @content_decoder
+      puts "*** DECOMPRESSING ***"
+      data = @content_decoder.call(data)
+    end
     tell_requester :body, data
   end
 
   def handle_packet_end
+    if @content_decoder
+      data = @content_decoder.call(nil)
+      tell_requester :body, data
+    end
+
     @c.mode = :line
     if @chunked
       @state = :chunk_length
@@ -272,12 +299,13 @@ class HTTPConnection
   end
 
   def handle_disconnected!
+    @opened = false
+    @c = nil
+
     if @dumb
       tell_requester :end
     end
 
-    @opened = false
-    @c = nil
     if @requests.size > 0
       open_connection
     end
@@ -365,7 +393,7 @@ class Transfer
         request_headers = {
           'Host' => @uri.host,
           'Connection' => 'Keep-Alive',
-          'Accept-Encoding' => 'chunked, identity'}
+          'Accept-Encoding' => 'chunked, deflate, identity'}
         ConnectionPool.request(@uri.scheme, @addresses[0], @uri.port,
                                "GET #{@uri.request_uri} HTTP/1.1\r\n" +
                                request_headers.map { |k,v|
@@ -416,30 +444,15 @@ EM.run do
       puts "reader: #{w} #{m.inspect}"
     end
   }
-  #YAML::load_file('config.yaml')['collections'].each { |cat,urls|
-  #  urls.each { |url|
-  #    TransferManager.get(url, reader)
-  #  }
-  #}
-%w(
-http://feeds.delicious.com/rss/fukami
-http://feeds.delicious.com/rss/astro1138
-http://feeds.delicious.com/rss/toidinamai
-http://feeds.delicious.com/rss/r0b0
-http://feeds.delicious.com/rss/pentabarf
-http://feeds.delicious.com/rss/tigion
-http://feeds.delicious.com/rss/turbo24prg
-http://feeds.delicious.com/rss/mechko
-http://feeds.delicious.com/rss/DerTobendeGummihammer
-http://feeds.delicious.com/rss/Alien8
-http://feeds.delicious.com/rss/boelthorn
-http://feeds.delicious.com/rss/rabuju
-http://feeds.delicious.com/rss/cosmoFlash
-http://feeds.delicious.com/rss/Shnifti
-http://feeds.delicious.com/rss/stepardo
-http://feeds.delicious.com/rss/pq3x10
-).each{|u|
-    TransferManager.get(u, reader) }
+#=begin
+  YAML::load_file('config.yaml')['collections'].each { |cat,urls|
+    urls.each { |url|
+      TransferManager.get(url, reader)
+    }
+  }
+#=end
+  TransferManager.get("http://api.flickr.com/services/feeds/photos_public.gne?id=73915810@N00&format=atom", reader)
+  TransferManager.get("http://api.flickr.com/services/feeds/photos_public.gne?id=58728439@N00&format=atom", reader)
   TransferManager.go!
 end
 

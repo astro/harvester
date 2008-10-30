@@ -6,203 +6,206 @@
 ]>
 
 <xsl:stylesheet version="1.0"
-     xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-     xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
-     xmlns:date="http://exslt.org/dates-and-times"
-     exclude-result-prefixes="xsl hv date">
-
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
+		xmlns:date="http://exslt.org/dates-and-times"
+		exclude-result-prefixes="xsl hv date">
+  
   <xsl:output method="xml"
-              version="1.0"
-              encoding="utf-8"
-              doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
-              doctype-system="DTD/xhtml1-strict.dtd"
-              indent="yes"/>
+	      version="1.0"
+	      encoding="utf-8"
+	      doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
+	      doctype-system="DTD/xhtml1-strict.dtd"
+	      indent="yes"/>
   
   <xsl:template match="/collections">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
       <head profile="http://www.w3.org/2003/g/data-view">
-        <link rel="transformation"
-              href="http://www.w3.org/2000/06/dc-extract/dc-extract.xsl" />
-        <title>Planet HackerSpace.NET: Harvesting Voices from Hacker Spaces Communities on Planet Earth</title>
-        <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="atom.xml" />
-        <link rel="alternate" type="application/rss+xml"  title="RSS 2.0" href="rss.rdf" />
-        <link rel="alternate" type="application/atom+xml" title="ATOM 1.0 (all)" href="atom-all.xml" />
-        <link rel="alternate" type="application/rss+xml"  title="RSS 2.0 (all)" href="rss-all.rdf" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <link rel="stylesheet" type="text/css" href="hackerspace.css"/>
-        <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-        <xsl:comment><![CDATA[[if IE 7]>
-          <link rel="stylesheet" type="text/css" href="harvester_ie7.css" />
-        <![endif]]]></xsl:comment>
-        <xsl:comment><![CDATA[[if lte IE 6]>
-          <link rel="stylesheet" type="text/css" href="harvester_lte_ie6.css" />
-        <![endif]]]></xsl:comment>
+	<link rel="transformation"
+	      href="http://www.w3.org/2000/06/dc-extract/dc-extract.xsl" />
+	<title>Planet HackerSpace.NET: Harvesting Voices from Hacker Spaces Communities on Planet Earth</title>
+	<link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="atom.xml" />
+	<link rel="alternate" type="application/rss+xml"  title="RSS 2.0" href="rss.rdf" />
+	<link rel="alternate" type="application/atom+xml" title="ATOM 1.0 (all)" href="atom-all.xml" />
+	<link rel="alternate" type="application/rss+xml"  title="RSS 2.0 (all)" href="rss-all.rdf" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" type="text/css" href="hackerspace.css"/>
+	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+	<xsl:comment><![CDATA[[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="harvester_ie7.css" />
+	<![endif]]]></xsl:comment>
+	<xsl:comment><![CDATA[[if lte IE 6]>
+	<link rel="stylesheet" type="text/css" href="harvester_lte_ie6.css" />
+	<![endif]]]></xsl:comment>
       </head>
-
+      
       <body>
-        <div id="header">
-          <h1 class="title"><a href="index.html" rel="home">[hackerspace.net]</a></h1>
-          <div id="tagline">From Uncertainty Comes Knowledge!</div>
-          <div id="menu">
-            <div class="switch">
-              <img src="images/arrow_right.png" height="23" id="tool_switch"  width="20" alt="#"/>
-            </div>
-            <ul>
-              <li><a href="index.html" rel="self">community</a></li>
-              <li><a href="http://hackerspaces.org" rel="nofollow">wiki</a></li>
-              <li><a href="vhsroom" rel="index follow">project</a></li>
-              <li><a href="blog" rel="index follow">news</a></li>
-            </ul>
-          </div>
-        </div>
-        <div id="page">
-          <div id="contents" class="l ticker">
-            <h1>Welcome to hackerspace.net</h1>
-            <blockquote>
-              We federate hackerspaces around the world
-              to join forces in creating dissident knowledge and activity.
-            </blockquote>
-            <img src="chart.jpg" class="chart"/>
-            <div id="subscriptions">
-              <h2>Available Subcriptions</h2>
-              <dl>
-                <dt>Blogs Only</dt>
-                <dd>
-                  <a rel="alternate" type="application/atom+xml" href="http://hackerspace.net/atom.xml" title="Planet HackerSpace.NET Blogs (ATOM Feed)">ATOM 1.0</a>
-                  or
-                  <a rel="alternate" type="application/rss+xml"  href="http://hackerspace.net/rss.rdf"  title="Planet HackerSpace.NET Blogs (RSS Feed)">RSS 2.0</a>
-                </dd>
-                <dt>All Collections</dt>
-                <dd>
-                  <a rel="alternate" type="application/atom+xml" href="http://hackerspace.net/atom-all.xml" title="Planet HackerSpace.NET Collections (ATOM Feed)">ATOM 1.0</a>
-                  or
-                  <a rel="alternate" type="application/rss+xml"  href="http://hackerspace.net/rss-all.rdf"  title="Planet HackerSpace.NET Collections (RSS Feed)">RSS 2.0</a>
-                </dd>
-              <xsl:comment><!-- Soon :)
-                <dt>Jabber Notifications</dt>
-                <dd>
-                  Talk to <a href="xmpp:harvester@hackerspace.net">harvester@hackerspace.net</a>
-                  to receive the freshest!
-                </dd>
-              --></xsl:comment>
-              </dl>
-            </div>
-          </div><!-- #contents -->
-          <div id="wiki_changes" class="l ticker">
-            <xsl:call-template name="ticker-boxen">
-              <xsl:with-param name="collection" select="'ticker'" />
-            </xsl:call-template>
-          </div><!-- #wiki_changes.l.ticker -->
-          <div id="harvested" class="l ticker">
-            <div id="tools_icon"></div>
-            <h2>Harvesting</h2>
-            <ul class="tickerlinks">
-            <xsl:for-each select="collection[@name='blogs']/feed">
-              <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
-              <li><a href="{link}" title="{description}"><xsl:value-of select="title"/></a></li>
-            </xsl:for-each>
-            </ul>
-          </div><!-- #harvested.l.ticker -->
-          <div id="links" class="r ticker">
-            <xsl:call-template name="ticker-boxen">
-              <xsl:with-param name="collection" select="'links'" />
-            </xsl:call-template>
-          </div><!-- #links.r.ticker -->
-          <div id="photos">
-            <h2>Hacker Spaces Gallery</h2>    
-            <ul>
-            <xsl:for-each select="hv:collection-items('photos')/item">
-              <xsl:variable name="title" select="title"/>
-              <xsl:variable name="link" select="link"/>
-              <xsl:for-each select="hv:item-images(string(rss), string(link))//img">
-                <li><a href="{$link}"><img src="{@src}" title="{$title}"/></a></li>
-              </xsl:for-each>
-            </xsl:for-each>
-            </ul>
-          </div><!-- #photos -->
-	        <div id="blogs" class="hfeed">
-          <xsl:variable name="blogs" select="collection[@name='blogs']" />
-          <xsl:for-each select="hv:collection-items('blogs')/item">
-            <xsl:variable name="rss" select="string(rss)"/>
-            <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
-            <div class="entry hentry">
-              <h2 class="blog-title"><a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a></h2>
-              <div class="entry-date published" title="{date}">
-                <xsl:value-of select="concat('@',date:year(date),'.',date:month-in-year(date),'.',date:day-in-month(date),&quot;'&quot;,format-number(date:hour-in-day(date),'00'),':',format-number(date:minute-in-hour(date),'00'))"/>
-	            </div>
-              <h3 class="entry-title"><a href="{link}" rel="bookmark"><xsl:value-of select="title"/></a></h3>
-              <div class="entrydesc entry-content">
-                <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
-              </div>
-              <xsl:variable name="enclosures" select="hv:item-enclosures(string($rss), string(link))"/>
-              <xsl:if test="count($enclosures/enclosure) &gt; 0">
-                <ul>
-                <xsl:for-each select="$enclosures/enclosure">
-                  <xsl:variable name="filename">
-                    <xsl:call-template name="basename">
-                      <xsl:with-param name="path" select="href"/>
-                    </xsl:call-template>
-                  </xsl:variable>
-                  <li>
-                    <xsl:choose>
-                      <xsl:when test="string-length(string(title)) &gt; 0">
-                        <xsl:value-of select="title"/> (<a href="{href}" rel="enclosure"><xsl:value-of select="$filename"/></a>)
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <a href="{href}" rel="enclosure"><xsl:value-of select="$filename"/></a>
-                      </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:text> </xsl:text>
-                    <xsl:call-template name="format-enclosure-length">
-                      <xsl:with-param name="length" select="number(length)"/>
-                    </xsl:call-template>
-                  </li>
-                </xsl:for-each>
-		            </ul>
-              </xsl:if>	      
-              <div class="entry-footer">[<a href="{link}" title="{link}">read in context</a>]</div>
-            </div>
-	        </xsl:for-each>
-          </div><!-- #blogs -->
-        </div><!-- #page -->
-        <div id="footer">
-          <div class="copyright">
-            Copyright &copy;2008
-            <a href="http://hackerspace.net/" rel="self">hackerspace.net</a>
-            &mdash;
-            <a href="fuck">FUCK!</a>
-            &mdash;
-            <a href="contact" title="Get in touch">contact</a>
-            &mdash;
-            Generated by
-            <a href="https://wiki.c3d2.de/Harvester" title="Astro's Blog Harvester (Free Software)">The Harvester</a>.
-          </div>
-        </div><!-- #footer -->
+	<div id="header">
+	  <h1 class="title"><a href="index.html" rel="home">[hackerspace.net]</a></h1>
+	  <div id="tagline">From Uncertainty Comes Knowledge!</div>
+	  <div id="menu">
+	    <div class="switch">
+	      <img src="images/arrow_right.png" height="23" id="tool_switch"  width="20" alt="#"/>
+	    </div>
+	    <ul>
+	      <li><a href="index.html" rel="self">community</a></li>
+	      <li><a href="http://hackerspaces.org" rel="nofollow">wiki</a></li>
+	      <li><a href="vhsroom" rel="index follow">project</a></li>
+	      <li><a href="blog" rel="index follow">news</a></li>
+	    </ul>
+	  </div>
+	</div>
+	<div id="page">
+	  <div id="contents" class="l ticker">
+	    <h1>Welcome to hackerspace.net</h1>
+	    <blockquote>
+	      We federate hackerspaces around the world
+	      to join forces in creating dissident knowledge and activity.
+	    </blockquote>
+	    <img src="chart.jpg" class="chart"/>
+	    <div id="subscriptions">
+	      <h2>Available Subcriptions</h2>
+	      <dl>
+		<dt>Blogs Only</dt>
+		<dd>
+		  <a rel="alternate" type="application/atom+xml" href="http://hackerspace.net/atom.xml" title="Planet HackerSpace.NET Blogs (ATOM Feed)">ATOM 1.0</a>
+		  or
+		  <a rel="alternate" type="application/rss+xml"  href="http://hackerspace.net/rss.rdf"  title="Planet HackerSpace.NET Blogs (RSS Feed)">RSS 2.0</a>
+		</dd>
+		<dt>All Collections</dt>
+		<dd>
+		  <a rel="alternate" type="application/atom+xml" href="http://hackerspace.net/atom-all.xml" title="Planet HackerSpace.NET Collections (ATOM Feed)">ATOM 1.0</a>
+		  or
+		  <a rel="alternate" type="application/rss+xml"  href="http://hackerspace.net/rss-all.rdf"  title="Planet HackerSpace.NET Collections (RSS Feed)">RSS 2.0</a>
+		</dd>
+		<xsl:comment><!-- Soon :)
+				  <dt>Jabber Notifications</dt>
+				  <dd>
+				  Talk to <a href="xmpp:harvester@hackerspace.net">harvester@hackerspace.net</a>
+				  to receive the freshest!
+				  </dd>
+			     --></xsl:comment>
+	      </dl>
+	    </div>
+	  </div><!-- #contents -->
+	  <div id="wiki_changes" class="l ticker">
+	    <xsl:call-template name="ticker-boxen">
+	      <xsl:with-param name="collection" select="'ticker'" />
+	    </xsl:call-template>
+	  </div><!-- #wiki_changes.l.ticker -->
+	  <div id="harvested" class="l ticker">
+	    <div id="tools_icon"></div>
+	    <h2>Harvesting</h2>
+	    <ul class="tickerlinks">
+	      <xsl:for-each select="collection[@name='blogs']/feed">
+		<xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
+		<li><a href="{link}" title="{description}"><xsl:value-of select="title"/></a></li>
+	      </xsl:for-each>
+	    </ul>
+	  </div><!-- #harvested.l.ticker -->
+	  <div id="links" class="r ticker">
+	    <h2>Tagged</h2>
+	    <ul class="tickerlinks">
+	      <xsl:for-each select="hv:collection-items('links', 50, true)/item">
+		<li><a href="{link}"><xsl:value-of select="title"/></a></li>
+	      </xsl:for-each>
+	    </ul>
+	  </div><!-- #links.r.ticker -->
+	  <div id="photos">
+	    <h2>Hacker Spaces Gallery</h2>    
+	    <ul>
+	      <xsl:for-each select="hv:collection-items('photos')/item">
+		<xsl:variable name="title" select="title"/>
+		<xsl:variable name="link" select="link"/>
+		<xsl:for-each select="hv:item-images(string(rss), string(link))//img">
+		  <li><a href="{$link}"><img src="{@src}" title="{$title}"/></a></li>
+		</xsl:for-each>
+	      </xsl:for-each>
+	    </ul>
+	  </div><!-- #photos -->
+	  <div id="blogs" class="hfeed">
+	    <xsl:variable name="blogs" select="collection[@name='blogs']" />
+	    <xsl:for-each select="hv:collection-items('blogs')/item">
+	      <xsl:variable name="rss" select="string(rss)"/>
+	      <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
+	      <div class="entry hentry">
+		<h2 class="blog-title"><a href="{$feed/link}"><xsl:value-of select="$feed/title"/></a></h2>
+		<div class="entry-date published" title="{date}">
+		  <xsl:value-of select="concat('@',date:year(date),'.',date:month-in-year(date),'.',date:day-in-month(date),&quot;'&quot;,format-number(date:hour-in-day(date),'00'),':',format-number(date:minute-in-hour(date),'00'))"/>
+		</div>
+		<h3 class="entry-title"><a href="{link}" rel="bookmark"><xsl:value-of select="title"/></a></h3>
+		<div class="entrydesc entry-content">
+		  <xsl:value-of select="hv:item-description($rss, string(link))" disable-output-escaping="yes"/>
+		</div>
+		<xsl:variable name="enclosures" select="hv:item-enclosures(string($rss), string(link))"/>
+		<xsl:if test="count($enclosures/enclosure) &gt; 0">
+		  <ul>
+		    <xsl:for-each select="$enclosures/enclosure">
+		      <xsl:variable name="filename">
+			<xsl:call-template name="basename">
+			  <xsl:with-param name="path" select="href"/>
+			</xsl:call-template>
+		      </xsl:variable>
+		      <li>
+			<xsl:choose>
+			  <xsl:when test="string-length(string(title)) &gt; 0">
+			    <xsl:value-of select="title"/> (<a href="{href}" rel="enclosure"><xsl:value-of select="$filename"/></a>)
+			  </xsl:when>
+			  <xsl:otherwise>
+			    <a href="{href}" rel="enclosure"><xsl:value-of select="$filename"/></a>
+			  </xsl:otherwise>
+			</xsl:choose>
+			<xsl:text> </xsl:text>
+			<xsl:call-template name="format-enclosure-length">
+			  <xsl:with-param name="length" select="number(length)"/>
+			</xsl:call-template>
+		      </li>
+		    </xsl:for-each>
+		  </ul>
+		</xsl:if>	      
+		<div class="entry-footer">[<a href="{link}" title="{link}">read in context</a>]</div>
+	      </div>
+	    </xsl:for-each>
+	  </div><!-- #blogs -->
+	</div><!-- #page -->
+	<div id="footer">
+	  <div class="copyright">
+	    Copyright &copy;2008
+	    <a href="http://hackerspace.net/" rel="self">hackerspace.net</a>
+	    &mdash;
+	    <a href="fuck">FUCK!</a>
+	    &mdash;
+	    <a href="contact" title="Get in touch">contact</a>
+	    &mdash;
+	    Generated by
+	    <a href="https://wiki.c3d2.de/Harvester" title="Astro's Blog Harvester (Free Software)">The Harvester</a>.
+	  </div>
+	</div><!-- #footer -->
       </body>
     </html>
   </xsl:template>
-
+  
   <xsl:template name="ticker-boxen">
     <xsl:param name="collection"/>
     <xsl:for-each select="collection[@name=$collection]/feed">
       <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
       <div class="ticker hfeed">
-        <h2><a href="{link}"><xsl:value-of select="title"/></a></h2>
-        <ul class="tickerlinks">
-          <xsl:for-each select="hv:feed-items(string(rss), 8)/item">
-            <li class="hentry">
-              <xsl:choose>
-                <xsl:when test="string-length(title) &gt; 25">
-                  <a href="{link}" title="{title}" rel="bookmark" class="entry-title"><xsl:value-of select="substring(title, 1, 20)"/>...</a>
-                </xsl:when>
-                <xsl:otherwise>
-                  <a href="{link}" rel="bookmark" class="entry-title"><xsl:value-of select="title"/></a>
-                </xsl:otherwise>
-              </xsl:choose>
-            </li>
-          </xsl:for-each>
-        </ul>
+	<h2><a href="{link}"><xsl:value-of select="title"/></a></h2>
+	<ul class="tickerlinks">
+	  <xsl:for-each select="hv:feed-items(string(rss), 8)/item">
+	    <li class="hentry">
+	      <xsl:choose>
+		<xsl:when test="string-length(title) &gt; 25">
+		  <a href="{link}" title="{title}" rel="bookmark" class="entry-title"><xsl:value-of select="substring(title, 1, 20)"/>...</a>
+		</xsl:when>
+		<xsl:otherwise>
+		  <a href="{link}" rel="bookmark" class="entry-title"><xsl:value-of select="title"/></a>
+		</xsl:otherwise>
+	      </xsl:choose>
+	    </li>
+	  </xsl:for-each>
+	</ul>
       </div>
     </xsl:for-each>
   </xsl:template>
@@ -211,18 +214,18 @@
     <xsl:param name="length"/>
     <xsl:if test="$length">
       <xsl:choose>
-        <xsl:when test="$length &lt; 1024">
-          <xsl:value-of select="$length"/> Bytes
-        </xsl:when>
-        <xsl:when test="$length &lt; 1048576">
-          <xsl:value-of select="format-number($length div 1024, '0.0#')"/> KB
-        </xsl:when>
-        <xsl:when test="$length &lt; 1073741824">
-          <xsl:value-of select="format-number($length div 1048576, '0.0#')"/> MB
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="format-number($length div 1073741824, '0.0#')"/> GB
-        </xsl:otherwise>
+	<xsl:when test="$length &lt; 1024">
+	  <xsl:value-of select="$length"/> Bytes
+	</xsl:when>
+	<xsl:when test="$length &lt; 1048576">
+	  <xsl:value-of select="format-number($length div 1024, '0.0#')"/> KB
+	</xsl:when>
+	<xsl:when test="$length &lt; 1073741824">
+	  <xsl:value-of select="format-number($length div 1048576, '0.0#')"/> MB
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:value-of select="format-number($length div 1073741824, '0.0#')"/> GB
+	</xsl:otherwise>
       </xsl:choose>
     </xsl:if>
   </xsl:template>
@@ -231,12 +234,12 @@
     <xsl:param name="path"/>
     <xsl:choose>
       <xsl:when test="contains($path, '/')">
-        <xsl:call-template name="basename">
-          <xsl:with-param name="path" select="substring-after($path, '/')"/>
-        </xsl:call-template>
+	<xsl:call-template name="basename">
+	  <xsl:with-param name="path" select="substring-after($path, '/')"/>
+	</xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$path"/>
+	<xsl:value-of select="$path"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

@@ -136,9 +136,16 @@ class XSLTFunctions
     EntityTranslator.translate_entities(root)
   end
 
-  def collection_items(collection, max=23)
+  def collection_items(collection, max=23, uniq=false)
     items = REXML::Element.new('items')
+    seen_links = []
     @dbi.select_all("SELECT items.title,items.date,items.link,items.rss FROM items,sources WHERE items.rss=sources.rss AND sources.collection LIKE ? ORDER BY items.date DESC LIMIT ?", collection, max.to_i) { |title,date,link,rss|
+      if uniq
+        if seen_links.include? link
+          next
+        end
+        seen_links << link
+      end
       item = items.add(REXML::Element.new('item'))
       item.add(REXML::Element.new('title')).text = title
       item.add(REXML::Element.new('date')).text = date.to_s

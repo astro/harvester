@@ -44,7 +44,7 @@ class LinkAbsolutizer
             puts "Rewriting #{f.inspect} => #{t.inspect}" if f != t
             img.set_attribute('src', t)
           rescue URI::Error
-            puts "Cannot rewrite relative URL: #{img.get_attribute('href').inspect}" unless img.get_attribute('href') =~ /^[a-z]{2,10}:/
+            puts "Cannot rewrite relative URL: #{img.get_attribute('src').inspect}" unless img.get_attribute('src') =~ /^[a-z]{2,10}:/
           end
         }
         html.search('/html/body/*').to_s
@@ -141,7 +141,7 @@ class XSLTFunctions
     @dbi.select_all("SELECT items.title,items.date,items.link,items.rss FROM items,sources WHERE items.rss=sources.rss AND sources.collection LIKE ? ORDER BY items.date DESC LIMIT ?", collection, max.to_i) { |title,date,link,rss|
       item = items.add(REXML::Element.new('item'))
       item.add(REXML::Element.new('title')).text = title
-      item.add(REXML::Element.new('date')).text = date.to_time.xmlschema
+      item.add(REXML::Element.new('date')).text = date.to_s
       item.add(REXML::Element.new('link')).text = link
       item.add(REXML::Element.new('rss')).text = rss
     }
@@ -154,7 +154,7 @@ class XSLTFunctions
     @dbi.select_all("SELECT title,date,link FROM items WHERE rss=? ORDER BY date DESC LIMIT ?", rss, max.to_i) { |title,date,link|
       item = items.add(REXML::Element.new('item'))
       item.add(REXML::Element.new('title')).text = title
-      item.add(REXML::Element.new('date')).text = date.to_time.xmlschema
+      item.add(REXML::Element.new('date')).text = date.to_s
       item.add(REXML::Element.new('link')).text = link
     }
 
@@ -201,12 +201,34 @@ f = XSLTFunctions.new(DBI::connect(config['db']['driver'], config['db']['user'],
 xslt = XML::XSLT.new
 xslt.xml = f.generate_root.to_s
 
+class Date
+    def self.new_by_frags(elem, sg) # :nodoc:
+p elem
+    elem = rewrite_frags(elem)
+p elem
+    elem = complete_frags(elem)
+p elem
+    unless jd = valid_date_frags?(elem, sg)
+      raise ArgumentError, 'invalid date'
+    end
+    new!(jd_to_ajd(elem, 0, 0), 0, sg)
+  end
+end
+
 templatedir = config['settings']['templates']
 outputdir = config['settings']['output']
 Dir.foreach(templatedir) { |templatefile|
-  next if templatefile =~ /^\./
+  next if templatefile =~ /(^\.|~$)/
 
   puts "Processing #{templatefile}"
   xslt.xsl = "#{templatedir}/#{templatefile}"
-  File::open("#{outputdir}/#{templatefile}", 'w') { |f| f.write(xslt.serve) }
+  
+    $DEBUG = true
+  begin
+    File::open("#{outputdir}/#{templatefile}", 'w') { |f| f.write(xslt.serve) }
+  rescue
+    puts "--------------------------"
+    puts xslt.serve.inspect
+    puts $!.backtrace.join("\n")
+  end
 }

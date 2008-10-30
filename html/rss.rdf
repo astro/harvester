@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Planet HackerSpace.NET: Harvesting Voices from Hacker Spaces Communities on Planet Earth</title>
+    <link>http://hackerspace.net/</link>
+    <description><![CDATA[<p><a href="http://hackerspace.net/" title="HackerSpace.NET">Planet HackerSpace</a> aggregates the voices from hacker spaces worldwide. Powered by <p><a href="http://astroblog.spaceboyz.net/harvester/">Blog Harvester</a></p>.<p>Currently aggregating:</p><ul>
+        
+          <li><a href="http://www.tmplab.org" title="Creative use of technology">/tmp/lab</a></li>
+        
+          <li><a href="http://altctrlsupr.net" title="Weblog del Hacklab Terrassa">Alt+Ctrl+Supr</a></li>
+        
+          <li><a href="http://logbuch.c-base.org" title="culture communication carbonite">c-base logbuch</a></li>
+        
+          <li><a href="http://wiki.chaos-paderborn.de/" title="">C3PB e.V. - Wiki</a></li>
+        
+          <li><a href="http://koeln.ccc.de/updates/index.html" title="Updates für Hacker vom c4">c4 Updates</a></li>
+        
+          <li><a href="https://www.hamburg.ccc.de" title="Kabelsalat ist auch in Hamburg gesund...">CCC Hamburg</a></li>
+        
+          <li><a href="https://berlin.ccc.de/wiki/Spezial:Letzte_%C3%84nderungen" title="Verfolge mit diesem Feed die letzten Änderungen in CCCB.">CCCB - Letzte Änderungen [de]</a></li>
+        
+          <li><a href="http://www.cciz.de/wiki/" title="">CCIZ-Projekte</a></li>
+        
+          <li><a href="http://www.cccmz.de" title="">Chaos Computer Club Mainz</a></li>
+        
+          <li><a href="http://www.chaos-darmstadt.de/b" title="Letzte Meldungen Chaos Darmstadt - Chaostreff im Meta-Rhein-Main">Chaos Darmstadt - Chaos im MetaRheinMain</a></li>
+        
+          <li><a href="http://lab.netculture.at" title="weblog aus den netzkulturwerkstätten in wien und dornbirn">Comments on: Wien</a></li>
+        
+          <li><a href="http://www.dc206.org" title="We're Really Mature For Our Age">DC206</a></li>
+        
+          <li><a href="http://dc401.org/site/" title="Bringing l33t skillz to the Biggest Little">DC401</a></li>
+        
+          <li><a href="http://www.ductape.co.za" title="Durban's Hacker Space">Ductape</a></li>
+        
+          <li><a href="http://www.entropia.de/wiki/Spezial:Recentchanges" title="Diese Seite wird beim Laden automatisch aktualisiert. Angezeigt werden Seiten, die zuletzt bearbeitet wurden, sowie die Zeit und der Name des Autors.">Entropia - Letzte Änderungen [de]</a></li>
+        
+          <li><a href="http://www.eyebeam.org/reblog/" title="Eyebeam Happenings">Eyebeam News</a></li>
+        
+          <li><a href="https://blog.feint.org" title="Web2.0 seit Web0.9.">FEiNT.org</a></li>
+        
+          <li><a href="http://www.freaknet.org/news/" title="FreakNet MediaLab news">FreakNet MediaLab news</a></li>
+        
+          <li><a href="http://gobelab.hacklabs.org" title="Just another WordPress weblog">Gobelab: Getxoko Hacklab</a></li>
+        
+          <li><a href="http://hacdc.org" title="HacDC is a non-profit organization and space dedicated to technical, artistic and social collaboration.  We are technologists, tinkerers, crafters and codemonkeys who call DC home.  We collaborate across disciplines for the benefit of cultural, charitable and scientific causes.  We create, learn and teach as a group, inviting our neighbors around the block and around the world to join us!">HACDC</a></li>
+        
+          <li><a href="http://www.servesita.org/hackarena/blog" title="">HackArena</a></li>
+        
+          <li><a href="http://www.hackerbotlabs.com" title="The best butcher shop in Seattle.">Hackerbot Labs</a></li>
+        
+          <li><a href="http://hacklab.to" title="this is our blag">hacklab.to</a></li>
+        
+          <li><a href="http://www.hacklabs.org" title="">Hacklabs.org - </a></li>
+        
+          <li><a href="http://www.hamiltonhackerspace.com" title="A place for Hackers, Makers, Crafters and Artists">Hamilton Hacker Space</a></li>
+        
+          <li><a href="http://blog.kaotik.org" title="KK blog">KaotiK Team</a></li>
+        
+          <li><a href="http://blog.kaslab.net" title="">KASLab Blog</a></li>
+        
+          <li><a href="http://www.kiberpipa.org/" title="Kiberpipa web">Kiberpipa.org</a></li>
+        
+          <li><a href="http://www.das-labor.org/blog" title="Wer bastelt hat recht">Labor Blog</a></li>
+        
+          <li><a href="http://dock48.ch/web" title="Latest Weblog of PeopleAggregator">Latest PeopleAggregator Blog</a></li>
+        
+          <li><a href="http://hacklab.planetax.org.ar/" title="">LowLab</a></li>
+        
+          <li><a href="http://machineproject.com" title="">machine project</a></li>
+        
+          <li><a href="http://sindominio.net/metabolik/weblog" title="Bilboko Hacker Laborategi bat ... metabolizing digital autonomy">Metabolik BioHacklab</a></li>
+        
+          <li><a href="http://mhs.hackerdemia.com/" title="">Mobile Hacker Spaces</a></li>
+        
+          <li><a href="http://www.fazan.org" title="">monteparadiso hacklab, pula - no platform is forthcoming. instead, networked anarchy reigns... </a></li>
+        
+          <li><a href="http://lab.netculture.at" title="weblog aus den netzkulturwerkstätten in wien und dornbirn">net culture lab</a></li>
+        
+          <li><a href="http://www.netzladen.org" title="Netzladen - Raum für selbstverwaltete Technik, Kultur und Politik">netzladen.org</a></li>
+        
+          <li><a href="http://vnsecurity.net" title="
+    
+       Site News
+       
+  ">News</a></li>
+        
+          <li><a href="http://nextlab.hu" title="">Nextlab - </a></li>
+        
+          <li><a href="http://null-lab.hacklabs.org/mediaw/index.php/Especial:Recentchanges" title="Seguir los cambios más recientes en el wiki en este feed.">Null Hacklab - Cambios recientes [es]</a></li>
+        
+          <li><a href="http://blog.open4free.org" title="Neuigkeiten von und über Open4Free">Open4Free-Blog</a></li>
+        
+          <li><a href="http://planet.entropia.de/" title="Planet Entropia">Planet Entropia (CCC Karlsruhe)</a></li>
+        
+          <li><a href="http://poetry.freaknet.org/index.php/Speciale:UltimeModifiche" title="Questo feed riporta le modifiche più recenti ai contenuti del sito.">Poetry Hacklab - Ultime modifiche [it]</a></li>
+        
+          <li><a href="http://www.port20.org" title="Hackerspace fÃ¼r Hamburg">Port20</a></li>
+        
+          <li><a href="https://realraum.at/wiki/" title="">Realraum Graz</a></li>
+        
+          <li><a href="http://riereta.net/drupal" title="">riereta.net</a></li>
+        
+          <li><a href="http://sublab.subsignal.org/wikka.php?wakka=" title="Recent changes of sublab ( aka # su -b | lab )">sublab ( aka # su -b | lab ) - space</a></li>
+        
+          <li><a href="http://lab.ccc-linz.at/" title="">Temp Lab</a></li>
+        
+          <li><a href="http://tktech.org/blog" title="Homepage for T.I.T. a Hackerspace Community Project">Texarkana Institute of Technology</a></li>
+        
+          <li><a href="http://www.hackerfoundation.org" title="The Hacker Foundation provides support and organization services to technology projects that benefit people. To those ends, we provide the necessary legal, financial and administrative tools to enable projects to accomplish their goals in line with our values.">The Hacker Foundation</a></li>
+        
+          <li><a href="http://thehacktory.org" title="">The Hacktory - </a></li>
+        
+          <li><a href="http://autistici.org//underscore/" title="">Underscore _TO* Hacklab</a></li>
+        
+          <li><a href="http://vancouver.hackspace.ca" title="">Vancouver Hacker Space</a></li>
+        
+          <li><a href="/home/index.php?option=com_content&view=frontpage" title="Joomla! - the dynamic portal engine and content management system">Willoughby and Baltic</a></li>
+        
+          <li><a href="https://www.c3d2.de/news-atom.xml" title="Neues aus dem Chaos Computer Club Dresden">www.c3d2.de Newsfeed</a></li>
+        
+        </ul>
+	     <img src="chart.jpg"/>]]></description>
+    <item>
+      <title>c-base logbuch: Terminalbasteln</title>
+      <link>http://logbuch.c-base.org/2008/09/28/terminalbasteln/</link>
+      <guid isPermaLink="true">http://logbuch.c-base.org/2008/09/28/terminalbasteln/</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:58 GMT</pubDate>
+      <description><![CDATA[<p>Heute (28.9. 17 Uhr) gehts weiter mit Bastelactionen zur Reconstruction der c-base Terminals.  Ubuntu Berlin und c-base Member wollen die lange verwaisten Stehterminals wieder startklar machen.</p>
+]]></description>
+      <source url="http://logbuch.c-base.org">c-base logbuch</source>
+    </item>
+    <item>
+      <title>Alt+Ctrl+Supr: Instalacion de Debian con RAID1+LVM</title>
+      <link>http://altctrlsupr.net/instalacion-de-debian-con-raid1lvm/</link>
+      <guid isPermaLink="true">http://altctrlsupr.net/instalacion-de-debian-con-raid1lvm/</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:56 GMT</pubDate>
+      <description><![CDATA[<p>Receta por capitulos para la instalacion de una plataforma de servicios de Internet construida con elementos low-tech y/o reciclados. Empezaremos instalando Debian GNU/Linux con <a href="http://es.wikipedia.org/wiki/LVM" title="Que es LVM?">LVM</a> y <a href="http://es.wikipedia.org/wiki/RAID" title="Que es RAID?">RAID1</a> en un modesto PC porque era lo que habia :p</p>
+<p><span id="more-805"></span></p>
+<p>Ingredientes:<br />
+Un PC que aguante 24/7 sin arder el maximo de tiempo posible y pueda arrancar desde CD o USB.<br />
+2 discos duros IDE del mismo tamaño (en mi caso 40 GB)<br />
+1 CD o HD-USB con <a href="http://live.debian.net/debian-cd/" title="Debian GNU/Linux">Debian</a></p>
+<p>Iniciamos el ordenador con el arranque del Debian-installer. Si nos gusta el entorno grafico, escribimos &#8220;<em>installgui</em>&#8221; en la pantalla inicial. Si nos va bien con el modo de texto (las opciones son las mismas), inciamos tal cual o escribiendo &#8220;<em>expert</em>&#8221; para establecer las opciones avanzadas.</p>
+<p>Configura tu sistema como quieras hasta que llegues a la opcion de &#8220;<strong>Particionado de Discos</strong>&#8220;. Elige &#8220;<em>Editar manualmente la tabla de particiones</em>&#8220;.</p>
+<p>Lo siguiente que te muestra es el resumen de la configuracion actual de tus discos duros.</p>
+<p>IDE1 (hda)<br />
+IDE2 (hdb)</p>
+<p>Deberias verlos a menos que tengas algun problema en tu hardware o en la BIOS.</p>
+<p>Pasamos a crear los volumenes fisicos para el RAID1.</p>
+<p>Seleccionamos el disco IDE1.<br />
+<em>Crear una nueva tabla de particiones vacia para este dispositivo</em>= (Si)<br />
+Seleccionamos el <em>ESPACIO LIBRE</em> y creamos la particion de arranque.<br />
+<em>Crear nueva particion</em> = 128 MB (en mi caso)<br />
+<em>Tipo de particion</em>=Primaria<br />
+<em> Ubicacion de la nueva particion</em>=Principio<br />
+<em>Configuracion de la particion</em>: Utilizar como=volumen fisico para RAID<br />
+<em>Se ha terminado de definir la particion</em>.</p>
+<p>Seleccionamos el <em>ESPACIO LIBRE</em> restante y seguimos<br />
+<em>Crear una nueva particion de tamaño</em> = todo el espacio disponible, o bien realizar particiones para los puntos del sistema que queramos, repitiendo este proceso para cada una (/home, /root, /var&#8230;)</p>
+<p><em>Tipo de particion</em>=Primaria</p>
+<p><em>Configuracion de la particion</em>=volumen fisico para RAID<br />
+<em> Se ha terminado de definir la particion</em></p>
+<p>Repetimos los pasos realizados con  el IDE2, teniendo cuidado de que los tamaños de las particiones sean identicos en las 2 unidades.<br />
+En mi caso el disco IDE1 tenia casi 1 GB mas que el IDE2, lo que me permitio configurar LVM en ese espacio de sobra, y dejar los tamaños de los 2 discos ajustados. Tambien se podria asignar entera como area de intercambio y pasar del tema LVM. Para gustos, los colores.</p>
+<p>Configurar el RAID1 software</p>
+<p>Desde &#8220;<strong>Particionado de discos</strong>&#8221;<br />
+Seleccionamos <em>Configurar RAID software</em><br />
+<em> ¿Desea escribir los cambios en los dispositivos de almacenamiento y configurar RAID?</em>= Si</p>
+<p>Lo siguiente es</p>
+<p><em>Crear un dispositivo MD</em><br />
+<em>Tipo de dispositivo multi-disco</em>=RAID1<br />
+<em>Numero de dispositivos activos para el array RAID1</em>=2<br />
+<em>Numero de dispositivos libres para el array RAID1</em>=0</p>
+<p>&#8220;<strong>Dispositivos activos para el dispositivo multi-disco RAID1</strong>&#8221;<br />
+Seleccionamos las primeras particiones de ambos discos</p>
+<p><em>[*]/dev/hda1<br />
+[] /dev/hda2<br />
+[*]/dev/hdb1<br />
+[] /dev/hdb2<br />
+Continuar</em></p>
+<p>Repetimos el proceso y seleccionamos esta vez las segundas particiones</p>
+<p><em>[]/dev/hda1<br />
+[*] /dev/hda2<br />
+[]/dev/hdb1<br />
+[*] /dev/hdb2<br />
+Continuar</em></p>
+<p>Ya tenemos configurado el RAID1.<br />
+En <strong>Particionado de discos</strong> se deberian mostrar la Tabla de Discos con 2 dispositivos RAID (o tantos como particionas hayas hecho a tus discos).</p>
+<p>Ahora tocaria asignarles los puntos de montaje a cada uno de ellos.</p>
+<p>En la <strong>Tabla de discos</strong><br />
+Seleccionamos <em>#1 RAID1 dispositivo #0</em><br />
+<em>Usar como=Reiserfs sistema de ficheros transaccional</em> (podrias perfectamente ponerle cualquier otro tipo como ext2 o ext3)<br />
+<em>Punto de montaje</em>=/boot<br />
+Se ha terminado de definir la particion</p>
+<p>Realizamos el mismo proceso en <em>#1 RAID dispositivo #1</em> pero esta vez poniendo como punto de montaje la raiz del sistema (/).</p>
+<p>El siguiente paso seria configurar LVM<br />
+Seleccionamos <em>ESPACIO LIBRE</em> en hda<br />
+<em>Crear grupo de volumenes</em>=vol00<br />
+Seleccionamos <em>/dev/md1</em> y continuar</p>
+<p><em>Crear volumenes logicos</em><br />
+Seleccionamos el grupo de volumenes vol00<br />
+<em>Nombre del volumen logico</em>=swap<br />
+<em>Tamaño del volumen logico</em>=512MB (o tu RAM x2)</p>
+<p>Repetimos el proceso de crear volumenes logicos hasta que tengamos distribuido a nuestro gusto el espacio libre.<br />
+Escribimos los cambios en los discos y continuamos con la instalacion de Debian. Sobre este punto hay suficiente material en la red como para no detenerme en ello. En proximas entregas iremos añadiendo aspectos a partir de la base que hoy hemos dejado preparada.<br />
+Espero que os sea util.<br />
+Dudas,comentarios, correcciones, etc son bienvenidas.</p>
+<p>TO-DO:<br />
+Agregar algunas capturas de pantalla para ilustrar el proceso</p>
+]]></description>
+      <source url="http://altctrlsupr.net">Alt+Ctrl+Supr</source>
+    </item>
+    <item>
+      <title>The Hacktory - : 8static preview at IgnitePhilly2</title>
+      <link>http://thehacktory.org/blogs/elektropionir/8static-preview-at-ignitephilly2</link>
+      <guid isPermaLink="true">http://thehacktory.org/blogs/elektropionir/8static-preview-at-ignitephilly2</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:55 GMT</pubDate>
+      <description><![CDATA[<p>Last week was <a href="http://ignitephilly.org">IgnitePhilly2</a>, the second installment of the IgnitePhilly series and it was a blast! Great talks and atmosphere at <a href="http://www.johnnybrendas.com/">Johnny Brenda's</a>. If you missed the event, you can see videos of all the talks on the <a href="http://ignitephilly.org">IgnitePhilly</a> website. Between hacking cats into dogs and neural networks we also got a <a href="http://www.viddler.com/explore/tdlifestyle/videos/126/">preview</a> of <a href="http://8static.com">8static</a>, an 8bit event we are organizing as part of DesignPhiladelphia. Cheap Dinosaurs, Animalstyle and NO CARRIER gave us a taste of what's to come on October 18th. Everybody is psyched about the concert, so check out the <a href="http://www.viddler.com/explore/tdlifestyle/videos/126/">video</a> from IgnitePhilly and see you at 8static.</p>
+]]></description>
+      <source url="http://thehacktory.org">The Hacktory - </source>
+    </item>
+    <item>
+      <title>Poetry Hacklab - Ultime modifiche [it]: Speciale:Registri/upload</title>
+      <link>http://poetry.freaknet.org/index.php?title=Speciale:Registri/upload&amp;diff=0&amp;oldid=prev</link>
+      <guid isPermaLink="true">http://poetry.freaknet.org/index.php?title=Speciale:Registri/upload&amp;diff=0&amp;oldid=prev</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:55 GMT</pubDate>
+      <description><![CDATA[<p>ha caricato &quot;<a href="http://poetry.freaknet.org/index.php/Immagine:Freedomnotfear.gif" title="Immagine:Freedomnotfear.gif">Immagine:Freedomnotfear.gif</a>&quot;</p>
+]]></description>
+      <source url="http://poetry.freaknet.org/index.php/Speciale:UltimeModifiche">Poetry Hacklab - Ultime modifiche [it]</source>
+    </item>
+    <item>
+      <title>netzladen.org: Ortsgruppentreffen der FAU</title>
+      <link>http://www.netzladen.org</link>
+      <guid isPermaLink="true">http://www.netzladen.org</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:53 GMT</pubDate>
+      <description><![CDATA[
+	
+	Ortsgruppentreffen der Freie ArbeiterInnen Union (FAU-IAA)
+	
+	]]></description>
+      <source url="http://www.netzladen.org">netzladen.org</source>
+    </item>
+    <item>
+      <title>CCC Hamburg: Freiheit statt Angst am Samstag, den 11.10. in Berlin</title>
+      <link>https://www.hamburg.ccc.de/2008/10/05/109</link>
+      <guid isPermaLink="true">https://www.hamburg.ccc.de/2008/10/05/109</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:53 GMT</pubDate>
+      <description><![CDATA[<p style="text-align: left;">Am Samstag, den 11.10.2008 findet in Berlin wieder einmal die Demo statt, die den Titel trägt:</p>
+<p style="text-align: center;"><strong>Freiheit statt Angst</strong></p>
+<p style="text-align: left;">Die zentralen Anliegen der Demo sind:</p>
+<ul>
+<li>weniger Überwachung</li>
+<li>bestehende Überwachungsgesetze auf den Prüfstand stellen</li>
+<li>Stopp für neue Überwachungsgesetze</li>
+</ul>
+<p style="text-align: left;">für den vollständigen Aufruf und weitere Informationen, besuche</p>
+<p style="text-align: center;"><a href="http://www.freiheitstattangst.de" title="Freiheit statt Angst" class="aligncenter">http://www.freiheitstattangst.de</a></p>
+<p style="text-align: left;"><a href="http://www.freiheitstattangst.de" title="Freiheit statt Angst" class="aligncenter"></a><br />
+Wir unterstützen die Demonstration und rufen dich auf, an ihr teilzunehmen. Berlin ist gottseidank nicht ganz so weit weg und am Samstag kann man für wenig Geld mit der Bahn fahren. Wir planen, am Samstag mit Wochenendtickets nach Berlin zu fahren, auf die Demo zu gehen und anschließend mit der Bahn wieder nach Hause zu fahren.
+</p>
+<p style="text-align: left;">Wenn du mit uns gemeinsam hinfahren möchtest, sei am besten um 08:00 Uhr am Hauptbahnhof <strong>vor dem Reisezentrum</strong>, damit wir rechtzeitig genug Tickets kaufen können. Die Kosten werden sich zwischen 0 und 12 Euro belaufen.</p>
+<p style="text-align: left;">Die Rückfahrt ist mit der Bahn um 20:25 Uhr vom Berliner Hauptbahnhof geplant. Wir treffen uns um 19:45 am Brandenburger Tor um gemeinsam zum Bahnhof zu gehen und dort die Bahn zu nehmen. Die planmäßige Ankunft in Hamburg ist 00:18 Uhr.</p>
+<p style="text-align: left;">Wer nach Berlin möchte, aber lieber mit dem Bus fahren möchte, kann im <a href="https://shop.foebud.org/index.php?cName=-demobus-hamburg-c-36_42_51" title="Organisierte Busfahrten vom FoeBud">FoeBud Shop</a> fündig werden.</p>
+<p style="text-align: left;">Um ein wenig mehr auf uns aufmerksam zu machen, wollen wir Transpis herstellen. Die Materialien werden vom FSR Informatik gestellt, lediglich die Ideen und die Arbeit müssen von dir kommen. Es wird sich zum gemeinsamen Transpi-Malen getroffen um zwar am</p>
+<p style="text-align: center;">Freitag, den 10.10. um 10:00 Uhr im c.t. (E-118) in der <a href="http://mafiasi.de/Wegbeschreibung" title="Anfahrtsbeschreibung">Vogt-Kölln-Str. 30</a></p>
+]]></description>
+      <source url="https://www.hamburg.ccc.de">CCC Hamburg</source>
+    </item>
+    <item>
+      <title>Gobelab: Getxoko Hacklab: Web berria!!!!</title>
+      <link>http://gobelab.hacklabs.org/?p=4</link>
+      <guid isPermaLink="true">http://gobelab.hacklabs.org/?p=4</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:46 GMT</pubDate>
+      <description><![CDATA[<p><!--5fbf96c8a48ab7f6533d5b200ee9bd08-->
+</p>
+]]></description>
+      <source url="http://gobelab.hacklabs.org">Gobelab: Getxoko Hacklab</source>
+    </item>
+    <item>
+      <title>Gobelab: Getxoko Hacklab: Musik(h)erria:</title>
+      <link>http://gobelab.hacklabs.org/?p=5</link>
+      <guid isPermaLink="true">http://gobelab.hacklabs.org/?p=5</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:43 GMT</pubDate>
+      <description><![CDATA[<p><!--f9e5ead716b568604b07ea5d2a46760a-->
+</p>
+]]></description>
+      <source url="http://gobelab.hacklabs.org">Gobelab: Getxoko Hacklab</source>
+    </item>
+    <item>
+      <title>www.c3d2.de Newsfeed: Freedom not Fear 2008: Großdemo am 11. Oktober in Berlin</title>
+      <link>https://www.c3d2.de/news/event-freedom-not-fear-2008.html</link>
+      <guid isPermaLink="true">https://www.c3d2.de/news/event-freedom-not-fear-2008.html</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:43 GMT</pubDate>
+      <description><![CDATA[
+      <div xmlns="http://www.w3.org/1999/xhtml">
+    <img title="Logo des internationalen Aktionstags" src="https://www.c3d2.de/images/news/freedomnotfear2008.gif" alt="" />
+    
+    <dl><dt>Datum</dt><dd><abbr title="20081011T140023" class="dtstart">Samstag, 11. Oktober 2008 um 14:00 Uhr</abbr></dd></dl>
+    <dl><dt>Ort</dt><dd><span class="location">Alexanderplatz, Berlin</span><ul class="location-hints"><li><a href="http://maps.google.com/maps?q=Alexanderplatz%2C%20Berlin">Google Maps</a></li></ul></dd></dl>
+    
+        <p class="">
+           Inzwischen <a href="https://c3d2.de/news/meldedaten.html">verschachert</a> man nicht nur unsere Meldedaten, sondern gibt das auch noch freimütig zu und plant zu allem Überfluss den Gewinn sogar in den Landeshaushalt mit ein. Da wird es <a href="https://www.heise.de/newsticker/meldung/96385/">wieder einmal</a> Zeit, gegen diesen Überwachungswahn öffentlich und laut zu protestieren. Am vorletzten Sonntag <a href="http://www.dailymotion.com/video/x6wnnf_freiheit-statt-angst_news">übten</a> sich schon einmal 500 Menschen in <a href="http://c3d2.de/news/event-freiheit-statt-angst-leipzig-2008.html">Leipzig</a>  darin und warben dabei gleichzeitig für den internationalen Aktionstag <a href="https://www.vorratsdatenspeicherung.de/content/view/242/144/lang,en/">"Freedom not Fear"</a> am 11. Oktober. Im Rahmen des Aktionstags startet in Berlin ab 14:00 Uhr die Großdemonstration <a href="https://www.vorratsdatenspeicherung.de/content/view/242/144/lang,de/">"Freiheit statt Angst"</a>, die bereits seit Monaten vom <a href="http://ccc.de/">Bundes-CCC</a> mit einem riesigen Banner beworben wird. Einen Überblick über die in anderen Ländern geplanten Aktionen gibt eine <a href="https://www.fsfeurope.org/news/2008/freedom-not-fear.de.html">Pressemitteilung</a> der <a href="https://www.fsfeurope.org/index.de.html">Free Software Foundation Europe</a>:
+       </p>
+       <p class="blockquote">Daneben sind bereits in 21 weiteren Ländern Aktionen geplant: So werden z.B. auch in den Städten Paris, Stockholm, London, Sofia und Luxemburg Demonstrationen stattfinden, in Rom und Zürich sind künstlerische Aktionen angekündigt und in Washington D.C. mehrere Diskussionveranstaltungen geplant. In den Niederlanden stehen unter dem Titel <a href="http://www.volksopstand2008.nl/">"Volksopstand 2008"</a> ab 12 Uhr eine Kundgebung am Platz der zweiten Kammer in Den Haag sowie im Anschluss daran vielfältige Formen des Protests wie Workshops oder ein "privacy markt" auf dem Programm. Auf der <a href="https://wiki.vorratsdatenspeicherung.de/Freedom_Not_Fear_2008/International_actions_overview">Übersichtsseite</a> des Aktionstags sind die gesamten weltweit geplanten Aktionen aufgeführt.
+       </p>
+       <p class="">Seid alle mit dabei, erscheint zahlreich samt Kind und Kegel und bringt all eure Freunde und Bekannte mit. Noch gibt es den <a href="https://shop.foebud.org/product_info.php?pName=demobus-ab-dresden-hin-und-rueckfahrt-p-335">Bus von Dresden aus</a> übrigens zu buchen.
+       </p>
+</div>
+    ]]></description>
+      <source url="https://www.c3d2.de/news-atom.xml">www.c3d2.de Newsfeed</source>
+    </item>
+    <item>
+      <title>Gobelab: Getxoko Hacklab: Copyleft Jardunaldiak</title>
+      <link>http://gobelab.hacklabs.org/?p=6</link>
+      <guid isPermaLink="true">http://gobelab.hacklabs.org/?p=6</guid>
+      <pubDate>Tue, 14 Oct 2008 12:56:40 GMT</pubDate>
+      <description><![CDATA[<p><!--18a1c7744fc5663ed9f2b31aafc37b32-->
+</p>
+<p><!--37350ceedde9b7def116ce0700126230-->
+</p>
+]]></description>
+      <source url="http://gobelab.hacklabs.org">Gobelab: Getxoko Hacklab</source>
+    </item>
+    <item>
+      <title>Underscore _TO* Hacklab: it:luogo</title>
+      <link>http://autistici.org//underscore/doku.php?id=it:luogo</link>
+      <guid isPermaLink="true">http://autistici.org//underscore/doku.php?id=it:luogo</guid>
+      <pubDate>Mon, 13 Oct 2008 21:37:04 GMT</pubDate>
+      <description><![CDATA[Luogo
+
+Dove siamo
+
+L'Hacklab Underscore Torino è ospitato in un'ala del Centro Sociale Occupato Autogestito Gabrio. Il centro si trova in Via Revello 5, quasi all'incrocio con via Frejus, zona San Paolo. Da via Revello è facile scorgere dietro un cancello la facciata completamente dipinta di nero e la nostra insegna, appesa sopra l'entrata. Per farvi aprire basterà suonare il campanello: la nostra calorosa accoglienza prevede nientemeno che un regale tappeto rosso :-)]]></description>
+      <source url="http://autistici.org//underscore/">Underscore _TO* Hacklab</source>
+    </item>
+    <item>
+      <title>Ductape: Last Ductape Meeting was Logical</title>
+      <link>http://www.ductape.co.za/2008/10/last-ductape-meeting-was-logical/</link>
+      <guid isPermaLink="true">http://www.ductape.co.za/2008/10/last-ductape-meeting-was-logical/</guid>
+      <pubDate>Mon, 13 Oct 2008 14:44:46 GMT</pubDate>
+      <description><![CDATA[<p>Yeah, for me the meeting started with a nice KFC Streetwise One with BREAST meat. Yes, we all decided to NIPPLE on out to the local KFC and grab our favourite BYTE to eat. It was a BIT of fun, and WORD has is that the others enjoyed it TWO! Oh, and Ducan got Chinese Food. Don&#8217;t tell him, but that was not asparagus.</p>
+<p>Well, I gave a talk on Logic Systems Basics. We covered the binary number system, in 10 (two) easy steps, ONES and ZEROS&#8230;</p>
+<p>We started off looking at the difference between analogue and digital, and the pros and cons of both, and then develed into the amazing world of boolean algebra and logic equations. We learnt how the various gates work, how to convert to and from binary and decimal, and also how to sample analogue data into digital and back again.</p>
+<p>Though it wasn&#8217;t planned in the talk, I was requested to explain the actual electronic process of ADC and DAC, so that was fun, and we even toyed the idea of maybe building a resistor ladder.</p>
+<p>It was also explained why analogue transmissions loose data quality over distance, as well as how they can pick up unwanted data as well. We also looked at the loss of digital data, either it&#8217;s there or it&#8217;s not.</p>
+<p>I had fun keeping everyone ABREAST with this knowledge.</p>
+<p>Looking forward to the next meeting&#8230;</p>
+]]></description>
+      <source url="http://www.ductape.co.za">Ductape</source>
+    </item>
+    <item>
+      <title>Ductape: Next meeting - 14 October 2008</title>
+      <link>http://www.ductape.co.za/2008/10/next-meeting-14-october-2008/</link>
+      <guid isPermaLink="true">http://www.ductape.co.za/2008/10/next-meeting-14-october-2008/</guid>
+      <pubDate>Mon, 13 Oct 2008 14:05:41 GMT</pubDate>
+      <description><![CDATA[<p>Hi guys</p>
+<p>I have kinda dropped the ball on this one. ITSI have offered us the use of their boardroom for future meetings.  I was pretty happy with the venue last time so if everyone else is happy with it, we can use them tomorrow and in future.</p>
+<p>As far as topics go, I had hoped to show you guys some stuff on electrolytic machining/etching, but my experiments with that over the weekend didn&#8217;t turn out so well. I can still explain it and show some stuff that others did that were successful. Otherwise, if anyone else has projects or info to share or questions to ask, please bring them along.</p>
+<p>We also need to start planing ahead a bit more. I would like to line up a few talks ahead of time and start looking at planing for what we need in order to get our physical space.</p>
+<p>So, in summary:-<br />
+Next meeting: Tomorrow 14 October 2008<br />
+Time: 18:00<br />
+Venue: ITSI (22 Church Road, Westville)<br />
+Topic: Electrolytic Etching/Machining, General discussion, planning our hackerspace</p>
+<p>cya</p>
+<p>SB</p>
+]]></description>
+      <source url="http://www.ductape.co.za">Ductape</source>
+    </item>
+    <item>
+      <title>Chaos Darmstadt - Chaos im MetaRheinMain: [Demo-Nachbericht] Freiheit statt Angst</title>
+      <link>http://www.chaos-darmstadt.de/b/?p=262</link>
+      <guid isPermaLink="true">http://www.chaos-darmstadt.de/b/?p=262</guid>
+      <pubDate>Mon, 13 Oct 2008 13:41:00 GMT</pubDate>
+      <description><![CDATA[<p>Der CCC und insbesondere Teilnehmer aus dem Chaos des Rhein Main Gebiets waren am vergangenen Woche auf der Demonstration in Berlin &#8220;Freiheit statt Angst&#8221;. Der CCC war mit einem eigenen Wagen vor Ort. Nach Abbau der Presse- und Koordinierungszelte konnten wir noch ein wenig am Brandenburger Tor nerden.</p>
+<p><a href="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_145702_d70_020789.jpg"><img class="alignleft size-full wp-image-264" title="maik_20081011_145702_d70_020789" src="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_145702_d70_020789.jpg" height="200" alt="" /></a></p>
+<p><a href="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_171600_d70_020856.jpg"><img class="alignleft size-full wp-image-276" title="maik_20081011_171600_d70_020856" src="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_171600_d70_020856.jpg" height="200" alt="" /></a></p>
+<p><a href="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_151224_d70_020795.jpg"><img class="alignleft size-full wp-image-265" title="maik_20081011_151224_d70_020795" src="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_151224_d70_020795.jpg" height="200" alt="" /></a><a href="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_145446_d70_020788.jpg"><img class="alignleft size-full wp-image-263" title="maik_20081011_145446_d70_020788" src="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_145446_d70_020788.jpg" height="200" alt="" /></a></p>
+<p><a href="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/img_2369a.jpg"><img class="alignleft size-full wp-image-268" title="img_2369a" src="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/img_2369a.jpg" height="200" alt="" /></a></p>
+<p><a href="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_161516_d200_037200.jpg"><img class="alignleft size-full wp-image-279" title="maik_20081011_161516_d200_037200" src="http://www.chaos-darmstadt.de/b/wp-content/uploads/2008/10/maik_20081011_161516_d200_037200.jpg" height="200" alt="" /></a></p>
+]]></description>
+      <source url="http://www.chaos-darmstadt.de/b">Chaos Darmstadt - Chaos im MetaRheinMain</source>
+    </item>
+    <item>
+      <title>net culture lab: follow the netculturelab on identi.ca</title>
+      <link>http://lab.netculture.at/2008/10/13/follow-the-netculturelab-on-identica/</link>
+      <guid isPermaLink="true">http://lab.netculture.at/2008/10/13/follow-the-netculturelab-on-identica/</guid>
+      <pubDate>Mon, 13 Oct 2008 12:54:18 GMT</pubDate>
+      <description><![CDATA[<p>Just a short note to announce, that we&#8217;ve started<a href="http://identi.ca/netculturelabdornbirn"><span style="color: #b00000;"><span style="color: #b00000;"> using Microblogging here at the netculturelab</span></span></a> to stay up2date with what&#8217;s going on at the lab and with the projects we&#8217;re doing. Sometimes you just have a few, but relevant words to say, then microblogging might make sense.</p>
+<p>You can subscribe and follow our feed, if you are using any of the openmicroblogging-compatible sites like http://identi.ca/ http://zwitscher.at/ or <a href="http://laconi.ca/trac/wiki/ListOfServers"><span style="color: #00b000;"><span style="color: #00b000;">many more.</span></span></a> If you post something related to the lab, please just use the tag #ncl somewhere in the post, to reply to someones post use @username, and if you want to send something to us, use @netculturelabdornbirn . Of course, if you subscribe to our feed, we&#8217;ll subscribe yours!</p>
+<p>The great thing about OpenMicroBlogging is, that unlike Twitter, it&#8217;s open in many ways: People can subscribe to feeds across Microblogging servers, it works fine with open Messaging Protocols like Jabber/XMPP and the software running it is as free as it could be. Thanks to the <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html"><span style="color: #00b000;"><span style="color: #00b000;">AfferoGPL</span></span></a>, you can use and improve the software(=Source Code) running the service yourself and host your own Microblogging service.</p>
+]]></description>
+      <source url="http://lab.netculture.at">net culture lab</source>
+    </item>
+    <item>
+      <title>Realraum Graz: vortrag - Vortrag am 21, im ESC</title>
+      <link>https://realraum.at/wiki/doku.php?id=vortrag&amp;amp;rev=1223889171&amp;do=diff1223889171</link>
+      <guid isPermaLink="true">https://realraum.at/wiki/doku.php?id=vortrag&amp;amp;rev=1223889171&amp;do=diff1223889171</guid>
+      <pubDate>Mon, 13 Oct 2008 11:12:00 GMT</pubDate>
+      <description><![CDATA[21. 10. 2008 - Wie kann man Open-Source-Projekte enterprise-tauglich[tm] machen? (Michael Prokop) Der Vortrag findet im ESC (Jakoministrasse 16) statt! 
+
+Bisher gibt es nur Vorschläge, jedoch hat sich noch niemand gefunden, der über die unten genannten Themen - oder auch irgendein anderes Thema seiner Wahl referieren will.]]></description>
+      <source url="https://realraum.at/wiki/">Realraum Graz</source>
+    </item>
+    <item>
+      <title>Realraum Graz: realraum - Vortrag am 21, nicht 28. Im ESC</title>
+      <link>https://realraum.at/wiki/doku.php?id=realraum&amp;amp;rev=1223889110&amp;do=diff1223889110</link>
+      <guid isPermaLink="true">https://realraum.at/wiki/doku.php?id=realraum&amp;amp;rev=1223889110&amp;do=diff1223889110</guid>
+      <pubDate>Mon, 13 Oct 2008 11:11:00 GMT</pubDate>
+      <description><![CDATA[Anwesenheitsanzeige
+
+ <http://torwaechter.realraum.at>
+
+Aktuelles
+
+	*  Suche nach neuem Raum
+	*  Suche nach noch mehr motivierten Mitgliedern :-)
+
+Treffen
+
+ Nächstes reguläres Treffen: 16. 10. 2008 - Besprechung wegen neuem Raum
+
+Nächster regulärer Vortrag: 21. 10. 2008 - “Wie kann man Open-Source-Projekte enterprise-tauglich[tm] machen?” von Michael Prokop im ESC (Jakoministrasse 16), 20 Uhr]]></description>
+      <source url="https://realraum.at/wiki/">Realraum Graz</source>
+    </item>
+    <item>
+      <title>hacklab.to: HackLab Go Night</title>
+      <link>http://hacklab.to/archives/hacklab-go-night/</link>
+      <guid isPermaLink="true">http://hacklab.to/archives/hacklab-go-night/</guid>
+      <pubDate>Mon, 13 Oct 2008 07:11:11 GMT</pubDate>
+      <description><![CDATA[<p>I&#8217;ve been wanting to get back into playing go. There&#8217;s also this neat lab space that I can use for hosting events (maybe you&#8217;ve heard of it). While thinking about these two things, I figured that maybe they would work well together!</p>
+<p>So, I&#8217;m going to try to start a bi-weekly go night at the HackLab. Starting next Monday, from 6-9(ish) PM, I&#8217;ll be trying to get back into playing this awesome game, and you should join me. I&#8217;ll do my best to bring extra boards so everyone who shows up can play, but if you have one, please bring it!</p>
+<p>If you don&#8217;t know how to play, that&#8217;s ok too, as I&#8217;m more than happy to teach people.</p>
+<p>I hope to see people there next week!</p>
+]]></description>
+      <source url="http://hacklab.to">hacklab.to</source>
+    </item>
+    <item>
+      <title>CCCB - Letzte Änderungen [de]: AVR-Board mit Ethernet</title>
+      <link>https://berlin.ccc.de/wiki/AVR-Board_mit_Ethernet</link>
+      <guid isPermaLink="true">https://berlin.ccc.de/wiki/AVR-Board_mit_Ethernet</guid>
+      <pubDate>Sun, 12 Oct 2008 03:19:00 GMT</pubDate>
+      <description><![CDATA[<p><span class="autocomment">Der Schaltplan -</span> </p>
+
+			<table cellspacing="4" border="0" style="background-color: white;" cellpadding="0" width="98%">
+			<tr>
+				<td align="center" style="background-color: white;" width="50%" colspan="2">← Nächstältere Version</td>
+				<td align="center" style="background-color: white;" width="50%" colspan="2">Version vom 01:19, 12. Okt. 2008</td>
+			</tr>
+		<tr><td align="left" colspan="2"><strong>Zeile 1:</strong></td>
+<td align="left" colspan="2"><strong>Zeile 1:</strong></td></tr>
+<tr><td> </td><td style="background: #eee; font-size: smaller;">== Der Schaltplan ==</td><td> </td><td style="background: #eee; font-size: smaller;">== Der Schaltplan ==</td></tr>
+<tr><td colspan="2">&nbsp;</td><td>+</td><td style="background: #cfc; font-size: smaller;"></td></tr>
+<tr><td colspan="2">&nbsp;</td><td>+</td><td style="background: #cfc; font-size: smaller;">'''Update: unter [http://213.239.212.163/mediawiki/index.php/Microwebserver] befindet sich die weiterentwickelte Version'''</td></tr>
+<tr><td> </td><td style="background: #eee; font-size: smaller;"></td><td> </td><td style="background: #eee; font-size: smaller;"></td></tr>
+<tr><td> </td><td style="background: #eee; font-size: smaller;">[[Bild:AVR-Ethernetboard.jpg|thumb|200px|die Schematik]]</td><td> </td><td style="background: #eee; font-size: smaller;">[[Bild:AVR-Ethernetboard.jpg|thumb|200px|die Schematik]]</td></tr>
+</table>]]></description>
+      <source url="https://berlin.ccc.de/wiki/Spezial:Letzte_%C3%84nderungen">CCCB - Letzte Änderungen [de]</source>
+    </item>
+    <item>
+      <title>Kiberpipa.org: Pipin odprti termin: Utrinki s KDE-jeve konference Akademy 2008 (Jure Repinc)</title>
+      <link>http://www.kiberpipa.org/index.php?name=News&amp;file=article&amp;sid=1042</link>
+      <guid isPermaLink="true">http://www.kiberpipa.org/index.php?name=News&amp;file=article&amp;sid=1042</guid>
+      <pubDate>Sat, 11 Oct 2008 23:43:29 GMT</pubDate>
+      <description><![CDATA[
+
+Na Pipinem odprtem terminu v torek, 14.10. ob 19h bo Jure Repinc predstavil najbolj aktualne, vroče in zanimive utrinke z letošnje Akademy 2008 konference, ki se je odvijala med 9. in 15. avgustom 2008 v Belgiji. Vabljeni!
+
+Več si preberite na http://pot.kiberpipa.org/]]></description>
+      <source url="http://www.kiberpipa.org/">Kiberpipa.org</source>
+    </item>
+    <item>
+      <title>Alt+Ctrl+Supr: Exploit-Me para Firefox</title>
+      <link>http://altctrlsupr.net/exploit-me-para-firefox/</link>
+      <guid isPermaLink="true">http://altctrlsupr.net/exploit-me-para-firefox/</guid>
+      <pubDate>Fri, 10 Oct 2008 22:14:12 GMT</pubDate>
+      <description><![CDATA[<p>Son una suite de addons para el navegador del zorrillo (o zorrilla), que nos permiten testear la seguridad de nuestros servidores, mediante <a href="https://addons.mozilla.org/en-US/firefox/addon/7595" title="Access-Me">pruebas de acceso</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/7597" title="SQL Inject-Me">inyeccion SQL</a> y <a href="https://addons.mozilla.org/en-US/firefox/addon/7598" title="XSS-Me">cross site scripting (XSS)</a>.</p>
+<p>Son bastante configurables, aunque con la configuracion por defecto ya funcionan y encuentran cosillas.</p>
+<p>Muy interesantes y recomendables.</p>
+]]></description>
+      <source url="http://altctrlsupr.net">Alt+Ctrl+Supr</source>
+    </item>
+    <item>
+      <title>Alt+Ctrl+Supr: Lanzamiento de la cancion “No al Canon”</title>
+      <link>http://altctrlsupr.net/lanzamiento-de-la-cancion-no-al-canon/</link>
+      <guid isPermaLink="true">http://altctrlsupr.net/lanzamiento-de-la-cancion-no-al-canon/</guid>
+      <pubDate>Fri, 10 Oct 2008 15:45:11 GMT</pubDate>
+      <description><![CDATA[<p>Lanzamiento de la canción del Otoño<br />
+&#8211;&#62; NO AL CANON!!!<br />
+<a href="http://patiomaravillas.net/noalcanon" target="_blank">http://patiomaravillas.net/noalcanon</a></p>
+<p>by Isaac Hacksimov Band</p>
+<p>Ante el acoso intelectual y económico, pertinaz, por parte de las<br />
+profesionales de la gestión de derechos de autor (o mejor dicho, los<br />
+expertos en explotar la cultura de todas), hemos<br />
+decidido darles un patadón,<span id="more-825"></span> mostrando que es posible:<br />
+* crear, editar y distribuir la cultura de forma<br />
+autogestionada<br />
+* hacerlo al margen de su control y negocio.</p>
+<p>Para ello hemos compuesto una obra colectiva que hemos grabado, editado<br />
+y hecho la autoproducción en el Patio Maravillas, en directo y en un<br />
+día, una noche y una resaca.  Hemos utilizado software libre para todo<br />
+el proceso de producción y queremos que se difunda por el medio que más<br />
+temen, internet.</p>
+<p>Descarga:<br />
+<a href="http://patiomaravillas.net/noalcanon/audio" target="_blank">http://patiomaravillas.net/noalcanon/audio</a><br />
+<a href="http://www.archive.org/download/NoAlCanon_28/NAC.mp3" target="_blank">http://www.archive.org/download/NoAlCanon_28/NAC.mp3</a><br />
+<a href="http://www.archive.org/download/NoAlCanon_28/NoAlCanon_28_vbr_mp3.zip" target="_blank">http://www.archive.org/download/NoAlCanon_28/NoAlCanon_28_vbr_mp3.zip</a></p>
+<p>Descárgate el politono<br />
+<a href="http://patiomaravillas.net/noalcanon/politono" target="_blank">http://patiomaravillas.net/noalcanon/politono</a><br />
+<a href="http://www.archive.org/download/NAC_Politono_2/NAC_Politono_2_vbr_mp3.zip" target="_blank">http://www.archive.org/download/NAC_Politono_2/NAC_Politono_2_vbr_mp3.zip</a></p>
+<p>Making off<br />
+<a href="http://es.youtube.com/watch?v=VKylUt_Mzyw" target="_blank">http://es.youtube.com/watch?v=VKylUt_Mzyw</a></p>
+<p>Esta es la historia:</p>
+<p>Canción:No al canon<br />
+Creadores:Isaac Hacksimov Band<br />
+Algunos piratas decidieron reunirse&#8230;..<br />
+Para crear una canción<br />
+Un miembro rebelde de la Sgae se une a los Bucaneros<br />
+Y aporta la música para el tema<br />
+La banda de filibusteros crea una letra para el evento<br />
+Nunca antes se habían juntado y casi sin ensayos<br />
+Se toca en directo y se graba un tema<br />
+La música la registra un músico en safe-creative con  copyright<br />
+La letra la registran treinta creadores en copyleft:BY-NC-SA<br />
+La edicion se lanza en copyleft con la misma licencia<br />
+El creador de la parte musical registra ésta en la SGAE<br />
+Se difunde entre radios,medios de comunicación y en descaga gratuita.</p>
+<p>Nos preguntamos:</p>
+<p>¿Pueden colaborar musicos de la SGAE con musicos copyleft?<br />
+¿Son válidas las licencias para la Innombrable?<br />
+¿Quien recibe dinero por derechos de autor, solo el creador de la<br />
+música?<br />
+¿Y que mas nos da si la podemos descargar por la patilla?</p>
+]]></description>
+      <source url="http://altctrlsupr.net">Alt+Ctrl+Supr</source>
+      <enclosure url="http://www.archive.org/download/NoAlCanon_28/NAC.mp3" type="audio/mpeg" length="2567154"/>
+    </item>
+    <item>
+      <title>/tmp/lab: Freedom not fear France - La liberté pas la peur - Rendez vous ce samedi 11 à 13h30 à République</title>
+      <link>http://www.tmplab.org/2008/10/10/freedom-not-fear-france-la-liberte-pas-la-peur-rendez-vous-ce-samedi-11-a-13h30-a-republique/</link>
+      <guid isPermaLink="true">http://www.tmplab.org/2008/10/10/freedom-not-fear-france-la-liberte-pas-la-peur-rendez-vous-ce-samedi-11-a-13h30-a-republique/</guid>
+      <pubDate>Fri, 10 Oct 2008 13:28:00 GMT</pubDate>
+      <description><![CDATA[<p><a href="http://www.tmplab.org/wp-content/uploads/2008/10/fnfinternational468x60px.gif"><img src="http://www.tmplab.org/wp-content/uploads/2008/10/fnfinternational468x60px.gif" /></a></p>
+<p>Le /tmp/lab participe à la Freedom Not Fear. Donc rendez vous à 13h30 ce samedi 11 Octobre à 13h30 à l&#8217;angle du boulevard Magenta et de République.</p>
+<p><a href="http://www.humanrights21.org/?p=75">Human Rights 21 -  Participation française à la journée d’action internationale “Freedom not fear”</a></p>
+]]></description>
+      <source url="http://www.tmplab.org">/tmp/lab</source>
+    </item>
+  </channel>
+</rss>

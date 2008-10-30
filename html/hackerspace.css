@@ -1,0 +1,194 @@
+body {
+  background-color: #c0c0C0;
+  font-family: Consolas;
+  font-size: 10pt;
+  margin: 0pt;
+  padding: 0pt; }
+
+a {
+  color: #f10;
+  font-weight: bold; }
+
+a:link, a:visited, a:active {
+  text-decoration: none; }
+
+a:active {
+  color: #c0c0c0; }
+
+a:hover {
+  text-decoration: underline;
+  color: #c00; }
+
+a:visited {
+  color: #f60; }
+
+img { border: none; }
+
+#header {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  border: none;
+  color: #f10;
+  margin: 0;
+  padding: 0; }
+  #header h1.title {
+    margin-left: 1em;
+    margin-top: 0.75em;
+    margin-bottom: 0.25em;
+    font-size: 24pt; }
+    #header h1.title a {
+      color: #f10; }
+  #header #tagline {
+    position: fixed;
+    top: 2.25em;
+    right: 2em;
+    font-size: 12pt;
+    font-weight: bold; }
+  #header #menu {
+    font-family: Consolas, "Courier New", Monospace;
+    font-size: 12pt;
+    font-weight: bold; }
+    #header #menu .switch {
+      float: left; }
+    #header #menu ul {
+      list-style: none;
+      margin: 0 auto;
+      padding: none; }
+      #header #menu ul li {
+        display: inline;
+        margin: none;
+        padding: none; }
+        #header #menu ul li a {
+          border-top: 4px solid black;
+          color: white;
+          display: block;
+          float: left;
+          height: 20px;
+          width: 6em;
+          text-decoration: none;
+          text-align: center; }
+      #header #menu ul li:hover a, #header #menu ul li.selected a {
+        background-color: #c0c0c0;
+        border-color: #c0c0c0;
+        color: #000; }
+
+#page {
+  margin-top: 7em; }
+/*
+#page #blogs, #photos {
+    float: left;
+    margin: 0 auto;
+    margin-left: 20%;
+    padding: 2em;
+    width: 40em; 
+  }
+*/
+
+#contents, #wiki_changes {
+  padding-left: 30px;
+  font-size: smaller;
+}
+#contents h1 { display: none; }
+#contents blockquote { margin: 1em; }
+
+#photos ul {
+  list-style: none;
+  padding: 0;
+}
+#photos ul li {
+  display: inline;
+}
+#photos img {
+  border: 2px solid black;
+}
+#photos img:hover {
+  width: auto;
+}
+
+#links {
+  position: absolute;
+  top: 6.5em; right: 10px;
+  width: 20%;
+}
+
+#harvested {
+  position: fixed;
+  top: 9em;
+  bottom: 4em;
+  width: 0;
+  background-color: #333;
+  border-right: 20px solid black;
+  color: white;
+  overflow: hidden; }
+  #harvested #tools_icon {
+    background: transparent url(images/arrow_left.png) 100% 50% no-repeat;
+    display: block;
+    position: fixed;
+    top: 9em;
+    bottom: 4em;
+    width: 20px; }
+
+#harvested:hover {
+  padding: 1em;
+  width: 320px;
+  overflow: auto;
+  z-index: 99; }
+  #harvested:hover #tools_icon {
+    display: none; }
+
+#harvested ul {
+  padding: 10px;
+}
+
+#subscriptions h2 {
+  font-size: 1.4em;
+  font-style: italic;
+  margin: 0.25em 0;
+  padding: 0;
+}
+#subscriptions dl {
+  margin: 0;
+  padding: 0;
+}
+#subscriptions dl dt {
+  display: inline;
+  float: left;
+}
+#subscriptions dl dt:after {
+  content: ": ";
+}
+#subscriptions dl dd {
+  float: left;
+  margin-right: 0.25em;
+  margin: 0 0.5em;
+  padding: 0;
+}
+
+div.r {
+  float: right;
+  width: 20%;
+}
+
+div.l {
+  float: left;
+  width: 20%;
+}
+
+#blogs, #photos {
+  margin: 0 auto;
+  width: 50%;
+}
+
+#footer {
+  background-color: black;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 0.25em; }

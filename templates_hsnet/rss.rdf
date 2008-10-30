@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:hv="http://astroblog.spaceboyz.net/harvester/xslt-functions"
+  xmlns:date="http://exslt.org/dates-and-times"
+  exclude-result-prefixes="xsl hv date">
+
+<xsl:output method="xml"
+            version="1.0"
+            encoding="utf-8"
+            media-type="application/rss+xml"
+            cdata-section-elements="description"
+            indent="yes"/>
+
+<xsl:template match="/collections">
+  <rss version="2.0">
+    <channel>
+      <title>Planet HackerSpace.NET: Harvesting Voices from Hacker Spaces Communities on Planet Earth</title>
+      <link>http://hackerspace.net/</link>
+      <description>&lt;p&gt;&lt;a href="http://hackerspace.net/" title="HackerSpace.NET"&gt;Planet HackerSpace&lt;/a&gt; aggregates the voices from hacker spaces worldwide. Powered by &lt;p&gt;&lt;a href="http://astroblog.spaceboyz.net/harvester/"&gt;Blog Harvester&lt;/a&gt;&lt;/p&gt;.&lt;p&gt;Currently aggregating:&lt;/p&gt;&lt;ul&gt;
+        <xsl:for-each select="collection[@name='blogs']/feed">
+          <xsl:sort select="translate(title, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+          &lt;li&gt;&lt;a href="<xsl:value-of select="link"/>" title="<xsl:value-of select="description"/>"&gt;<xsl:value-of select="title"/>&lt;/a&gt;&lt;/li&gt;
+        </xsl:for-each>
+        &lt;/ul&gt;
+	     &lt;img src="chart.jpg"/&gt;</description>
+
+      <xsl:variable name="blogs" select="collection[@name='blogs']"/>
+      <xsl:for-each select="hv:collection-items('blogs')/item">
+        <xsl:variable name="rss" select="string(rss)"/>
+        <xsl:variable name="feed" select="$blogs/feed[rss=$rss]"/>
+        <item>
+          <title><xsl:value-of select="concat($feed/title,': ',title)"/></title>
+          <link><xsl:value-of select="link"/></link>
+          <guid isPermaLink="true"><xsl:value-of select="link"/></guid>
+          <pubDate>
+            <xsl:value-of select="concat(date:day-abbreviation(date),
+                                         ', ',
+                                         format-number(date:day-in-month(date), '00'),
+                                         ' ',
+                                         date:month-abbreviation(date),
+                                         ' ',
+                                         date:year(date),
+                                         ' ',
+                                         format-number(date:hour-in-day(date), '00'),
+                                         ':',
+                                         format-number(date:minute-in-hour(date), '00'),
+                                         ':',
+                                         format-number(date:second-in-minute(date), '00'),
+                                         ' GMT'
+                                        )"/>
+          </pubDate>
+          <description>
+            <xsl:value-of select="hv:item-description($rss, string(link))"/>
+          </description>
+          <source url="{$feed/link}"><xsl:value-of select="$feed/title"/></source>
+
+          <!-- Enclosures -->
+          <xsl:for-each select="hv:item-enclosures($rss, string(link))/enclosure">
+            <enclosure url="{href}">
+              <xsl:if test="mime">
+                <xsl:attribute name="type">
+                  <xsl:value-of select="mime"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:if test="string-length(title) &gt; 0">
+                <xsl:attribute name="title">
+                  <xsl:value-of select="title"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:if test="number(length)">
+                <xsl:attribute name="length">
+                  <xsl:value-of select="number(length)"/>
+                </xsl:attribute>
+              </xsl:if>
+            </enclosure>
+          </xsl:for-each>
+        </item>
+      </xsl:for-each>
+
+    </channel>
+  </rss>
+</xsl:template>
+
+</xsl:stylesheet>

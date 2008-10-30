@@ -1,0 +1,6 @@
+<% for item in stories %>
+  <div class="section details">
+    <h3><a href="<%= item.urls.first %>"><%= item.title %></a></h3>
+    <p style="color:#444;font-size:90%"><%= item.content %></p>
+  </div>
+<% end %>

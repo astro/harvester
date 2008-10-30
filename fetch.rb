@@ -18,7 +18,7 @@ end
 require 'mrss'
 
 
-config = YAML::load File.new('config.yaml')
+config = YAML::load_file('config.yaml')
 timeout = config['settings']['timeout'].to_i
 sizelimit = config['settings']['size limit'].to_i
 dbi = DBI::connect(config['db']['driver'], config['db']['user'], config['db']['password'])
@@ -72,9 +72,13 @@ purge_rss.each { |r|
 
 maxurlsize = 0
 config['collections'].each { |collection,rss_urls|
+  if rss_urls.nil?
+    $stderr.puts "Configuration is empty for #{collection}!"
+    next
+  end
   rss_urls.each { |rss_url|
     maxurlsize = (rss_url.size > maxurlsize) ? rss_url.size : maxurlsize
-  }
+  } 
 }
 
 dbi['AutoCommit'] = false
@@ -83,6 +87,10 @@ pending = []
 pending_lock = Mutex.new
 
 config['collections'].each { |collection,rss_urls|
+  if rss_urls.nil?
+    $stderr.puts "Configuration is empty for #{collection}!"
+    next
+  end
   rss_urls.each { |rss_url|
     pending_lock.synchronize { pending << rss_url }
     Thread.new {
@@ -148,7 +156,7 @@ config['collections'].each { |collection,rss_urls|
               if item_is_new
                 begin
                   dbi.do "INSERT INTO items (rss, title, link, date, description) VALUES (?, ?, ?, ?, ?)",
-                    rss_url, item.title, link, item.date, description
+                    rss_url, item.title, link, item.date.strftime("%F %T"), description
                   items_new += 1
                 rescue DBI::ProgrammingError
                   puts description

@@ -124,21 +124,23 @@ img { border: none; }
   border-right: 20px solid black;
   color: white;
   overflow: hidden; }
-  #harvested #tools_icon {
-    background: transparent url(images/arrow_left.png) 100% 50% no-repeat;
-    display: block;
-    position: fixed;
-    top: 9em;
-    bottom: 4em;
-    width: 20px; }
+#harvested #tools_icon {
+  background: transparent url(images/arrow_left.png) no-repeat right;
+  display: block;
+  position: fixed;
+  top: 9em;
+  bottom: 4em;
+  width: 20px; }
 
 #harvested:hover {
   padding: 1em;
   width: 320px;
   overflow: auto;
   z-index: 99; }
-  #harvested:hover #tools_icon {
-    display: none; }
+#harvested:hover #tools_icon {
+  left: 320px;
+  padding-left: 2em;
+}
 
 #harvested ul {
   padding: 10px;

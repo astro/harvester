@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'dbi'
 require 'yaml'
+require 'digest/md5'
 require 'uri'
 require 'net/http'
 begin
@@ -14,80 +14,43 @@ begin
 rescue LoadError
   require 'thread'
 end
+Thread::abort_on_exception = true
 
 require 'mrss'
+require 'couchdb'
 
 
 config = YAML::load File.new('config.yaml')
 timeout = config['settings']['timeout'].to_i
 sizelimit = config['settings']['size limit'].to_i
-dbi = DBI::connect(config['db']['driver'], config['db']['user'], config['db']['password'])
+CouchDB::setup config['couchdb']['url'], config['couchdb']['db']
 
-# Hack, an explicit lock would look much better
-class << dbi
-  def transaction(*a)
-    Thread::critical = true
-    super
-    Thread::critical = false
-  end
+# Not for security, just as an identifier (MD5 is shorter...)
+def hash(s)
+  Digest::MD5.hexdigest s
 end
-
-#######################
-# Database maintenance
-#######################
-
-puts "Looking for sources to purge..."
-purge = []
-dbi.select_all("SELECT collection, rss FROM sources") { |dbc,dbr|
-  purge << [dbc, dbr] unless (config['collections'][dbc] || []).include? dbr
-}
-
-purge_rss = []
-purge.each { |c,r|
-  puts "Removing #{c}:#{r}..."
-  dbi.do "DELETE FROM sources WHERE collection=? AND rss=?", c, r
-  purge_rss << r
-}
-
-purge_rss.delete_if { |r|
-  purge_this = true
-
-  config['collections'].each { |cfc,cfr|
-    if purge_this
-      puts "Must keep #{r} because it's still in #{cfc}" if cfr.include? r
-      purge_this = !(cfr.include? r)
-    end
-  }
-
-  !purge_this
-}
-purge_rss.each { |r|
-  puts "Purging items from feed #{r}"
-  dbi.do "DELETE FROM items WHERE rss=?", r
-}
 
 ###########
 # Fetching
 ###########
 
 maxurlsize = 0
-config['collections'].each { |collection,rss_urls|
-  rss_urls.each { |rss_url|
-    maxurlsize = (rss_url.size > maxurlsize) ? rss_url.size : maxurlsize
-  }
+config['urls'].each { |rss_url|
+  maxurlsize = (rss_url.size > maxurlsize) ? rss_url.size : maxurlsize
 }
 
-dbi['AutoCommit'] = false
 last_get_started = Time.new
 pending = []
 pending_lock = Mutex.new
 
-config['collections'].each { |collection,rss_urls|
-  rss_urls.each { |rss_url|
-    pending_lock.synchronize { pending << rss_url }
-    Thread.new {
-      db_rss, last = dbi.select_one "SELECT rss, last FROM sources WHERE collection=? AND rss=?", collection, rss_url
-      is_new = db_rss.nil?
+config['urls'].each do |rss_url|
+  rss_url_id = hash(rss_url)
+  pending_lock.synchronize { pending << rss_url }
+  Thread.new {
+    CouchDB::transaction { |couchdb|
+      db_rss = couchdb[rss_url_id]
+      is_new = db_rss['title'].nil?
+      last = db_rss['last']
 
       uri = URI::parse rss_url
       logprefix = "[#{uri.to_s.ljust maxurlsize}]"
@@ -106,80 +69,71 @@ config['collections'].each { |collection,rss_urls|
       last_get_started = Time.new
       begin
         response = http.request request
+        puts "#{logprefix} #{response.code} #{response.message}"
       rescue
-        puts "Skipped (request error)"
+        puts "#{logprefix} Skipped (request error)"
         pending_lock.synchronize { pending.delete rss_url }
+        Thread.exit
       end
-      puts "#{logprefix} #{response.code} #{response.message}"
 
       if response.kind_of? Net::HTTPOK
         if response.body.size > sizelimit
           puts "#{logprefix} #{response.body.size} bytes big!"
         else
-          begin dbi.transaction do
+          begin
             rss = MRSS::parse response.body
-
-            # Update source
-            if is_new
-              dbi.do "INSERT INTO sources (collection, rss, last, title, link, description) VALUES (?, ?, ?, ?, ?, ?)",
-                collection, rss_url, response['Last-Modified'], rss.title, rss.link, rss.description
-              puts "#{logprefix} Source added"
-            else
-              dbi.do "UPDATE sources SET last=?, title=?, link=?, description=? WHERE collection=? AND rss=?",
-                response['Last-Modified'], rss.title, rss.link, rss.description, collection, rss_url
-              puts "#{logprefix} Source updated"
-            end
-
-            items_new, items_updated = 0, 0
-            rss.items.each { |item|
-              description = item.description
-
-              # Link mangling
-              begin
-                link = URI::join((rss.link.to_s == '') ? uri.to_s : rss.link.to_s, item.link || rss.link).to_s
-              rescue URI::Error
-                link = item.link
-              end
-
-              # Push into database
-              db_title = dbi.select_one "SELECT title FROM items WHERE rss=? AND link=?", rss_url, link
-              item_is_new = db_title.nil?
-
-              if item_is_new
-                begin
-                  dbi.do "INSERT INTO items (rss, title, link, date, description) VALUES (?, ?, ?, ?, ?)",
-                    rss_url, item.title, link, item.date, description
-                  items_new += 1
-                rescue DBI::ProgrammingError
-                  puts description
-                  puts "#{$!.class}: #{$!}\n#{$!.backtrace.join("\n")}"
-                end
-              else
-                dbi.do "UPDATE items SET title=?, description=? WHERE rss=? AND link=?",
-                  item.title, description, rss_url, link
-                items_updated += 1
-              end
-
-              # Remove all enclosures
-              dbi.do "DELETE FROM enclosures WHERE rss=? AND link=?", rss_url, link
-              # Re-add all enclosures
-              item.enclosures.each do |enclosure|
-                href = URI::join((rss.link.to_s == '') ? link.to_s : rss.link.to_s, enclosure['href']).to_s
-                dbi.do "INSERT INTO enclosures (rss, link, href, mime, title, length) VALUES (?, ?, ?, ?, ?, ?)",
-                  rss_url, link, href, enclosure['type'], enclosure['title'], enclosure['length']
-              end
-            }
-            puts "#{logprefix} New: #{items_new} Updated: #{items_updated}"
-          end; rescue
-            puts "#{logprefix} Error: #{$!.class}: #{$!}\n#{$!.backtrace.join("\n")}"
+          rescue
+            puts "#{logprefix} Parse error: #{$!.to_s}"
+            Thread.exit
           end
+
+          # Update source
+          couchdb[rss_url_id] = {
+            'rss' => rss_url,
+            'last' => response['Last-Modified'],
+            'title' => rss.title,
+            'link' => rss.link,
+            'description' => rss.description
+          }
+          puts "#{logprefix} Source updated"
+
+          items_new, items_updated = 0, 0
+          rss.items.each { |item|
+            description = item.description
+            
+            # Link mangling
+            begin
+              link = URI::join((rss.link.to_s == '') ? uri.to_s : rss.link.to_s, item.link || rss.link).to_s
+            rescue URI::Error
+              link = item.link
+            end
+            item_id = rss_url_id + '-' + hash(item.link)
+
+            # Push into database
+            db_item = couchdb[item_id]
+            db_item['date'] ||= item.date
+            db_item['rss'] = rss_url
+            db_item['title'] = item.title
+            db_item['link'] = item.link
+            db_item['description'] = description
+            db_item['enclosures'] = item.enclosures.map { |enclosure|
+              {'href' => URI::join((rss.link.to_s == '') ? link.to_s : rss.link.to_s, enclosure['href']).to_s,
+                'mime' => enclosure['type'],
+                'title' => enclosure['title'],
+                'length' => enclosure['length']}
+            }
+
+            couchdb[item_id] = db_item
+            items_updated += 1
+          }
+          puts "#{logprefix} New: #{items_new} Updated: #{items_updated}"
         end
       end
 
       pending_lock.synchronize { pending.delete rss_url }
     }
   }
-}
+end
 
 while Time.new < last_get_started + timeout and pending.size > 0
   sleep 1

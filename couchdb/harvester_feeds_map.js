@@ -1,6 +1,6 @@
 function(doc)
 {
-  if (doc.enclosures == null)
+  if (doc.type == "feed")
   {
     emit(doc.rss,
 	 <feed>

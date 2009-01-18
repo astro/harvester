@@ -1,6 +1,7 @@
 require 'net/http'
 require 'json'
 
+
 module CouchDB
   @@server = nil
   @@db = nil
@@ -30,8 +31,12 @@ module CouchDB
     end
 
     def []=(id, doc)
+      doc = doc.to_json unless doc.kind_of? String
+
       begin
-        CouchDB::put id, doc, @revs[id]
+        d = CouchDB::put id, doc, @revs[id]
+        json = JSON::parse(d)
+        @revs[id] = json['rev']
       rescue PreconditionFailed
         if @revs[id]
           raise TransactionFailed

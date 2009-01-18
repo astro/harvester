@@ -76,27 +76,42 @@
             <p>Missing something?<br/>Contact <a href="mailto:astro@spaceboyz.net">Astro</a> via Mail or Jabber: astro@spaceboyz.net</p>
           </div>
           <div class="ticker">
-            <h2>Hack it...</h2>
+            <h2>Hack it&#8230;</h2>
             <p>
+	      Old <a href="svn://svn.c3d2.de/harvester/trunk/harvester">SVN</a> but now <a href="http://github.com/astro/harvester/">on GitHub</a>.
+            </p>
+          </div>
+          <div class="ticker">
+            <h2>&#8230;or learn more</h2>
+	    <p>
               <a href="https://wiki.c3d2.de/Harvester">Project info</a>,
               <a href="svn://svn.c3d2.de/harvester/trunk/harvester">Repository</a>,
               <a href="http://trac.c3d2.de/harvester">Trac</a>,
               <a href="http://trac.c3d2.de/harvester/browser/trunk/harvester/">Source browser</a>
-            </p>
+	    </p>
           </div>
-          <div class="ticker">
-            <h2>...or learn more</h2>
-            <ul class="tickerlist">
-              <li><a href="../harvester-0.6.tar.bz2">harvester-0.6.tar.bz2</a> (14148 Bytes, <a href="../harvester-0.6.tar.bz2.sig">Sig</a>)</li>
-              <li><a href="../harvester-0.5.tar.bz2">harvester-0.5.tar.bz2</a> (16101 Bytes, <a href="../harvester-0.5.tar.bz2.sig">Sig</a>)</li>
-              <li><a href="../harvester-0.4.tar.bz2">harvester-0.4.tar.bz2</a> (9731 Bytes, <a href="../harvester-0.4.tar.bz2.sig">Sig</a>)</li>
-              <li><a href="../harvester-0.3.2.tar.bz2">harvester-0.3.2.tar.bz2</a> (8663 Bytes, <a href="../harvester-0.3.2.tar.bz2.sig">Sig</a>)</li>
-              <li><a href="../harvester-0.3.1.tar.bz2">harvester-0.3.1.tar.bz2</a> (8519 Bytes, <a href="../harvester-0.3.1.tar.bz2.sig">Sig</a>)</li>
-              <li><a href="../harvester-0.3.tar.bz2">harvester-0.3.tar.bz2</a> (8411 Bytes, <a href="../harvester-0.3.tar.bz2.sig">Sig</a>)</li>
-              <li><a href="../harvester-0.2.tar.bz2">harvester-0.2.tar.bz2</a> (4184 Bytes, <a href="../harvester-0.2.tar.bz2.sig">Sig</a>)</li>
-            </ul>
-          </div>
+	  <div class="ticker">
+	    <h2>Other Harvesters</h2>
+            <ul class="tickerlinks">
+	      <!--li><a href="http://chaosnase.de/planet">Chaosnase Planet</a></li-->
+	      <li><a href="http://marvin.blog-harvester.de/">Marvin's Harvester</a></li>
+	      <li><a href="http://planet.entropia.de/">Planet Entropia</a></li>
+	      <li><a href="http://planet.hboeck.de/">Planet Hanno</a></li>
+	      <li><a href="http://planet.schokokeks.org/">Planet Schokokeks</a></li>
+	      <li><a href="http://harvester.toidinamai.de/">toidinamai's planet</a></li>
+	    </ul>
+	  </div>
 
+          <xsl:call-template name="ticker-boxen">
+            <xsl:with-param name="collection" select="'ticker'"/>
+          </xsl:call-template>
+
+          <xsl:call-template name="ticker-boxen">
+            <xsl:with-param name="collection" select="'projects'"/>
+          </xsl:call-template>
+        </div>
+
+        <div class="tickers2">
 	  <div class="ticker">
 	    <h2>Photos</h2>
 
@@ -118,12 +133,6 @@
 	    </ul>
 	  </div>
 	  
-          <xsl:call-template name="ticker-boxen">
-            <xsl:with-param name="collection" select="'ticker'"/>
-          </xsl:call-template>
-	</div>
-	
-        <div class="tickers2">
           <xsl:call-template name="ticker-boxen">
             <xsl:with-param name="collection" select="'links'"/>
           </xsl:call-template>
@@ -176,10 +185,12 @@
 		</ul>
               </xsl:if>
 	      
-              <div class="entryfoot"><a href="{link}" title="{link}">mehr...</a></div>
+              <div class="entryfoot"><a href="{link}" title="{link}">mehr&#8230;</a></div>
             </div>
 	  </xsl:for-each>
 	</div>
+
+	<p style="display:none"><a href="http://cthulhu.c3d2.de/~astro/badpit.html">E-Mail Address Index</a></p>
       </body>
     </html>
   </xsl:template>
@@ -195,8 +206,8 @@
           <xsl:for-each select="hv:feed-items(string(rss), 8)/item">
             <li class="hentry">
               <xsl:choose>
-		<xsl:when test="string-length(title) &gt; 25">
-                  <a href="{link}" title="{title}" rel="bookmark" class="entry-title"><xsl:value-of select="substring(title, 1, 20)"/>...</a>
+		<xsl:when test="string-length(title) &gt; 32">
+                  <a href="{link}" title="{title}" rel="bookmark" class="entry-title"><xsl:value-of select="substring(title, 1, 30)"/>&#8230;</a>
 		</xsl:when>
 		<xsl:otherwise>
                   <a href="{link}" rel="bookmark" class="entry-title"><xsl:value-of select="title"/></a>

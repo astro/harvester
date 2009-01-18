@@ -1,8 +1,8 @@
 ---
 db:
-  driver: dbi:Pg:harvester:localhost
+  driver: dbi:Pg:harvester
   user: astro
-  password: ***
+  password: "***"
 settings:
   size limit: 102400
   timeout: 90
@@ -10,54 +10,74 @@ settings:
   output: html
 jabber:
   jid: astrobot@spaceboyz.net/harvester
-  password: ***
+  password: UdtearOir6
   interval: 120
 collections:
   ticker:
-  - http://www.c3d2.de/news-atom.xml
   - http://planet.c3bi.de/rss20.xml
   - http://www.blacksec.org/index2.php?option=com_rss&feed=RSS0.91&no_html=1
   - http://planet.entropia.de/rss.rdf
-  - http://bruteforce.blogg.de/rss.xml
   - http://asocio.no-ip.com/unter-schwarzer-flagge/?feed=rss2
   projects:
   - "http://trac.c3d2.de/harvester/timeline?max=20&daysback=2&format=rss"
   links:
-  - http://del.icio.us/rss/fukami
-  - http://del.icio.us/rss/astro1138
-  - http://del.icio.us/rss/toidinamai
-  - http://del.icio.us/rss/r0b0
-  - http://del.icio.us/rss/pentabarf
-  - http://del.icio.us/rss/tigion
-  - http://del.icio.us/rss/turbo24prg
-  - http://del.icio.us/rss/mechko
-  - http://del.icio.us/rss/DerTobendeGummihammer
-  - http://del.icio.us/rss/Alien8
-  - http://del.icio.us/rss/boelthorn
-  - http://del.icio.us/rss/rabuju
-  - http://del.icio.us/rss/cosmoFlash
-  - http://del.icio.us/rss/Shnifti
-  - http://del.icio.us/rss/stepardo
-  - http://del.icio.us/rss/pq3x10
+  - http://feeds.delicious.com/rss/fukami
+  - http://feeds.delicious.com/rss/astro1138
+  - http://feeds.delicious.com/rss/toidinamai
+  - http://feeds.delicious.com/rss/r0b0
+  - http://feeds.delicious.com/rss/pentabarf
+  - http://feeds.delicious.com/rss/tigion
+  - http://feeds.delicious.com/rss/turbo24prg
+  - http://feeds.delicious.com/rss/mechko
+  - http://feeds.delicious.com/rss/DerTobendeGummihammer
+  - http://feeds.delicious.com/rss/Alien8
+  - http://feeds.delicious.com/rss/boelthorn
+  - http://feeds.delicious.com/rss/rabuju
+  - http://feeds.delicious.com/rss/cosmoFlash
+  - http://feeds.delicious.com/rss/Shnifti
+  - http://feeds.delicious.com/rss/stepardo
+  - http://feeds.delicious.com/rss/pq3x10
+  - http://feeds.delicious.com/rss/the_roadrunner
   blogs:
+  - http://www.c3d2.de/news-atom.xml
   - http://astroblog.spaceboyz.net/atom.rb
   - http://blog.tigion.de/feed/
-  - http://fukami.vakuum.net/feed/
+  - http://blog.fukami.io/feed/atom/
   - http://blog.daemonized.de/feed/
   - http://www.psycast.de/blog/rss.php?ver=2
-  - http://www.kuarepoti-dju.net/wp-rss2.php
+  - http://www.kuarepoti-dju.net/index.rss
   - http://89.238.64.223/semaphor/semaphor.php?item=blogRss
-  - http://www.marvinnet.org/?feed=rss2
+  - http://www.marvinnet.org/feed
   - http://d-ventures.heartofgold.de/?feed=rss2
   - http://jelena.blogsome.com/feed/rdf/
   - http://equiblog.diac24.net/$rss:full4
   - http://matthias.bsd-crew.de/blog/?feed=atom
   - http://blog.toidinamai.de/atom
-  - http://berzerkely.net/archives.rss
+  - http://berzerkely.net/atom/
   - http://bsd-crew.de/~riot/rss.xml
   - http://www.haltetdenbeat.de/feed/
   - http://leonweber.de/blog/feed/
-  - http://stepardos.blogspot.com/feeds/posts/default
+  - http://klobs.kicks-ass.net/weblog/index.rss
+  - http://kopfueber.wordpress.com/feed/
+  - "http://www.jamendo.com/de/get/album/id/artist-license/page/rss2/336508/?ali=+info_min+images+info_min+info_common+info_common+images&ari=+info_min+info_min&lci=+info_min&o=release_date_desc"
+  - "http://www.jamendo.com/en/get/album/id/artist-license/page/rss2/336634/?ali=+info_min+images+info_min+info_common+info_common+images&ari=+info_min+info_min&lci=+info_min&o=release_date_desc"
+  - "http://www.jamendo.com/en/get/album/id/artist-license/page/rss2/336851/?ali=+info_min+images+info_min+info_common+info_common+images&ari=+info_min+info_min&lci=+info_min&o=release_date_desc"
+  - http://www.gibpit.com/rss.xml
+  - http://www.motobol.de/wordpress/?feed=atom
+  - http://turbolent.com/atom
+  - http://cthulhu.c3d2.de/~herr_flupke/randomnotes/bucket.xml
+  - http://mapforce.blogspot.com/feeds/posts/default
   photos:
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=73915810@N00&format=atom"
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=58728439@N00&format=atom"
+  - http://feed.fotolog.com/muff_divers/feed/main/rss20
+  - "http://api.flickr.com/services/feeds/photos_public.gne?id=45064561@N00&format=atom"
+_soups:
+- http://cosmo.soup.io/rss
+- http://astro.soup.io/rss
+- http://www.marvinnet.org/rss
+- http://neingeist.soup.io/rss
+- http://fukami.soup.io/rss
+- http://shnifti.soup.io/rss
+
+

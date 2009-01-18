@@ -418,7 +418,7 @@ loop {
                                        'PHOTO/TYPE' => 'image/jpeg',
                                        'PHOTO/BINVAL' => Base64::encode64(photo))
     Jabber::Vcard::Helper::set(cl, vcard)
-    resend_presence = true
+    #resend_presence = true
   end
 
   if resend_presence

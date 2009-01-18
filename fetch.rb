@@ -14,6 +14,7 @@ begin
 rescue LoadError
   require 'thread'
 end
+Thread::abort_on_exception = true
 
 require 'mrss'
 
@@ -90,10 +91,12 @@ config['collections'].each { |collection,rss_urls|
       is_new = db_rss.nil?
 
       uri = URI::parse rss_url
+      p uri
       logprefix = "[#{uri.to_s.ljust maxurlsize}]"
 
       http = Net::HTTP.new uri.host, uri.port
-      http.use_ssl = (uri.kind_of? URI::HTTPS) if defined? OpenSSL
+      p http
+      http.use_ssl = (uri.kind_of? URI::HTTPS) if defined? Net::HTTPS
       request = (if is_new or last.nil?
         puts "#{logprefix} GET"
         Net::HTTP::Get.new uri.request_uri
@@ -106,9 +109,10 @@ config['collections'].each { |collection,rss_urls|
       last_get_started = Time.new
       begin
         response = http.request request
-      rescue
-        puts "Skipped (request error)"
+      rescue Exception => e
+        puts "#{logprefix} #{e.class}: #{e}"
         pending_lock.synchronize { pending.delete rss_url }
+	Thread.current.kill
       end
       puts "#{logprefix} #{response.code} #{response.message}"
 

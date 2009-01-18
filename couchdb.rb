@@ -6,6 +6,7 @@ module CouchDB
   @@server = nil
   @@db = nil
 
+  # CouchDB::setup 'http://localhost:5984', 'harvester'
   def self.setup(server, db)
     @@server = server
     @@db = db
@@ -16,11 +17,16 @@ module CouchDB
   class TransactionFailed < RuntimeError
   end
 
+  # Instances of this will be passed to blocks called by
+  # CouchDB::transaction and contain the revisions of the
+  # documents which the code running in a transaction
+  # touched.
   class Transaction
     def initialize
       @revs = {}
     end
 
+    # Read from CouchDB
     def [](id)
       begin
         d = CouchDB::get id
@@ -46,6 +52,7 @@ module CouchDB
       end
     end
 
+    # Write to CouchDB
     def []=(id, doc)
       # Convert hashes & arrays to JSON documents
       doc = doc.to_json unless doc.kind_of?(String) || doc.nil?

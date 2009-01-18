@@ -87,16 +87,6 @@ config['urls'].each do |rss_url|
             Thread.exit
           end
 
-          # Update source
-          couchdb[rss_url_id] = {
-            'rss' => rss_url,
-            'last' => response['Last-Modified'],
-            'title' => rss.title,
-            'link' => rss.link,
-            'description' => rss.description
-          }
-          puts "#{logprefix} Source updated"
-
           items_new, items_updated = 0, 0
           rss.items.each { |item|
             description = item.description
@@ -112,6 +102,7 @@ config['urls'].each do |rss_url|
             # Push into database
             db_item = couchdb[item_id]
             db_item['date'] ||= item.date
+            db_item['type'] = 'item'
             db_item['rss'] = rss_url
             db_item['title'] = item.title
             db_item['link'] = item.link
@@ -127,6 +118,17 @@ config['urls'].each do |rss_url|
             items_updated += 1
           }
           puts "#{logprefix} New: #{items_new} Updated: #{items_updated}"
+
+          # Update source
+          couchdb[rss_url_id] = {
+            'type' => 'feed',
+            'rss' => rss_url,
+            'last' => response['Last-Modified'],
+            'title' => rss.title,
+            'link' => rss.link,
+            'description' => rss.description
+          }
+          puts "#{logprefix} Source updated"
         end
       end
 

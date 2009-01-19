@@ -35,7 +35,13 @@ end
 ###########
 
 maxurlsize = 0
-config['urls'].each { |rss_url|
+rss_urls = []
+config['collections'].each do |collection,urls|
+  urls.each do |url|
+    rss_urls << url
+  end
+end
+rss_urls.each { |rss_url|
   maxurlsize = (rss_url.size > maxurlsize) ? rss_url.size : maxurlsize
 }
 
@@ -43,7 +49,7 @@ last_get_started = Time.new
 pending = []
 pending_lock = Mutex.new
 
-config['urls'].each do |rss_url|
+rss_urls.each do |rss_url|
   rss_url_id = hash(rss_url)
   pending_lock.synchronize { pending << rss_url }
   Thread.new {

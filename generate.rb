@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'singleton'
-require 'dbi'
 require 'yaml'
 require 'rexml/document'
 begin
@@ -16,6 +15,9 @@ begin
 rescue LoadError
   $stderr.puts "Hpricot not found, will not mangle relative links in <description/>"
 end
+require 'digest/md5'
+
+require 'couchdb'
 
 
 class LinkAbsolutizer
@@ -64,6 +66,13 @@ class String
   end
 end
 
+class REXML::Element
+  def elements=(e)
+    @elements.delete_all ''
+    e.each { |e1| add e1 }
+  end
+end
+
 
 class EntityTranslator
   include Singleton
@@ -109,11 +118,46 @@ class EntityTranslator
 end
 
 
+require 'thread'
+class Array
+  def pmap(&block)
+    results = []
+    results_lock = Mutex.new
+    threads = []
+    each_with_index do |e,i|
+      threads << Thread.new {
+        r = block.call(e)
+        results_lock.synchronize {
+          results[i] = r
+        }
+      }
+    end
+    threads.each { |thread| thread.join }
+    results
+  end
+end
+
+
+class Hash
+  def to_xml(name, children)
+    e = REXML::Element.new(name)
+    e.elements = children.select { |child|
+      has_key? child
+    }.map { |child|
+      c = REXML::Element.new(child)
+      c.text = self[child]
+      c
+    }
+    e
+  end
+end
+
+
 class XSLTFunctions
   FUNC_NAMESPACE = 'http://astroblog.spaceboyz.net/harvester/xslt-functions'
 
-  def initialize(dbi)
-    @dbi = dbi
+  def initialize(db)
+    @db = db
     %w(collection-items feed-items item-description item-images item-enclosures).each { |func|
       XML::XSLT.extFunction(func, FUNC_NAMESPACE, self)
     }
@@ -121,53 +165,60 @@ class XSLTFunctions
 
   def generate_root
     root = REXML::Element.new('collections')
-    @dbi.select_all("SELECT collection FROM sources GROUP BY collection") { |name,|
-      collection = root.add(REXML::Element.new('collection'))
-      collection.attributes['name'] = name
-      @dbi.select_all("SELECT rss,title,link,description FROM sources WHERE collection=?", name) { |rss,title,link,description|
-        feed = collection.add(REXML::Element.new('feed'))
-        feed.add(REXML::Element.new('rss')).text = rss
-        feed.add(REXML::Element.new('title')).text = title
-        feed.add(REXML::Element.new('link')).text = link
-        feed.add(REXML::Element.new('description')).text = description
+    root.elements = collections.map { |collection,feeds|
+      ec = REXML::Element.new('collection')
+      ec.attributes['name'] = collection
+      ec.elements = feeds.collect { |feed|
+        f = @db[feed['_id']]
+        f.to_xml 'feed', %w(rss title link description)
       }
+      ec
     }
-
     EntityTranslator.translate_entities(root)
   end
 
-  def collection_items(collection, max=23)
-    items = REXML::Element.new('items')
-    @dbi.select_all("SELECT items.title,items.date,items.link,items.rss FROM items,sources WHERE items.rss=sources.rss AND sources.collection LIKE ? ORDER BY items.date DESC LIMIT ?", collection, max.to_i) { |title,date,link,rss|
-      item = items.add(REXML::Element.new('item'))
-      item.add(REXML::Element.new('title')).text = title
-      item.add(REXML::Element.new('date')).text = date.to_time.xmlschema
-      item.add(REXML::Element.new('link')).text = link
-      item.add(REXML::Element.new('rss')).text = rss
+  def collection_items(collection_name, max=23)
+    feeds = collection(collection_name)
+    items = feeds.inject([]) { |r,feed|
+      r + feed["items"]
     }
+    items.sort! { |i1,i2| i2['date'] <=> i1['date'] }
+    items = items[0..(max - 1)]
 
-    EntityTranslator.translate_entities(items)
+    ei = REXML::Element.new('items')
+    ei.elements = items.pmap { |item|
+      item_doc = @db[item['_id']]
+      x = item_doc.to_xml 'item', %w(rss title link date)
+      p x.to_s
+      x
+    }
+    EntityTranslator.translate_entities(ei)
   end
 
   def feed_items(rss, max=23)
-    items = REXML::Element.new('items')
-    @dbi.select_all("SELECT title,date,link FROM items WHERE rss=? ORDER BY date DESC LIMIT ?", rss, max.to_i) { |title,date,link|
-      item = items.add(REXML::Element.new('item'))
-      item.add(REXML::Element.new('title')).text = title
-      item.add(REXML::Element.new('date')).text = date.to_time.xmlschema
-      item.add(REXML::Element.new('link')).text = link
+    items = []
+    collections.each { |collection,feeds|
+      feeds.each { |feed|
+        items += feed['items'] if feed['rss'] == rss
+      }
     }
+    items.sort! { |i1,i2| i2['date'] <=> i1['date'] }
+    items = items[0..(max - 1)]
 
-    EntityTranslator.translate_entities(items)
+    ei = REXML::Element.new('items')
+    ei.elements = items.pmap { |item|
+      item_doc = @db[item['_id']]
+      item_doc.to_xml 'item', %w(title date link)
+    }
+    EntityTranslator.translate_entities(ei)
   end
 
   def item_description(rss, item_link)
-    @dbi.select_all("SELECT description FROM items WHERE rss=? AND link=?", rss, item_link) { |desc,|
-      desc = EntityTranslator.translate_entities(desc, false)
-      desc = LinkAbsolutizer.new(desc).absolutize(item_link)
-      return desc
-    }
-    ''
+    puts "item_description(#{rss.inspect}, #{item_link.inspect})"
+    desc = @db["#{hash rss}-#{hash item_link}"]['description']
+    desc = EntityTranslator.translate_entities(desc, false)
+    desc = LinkAbsolutizer.new(desc).absolutize(item_link)
+    desc
   end
 
   def item_images(rss, item_link)
@@ -179,34 +230,60 @@ class XSLTFunctions
     images
   end
 
-  def item_enclosures(rss, link)
-    #p [rss,link]
-    enclosures = REXML::Element.new('enclosures')
-    @dbi.select_all("SELECT href, mime, title, length FROM enclosures WHERE rss=? AND link=? ORDER BY length DESC", rss, link) { |href,mime,title,length|
-      enclosure = enclosures.add(REXML::Element.new('enclosure'))
-      enclosure.add(REXML::Element.new('href')).text = href
-      enclosure.add(REXML::Element.new('mime')).text = mime
-      enclosure.add(REXML::Element.new('title')).text = title
-      enclosure.add(REXML::Element.new('length')).text = length
-    }
-    #p enclosures.to_s
-    enclosures
+  def item_enclosures(rss, item_link)
+    e = REXML::Element.new('enclosures')
+    if (enclosures = @db["#{hash rss}-#{hash item_link}"]['enclosures'])
+      e.elements = enclosures.collect { |enclosure|
+        enclosure.to_xml 'enclosure', %w(href mime title length)
+      }
+    end
+    e
   end
+
+  private
+
+  def collections
+    unless defined? @collections
+      @collections = {}
+      @db['_view/harvester/collections']['rows'].first['value'].each { |c|
+        @collections[c['_id']] = c['feeds'] if c['_id'].size < 32
+      }
+    end
+    @collections
+  end
+
+  def collection(name)
+    if name == '%'
+      collections.inject([]) { |r,(name,feeds)|
+        r + feeds
+      }
+    else
+      collections[name]
+    end
+  end
+
+  def hash(s)
+    Digest::MD5.hexdigest s
+  end
+
 end
 
 
 config = YAML::load File.new('config.yaml')
-f = XSLTFunctions.new(DBI::connect(config['db']['driver'], config['db']['user'], config['db']['password']))
+CouchDB::setup config['couchdb']['url'], config['couchdb']['db']
+CouchDB::transaction do |couchdb|
+  f = XSLTFunctions.new(couchdb)
 
-xslt = XML::XSLT.new
-xslt.xml = f.generate_root.to_s
+  xslt = XML::XSLT.new
+  xslt.xml = f.generate_root.to_s
 
-templatedir = config['settings']['templates']
-outputdir = config['settings']['output']
-Dir.foreach(templatedir) { |templatefile|
-  next if templatefile =~ /^\./
-
-  puts "Processing #{templatefile}"
-  xslt.xsl = "#{templatedir}/#{templatefile}"
-  File::open("#{outputdir}/#{templatefile}", 'w') { |f| f.write(xslt.serve) }
-}
+  templatedir = config['settings']['templates']
+  outputdir = config['settings']['output']
+  Dir.foreach(templatedir) { |templatefile|
+    next if templatefile =~ /^\./
+    
+    puts "Processing #{templatefile}"
+    xslt.xsl = "#{templatedir}/#{templatefile}"
+    File::open("#{outputdir}/#{templatefile}", 'w') { |f| f.write(xslt.serve) }
+  }
+end

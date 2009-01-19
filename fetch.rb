@@ -2,6 +2,7 @@
 
 require 'yaml'
 require 'digest/md5'
+require 'time'
 require 'uri'
 require 'net/http'
 begin
@@ -113,7 +114,7 @@ rss_urls.each do |rss_url|
 
             # Push into database
             db_item = couchdb[item_id]
-            db_item['date'] ||= item.date
+            db_item['date'] ||= item.date.xmlschema
             db_item['type'] = 'item'
             db_item['rss'] = rss_url
             db_item['title'] = item.title

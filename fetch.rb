@@ -36,9 +36,15 @@ end
 
 maxurlsize = 0
 rss_urls = []
-config['collections'].each do |collection,urls|
-  urls.each do |url|
-    rss_urls << url
+CouchDB::transaction do |couchdb|
+  config['collections'].each do |collection,urls|
+    couchdb[collection] = {
+      'type' => 'collection',
+      'urls' => urls
+    }
+    urls.each do |url|
+      rss_urls << url
+    end
   end
 end
 rss_urls.each { |rss_url|

@@ -122,6 +122,7 @@ module CouchDB
     
     def request(method, id, headers={}, body=nil)
       uri = URI::parse("#{@@server}/#{@@db}/#{id}")
+      #puts "#{method} #{uri}"
       req = Net::HTTP.const_get(method).new(uri.path, headers) # path?
       if body
         req['Content-type'] = 'application/json'
@@ -150,10 +151,8 @@ if $0 == __FILE__
       CouchDB::transaction { |couchdb|
         puts "#{i} reading"
         couchdb["test"]
-        sleep 0.1
         puts "#{i} writing"
         couchdb["test"] = '{"title": "Test Blog", "url": "http://localhost/"}'
-        sleep 0.01
         puts "#{i} deleting"
         couchdb["test"] = nil
         puts "#{i} done"

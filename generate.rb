@@ -188,9 +188,7 @@ class XSLTFunctions
     ei = REXML::Element.new('items')
     ei.elements = items.pmap { |item|
       item_doc = @db[item['_id']]
-      x = item_doc.to_xml 'item', %w(rss title link date)
-      p x.to_s
-      x
+      item_doc.to_xml 'item', %w(rss title link date)
     }
     EntityTranslator.translate_entities(ei)
   end
@@ -214,7 +212,6 @@ class XSLTFunctions
   end
 
   def item_description(rss, item_link)
-    puts "item_description(#{rss.inspect}, #{item_link.inspect})"
     desc = @db["#{hash rss}-#{hash item_link}"]['description']
     desc = EntityTranslator.translate_entities(desc, false)
     desc = LinkAbsolutizer.new(desc).absolutize(item_link)

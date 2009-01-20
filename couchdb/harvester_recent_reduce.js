@@ -51,37 +51,30 @@ function(key, values, rereduce)
 			 return 0;
 		     });
 
-  if (items.length > 0)
-  {
-    /* Kick old items */
-    var MAX_AGE = 2 * 24 * 60 * 60 * 1000;
-    var newest = items[0].date;
-    var min_date = newest - MAX_AGE;
-    items = items.filter(function(item)
-			 {
-			   return (item.date >= min_date);
-			 });
-
-    /* Convert dates back to strings */
-    items = items.map(function(item)
-		      {
-			var date = new Date(item.date);
-			item.date = date.getFullYear() +
-				      "-" +
-				      date.getMonth().z(2) +
-				      "-" +
-				      date.getDay().z(2) +
-				      "T" +
-				      date.getHours().z(2) +
-				      ":" +
-				      date.getMinutes().z(2) +
-				      ":" +
-				      date.getSeconds().z(2);
-			return item;
-		      });
-    log({"result items": items});
-    return items;
-  }
-  else
-    return [];
+  /* Kick old items */
+  var MAX_AGE = 2 * 24 * 60 * 60 * 1000;
+  var newest = items[0].date;
+  var min_date = newest - MAX_AGE;
+  items = items.filter(function(item)
+		       {
+			 return (item.date >= min_date);
+		       });
+   /* Convert dates back to strings */
+  items = items.map(function(item)
+		    {
+		      var date = new Date(item.date);
+		      item.date = date.getFullYear() +
+				    "-" +
+				    date.getMonth().z(2) +
+				    "-" +
+				    date.getDay().z(2) +
+				    "T" +
+				    date.getHours().z(2) +
+				    ":" +
+				    date.getMinutes().z(2) +
+				    ":" +
+				    date.getSeconds().z(2);
+		      return item;
+		    });
+  return items;
 }

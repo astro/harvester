@@ -15,7 +15,7 @@ begin
 rescue LoadError
   require 'thread'
 end
-Thread::abort_on_exception = true
+#Thread::abort_on_exception = true
 
 require 'mrss'
 require 'couchdb'
@@ -95,8 +95,8 @@ rss_urls.each do |rss_url|
         else
           begin
             rss = MRSS::parse response.body
-          rescue
-            puts "#{logprefix} Parse error: #{$!.to_s}"
+          rescue Exception => e
+            puts "#{logprefix} Parse error: #{e.to_s}"
             Thread.exit
           end
 

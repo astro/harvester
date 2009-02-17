@@ -72,12 +72,10 @@ collections:
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=58728439@N00&format=atom"
   - http://feed.fotolog.com/muff_divers/feed/main/rss20
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=45064561@N00&format=atom"
-_soups:
-- http://cosmo.soup.io/rss
-- http://astro.soup.io/rss
-- http://www.marvinnet.org/rss
-- http://neingeist.soup.io/rss
-- http://fukami.soup.io/rss
-- http://shnifti.soup.io/rss
+  microblogs:
+  - http://identi.ca/api/statuses/user_timeline/astro.atom
+  - http://identi.ca/api/statuses/user_timeline/tigion.atom
+  - http://identi.ca/api/statuses/user_timeline/daemonized.atom
+  - http://identi.ca/api/statuses/user_timeline/blitz.atom
 
 

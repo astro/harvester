@@ -141,16 +141,20 @@
 	<div class="tickers3">
 	  <xsl:variable name="microblogs"
 			select="collection[@name='microblogs']"/>
+	  <xsl:variable name="items"
+			select="hv:collection-items('microblogs')"/>
 	  <xsl:variable name="now"
-			select="date:date-time()"/>
+			select="string($items/item[1]/date)"/>
 
 	  <div class="ticker">
 	    <h2>Microblogging — today</h2>
 	    <ul>
-              <xsl:for-each select="hv:collection-items('microblogs')/item">
+              <xsl:for-each select="$items/item">
 		<!--xsl:sort select="date" order="descending"/-->
-		<xsl:if test="starts-with(date:difference(date, $now),
-			      'PT')">
+		<xsl:variable name="diff" 
+			      select="date:difference(date, $now)"/>
+		<xsl:if test="$diff = 'P0D' or
+			      starts-with($diff, 'PT')">
 		  <xsl:variable name="rss" select="string(rss)"/>
 		  <xsl:variable name="feed"
 				select="$microblogs/feed[rss=$rss]"/>
@@ -165,7 +169,7 @@
 	  <div class="ticker">
 	    <h2>Microblogging — yesterday</h2>
 	    <ul>
-              <xsl:for-each select="hv:collection-items('microblogs')/item">
+              <xsl:for-each select="$items/item">
 		<!--xsl:sort select="date" order="descending"/-->
 		<xsl:if test="starts-with(date:difference(date, $now),
 			      'P1DT')">
@@ -187,7 +191,8 @@
 		<!--xsl:sort select="date" order="descending"/-->
 		<xsl:variable name="diff" 
 			      select="date:difference(date, $now)"/>
-		<xsl:if test="not(starts-with($diff, 'PT')) and
+		<xsl:if test="not($diff = 'P0D') and
+			      not(starts-with($diff, 'PT')) and
 			      not(starts-with($diff, 'P1DT'))">
 		  <xsl:variable name="rss" select="string(rss)"/>
 		  <xsl:variable name="feed"

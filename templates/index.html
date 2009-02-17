@@ -149,8 +149,10 @@
 	    <ul>
               <xsl:for-each select="hv:collection-items('microblogs')/item">
 		<!--xsl:sort select="date" order="descending"/-->
-		<xsl:if test="starts-with(date:difference(date, $now),
-			      'PT')">
+		<xsl:variable name="diff" 
+			      select="date:difference(date, $now)"/>
+		<xsl:if test="starts-with($diff, '-P') or
+			      starts-with($diff, 'PT')">
 		  <xsl:variable name="rss" select="string(rss)"/>
 		  <xsl:variable name="feed"
 				select="$microblogs/feed[rss=$rss]"/>
@@ -187,7 +189,8 @@
 		<!--xsl:sort select="date" order="descending"/-->
 		<xsl:variable name="diff" 
 			      select="date:difference(date, $now)"/>
-		<xsl:if test="not(starts-with($diff, 'PT')) and
+		<xsl:if test="not(starts-with($diff, '-P')) and
+			      not(starts-with($diff, 'PT')) and
 			      not(starts-with($diff, 'P1DT'))">
 		  <xsl:variable name="rss" select="string(rss)"/>
 		  <xsl:variable name="feed"

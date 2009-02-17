@@ -139,30 +139,67 @@
         </div>
 
 	<div class="tickers3">
-	  <xsl:variable name="microblogs" select="collection[@name='microblogs']"/>
+	  <xsl:variable name="microblogs"
+			select="collection[@name='microblogs']"/>
+	  <xsl:variable name="now"
+			select="date:date-time()"/>
+
 	  <div class="ticker">
-	    <h2>Microblogging<!-- — today--></h2>
+	    <h2>Microblogging — today</h2>
 	    <ul>
               <xsl:for-each select="hv:collection-items('microblogs')/item">
-		<xsl:sort select="date" order="descending"/>
-		<xsl:variable name="rss" select="string(rss)"/>
-		<xsl:variable name="feed"
-			      select="$microblogs/feed[rss=$rss]"/>
-		<xsl:call-template name="microblog-entry">
-		  <xsl:with-param name="feed" select="$feed"/>
-		  <xsl:with-param name="entry" select="."/>
-		</xsl:call-template>
+		<!--xsl:sort select="date" order="descending"/-->
+		<xsl:if test="starts-with(date:difference(date, $now),
+			      'PT')">
+		  <xsl:variable name="rss" select="string(rss)"/>
+		  <xsl:variable name="feed"
+				select="$microblogs/feed[rss=$rss]"/>
+		  <xsl:call-template name="microblog-entry">
+		    <xsl:with-param name="feed" select="$feed"/>
+		    <xsl:with-param name="entry" select="."/>
+		  </xsl:call-template>
+		</xsl:if>
 	      </xsl:for-each>
 	    </ul>
 	  </div>
-	  <!--div class="ticker">
+	  <div class="ticker">
 	    <h2>Microblogging — yesterday</h2>
 	    <ul>
-	      <li>
-		<a href=""><img class="avatar" src="[AVATAR IMG URL]" alt="avatar"/></a> <a class="nickname" href="[ACCOUNT URL]">[NICKNAME]</a>: [MESSAGETEXT]
-	      </li> 
+              <xsl:for-each select="hv:collection-items('microblogs')/item">
+		<!--xsl:sort select="date" order="descending"/-->
+		<xsl:if test="starts-with(date:difference(date, $now),
+			      'P1DT')">
+		  <xsl:variable name="rss" select="string(rss)"/>
+		  <xsl:variable name="feed"
+				select="$microblogs/feed[rss=$rss]"/>
+		  <xsl:call-template name="microblog-entry">
+		    <xsl:with-param name="feed" select="$feed"/>
+		    <xsl:with-param name="entry" select="."/>
+		  </xsl:call-template>
+		</xsl:if>
+	      </xsl:for-each>
 	    </ul>
-	  </div-->
+	  </div>
+	  <div class="ticker">
+	    <h2>Microblogging — past</h2>
+	    <ul>
+              <xsl:for-each select="hv:collection-items('microblogs')/item">
+		<!--xsl:sort select="date" order="descending"/-->
+		<xsl:variable name="diff" 
+			      select="date:difference(date, $now)"/>
+		<xsl:if test="not(starts-with($diff, 'PT')) and
+			      not(starts-with($diff, 'P1DT'))">
+		  <xsl:variable name="rss" select="string(rss)"/>
+		  <xsl:variable name="feed"
+				select="$microblogs/feed[rss=$rss]"/>
+		  <xsl:call-template name="microblog-entry">
+		    <xsl:with-param name="feed" select="$feed"/>
+		    <xsl:with-param name="entry" select="."/>
+		  </xsl:call-template>
+		</xsl:if>
+	      </xsl:for-each>
+	    </ul>
+	  </div>
 	</div>
 	
 	<div class="hfeed">

@@ -2,7 +2,7 @@
 db:
   driver: dbi:Pg:harvester
   user: astro
-  password: "***"
+  password: "1234"
 settings:
   size limit: 102400
   timeout: 90

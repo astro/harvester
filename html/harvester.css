@@ -210,8 +210,8 @@ h1 {
 
 /* more dynamic images */
 .entry img {
-  height: 100% !important;
-  max-width: 100% !important;
+  //height: 100% !important;
+  //max-width: 100% !important;
   padding: 0.5em 0;
 }
 

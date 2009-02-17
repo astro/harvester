@@ -72,6 +72,7 @@ collections:
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=58728439@N00&format=atom"
   - http://feed.fotolog.com/muff_divers/feed/main/rss20
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=45064561@N00&format=atom"
+  - "http://api.flickr.com/services/feeds/photos_public.gne?id=28511726@N00&format=atom"
   microblogs:
   - http://identi.ca/api/statuses/user_timeline/astro.atom
   - http://identi.ca/api/statuses/user_timeline/tigion.atom

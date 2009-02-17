@@ -38,7 +38,7 @@ class StatsPerCollection
 end
 
 c = StatsPerCollection.new
-dbi.select_all("select date(items.date) as date,sources.collection from items left join sources on sources.rss=items.rss where date > now() - interval '14 days' order by date") { |date,collection|
+dbi.select_all("select date(items.date) as date,sources.collection from items left join sources on sources.rss=items.rss where date > now() - interval '14 days' and date < now() + interval '1 day' order by date") { |date,collection|
   c.add_one(collection, date.day)
 }
 

@@ -10,7 +10,7 @@
  *          Textfarben #303030 #C00000 #FF6600 6699CC
  * Browser: IE6 (no chart), IE7, Firefox, Opera, Safari
  * Author: Tigion, http://tigion.de/
- * Version: 28.07.2008
+ * Version: 17.02.2009 - beta
  */
 
 /* ------------------------------------------------------ */
@@ -31,6 +31,7 @@ body {
   color: #303030;
   background-color: #E0E0E0;
   text-align: left;
+  /*min-width: 1024px;*/ /* TODO */
 }
 
 a {
@@ -58,42 +59,36 @@ h1 {
 /* Layout */
 /* ------------------------------------------------------ */
 
-/* left ticker */
+/* left ticker - Harvesting, ... */
 .tickers1 {
   float: left;
   width: 20em;
   overflow: hidden;
+  margin: 0 2em 0 0;
 }
 
-/* photos */
-ul.photos { 
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-
-ul.photos li { 
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-ul.photos li a img {
-  border: 0;
-  margin: 0.5em auto;
-  width: 85%;
-}
-
-/* blog entries */
-.hfeed {
-  margin: 0 22em;
-}
-
-/* right ticker */
+/* right ticker - Photos, Delicious*/
 .tickers2 {
   float: right;
   width: 20em;
   overflow: hidden;
+  margin: 0 0 0 2em;
+}
+
+/* right ticker - Microblogging */
+.tickers3 {
+  float: right;
+  width: 20em;
+  overflow: hidden;
+  margin: 0 0 0 2em;
+}
+
+/* blog entries */
+.hfeed {
+  overflow: hidden;
+  /*margin: 0 44em 0 22em;*/
+  /*min-width: 20em;*/
+  /*margin: 0 22em;*/
 }
 
 /* ------------------------------------------------------ */
@@ -119,10 +114,10 @@ ul.photos li a img {
 
 /* text - blog entry */
 .entrydesc {
-  text-align: justify;
+  /*text-align: justify;*/
   font-size: 1.0em;
   line-height: 1.4em;
-  padding: 0 1.2em;
+  padding: 0 0.8em;
 }
 
 /* link - blog entry */
@@ -135,7 +130,7 @@ ul.photos li a img {
 /* title / link - blog */
 .entry h2.blog-title {
   font-size: 1.0em;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.8em;
   background-color: #ff6600;
   color: white;
 }
@@ -147,15 +142,11 @@ ul.photos li a img {
 /* title / link - blog entry */
 .entry h3.entry-title {
   font-size: 1.3em;
-  padding: 1.0em 0.8em 0.4em;
+  padding: 0.7em;
 }
 
 .entry h3.entry-title a {
   color: #303030;
-}
-
-.entry ul  {
-  margin: 1em 0 0 3em;
 }
 
 /* ------------------------------------------------------ */
@@ -180,11 +171,15 @@ ul.photos li a img {
 }
 
 .entry-content p {
-  margin: 0.8em 0;
+  margin: 0 0 0.8em 0;
 }
 
 .entry-content ul, .entry-content ol  {
   margin: 0.8em 0 0.8em 1.8em;
+}
+
+.entry-content li {
+  padding-bottom: 0.5em;
 }
 
 .entry-content pre, .entry-content code {
@@ -213,21 +208,39 @@ ul.photos li a img {
   color: #666;
 }
 
+/* more dynamic images */
+.entry img {
+  height: 100% !important;
+  max-width: 100% !important;
+  padding: 0.5em 0;
+}
+
+.entry .wp-caption {
+  max-width: 100% !important;
+}
+
 /* ------------------------------------------------------ */
-/* sidebars */
+/* tickers (sidebars) */
 /* ------------------------------------------------------ */
 
 .ticker {
   background-color: white;
-  margin: 0 0 1em;
+  margin: 0 0 1em 0;
   font-size: 0.9em;
 }
 
 .ticker h2 {
   font-size: 1.3em;
-  padding: 0.5em 1em;
-  background-color: #6699cc;
+  padding: 0.5em 0.7em;
   color: white;
+}
+
+.tickers1 .ticker h2, .tickers2 .ticker h2 {
+  background-color: #6699cc;
+}
+
+.tickers3 .ticker h2 {
+  background-color: #888;
 }
 
 .ticker h2 a {
@@ -235,44 +248,97 @@ ul.photos li a img {
   text-decoration: none;
 }
 
-.tickerlinks {
-  padding: 0.5em;
-}
-
-.tickerlinks li {
-  list-style: none;
-  padding: 0.1em 0.8em;
-}
-
-.tickerlinks li a {
-  color: #303030;
-  text-decoration: none;
-}
-
-.tickerlinks li a:hover {
-  text-decoration: underline;
-}
-
 .ticker p {
   padding: 1.0em;
   font-style: italic;
+  line-height: 1.4em;
 }
 
 .ticker p + p {
   padding-top: 0;
 }
 
-.tickerlist {
+
+.ticker ul {
+  padding: 1.0em;
+}
+
+.ticker ul li {
+  list-style: none;
+  line-height: 1.4em;
+}
+
+.ticker ul li + li { 
+  padding: 0.3em 0 0 0;
+}
+
+/* microbloggin */
+.tickers3 .ticker ul li { 
+  overflow: hidden;
+  font-style: italic;
+}
+
+.tickers3 .ticker ul li + li { 
+  padding: 1em 0 0 0;
+}
+
+.tickers3 .ticker img.avatar {
+  margin: 3px 5px 2px 0;
+  height: 24px;
+  width: 24px;
+  float: left;
+}
+
+
+/* links */
+
+
+.ticker .tickerlinks li a {
+  color: #303030;
+  text-decoration: none;
+}
+
+.ticker .tickerlinks li a:hover {
+  text-decoration: underline;
+}
+
+/* list */
+.ticker .tickerlist {
   list-style: none;
   padding: 0.5em 1.0em;
 }
 
-.tickerlist li {
+.ticker .tickerlist li {
   padding-bottom: 0.4em;
 }
 
-.tickerlist li a[href$=".bz2"] {
+.ticker .tickerlist li a[href$=".bz2"] {
   display: block;
+}
+
+/* photos */
+.ticker ul.photos { 
+  padding: 1em;
+  margin: 0;
+  text-align: center;
+}
+
+.ticker ul.photos li { 
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ticker ul.photos li + li { 
+  padding: 1em 0 0 0;
+}
+
+.ticker ul.photos li a img {
+  border: 0;
+  margin: 0 auto;
+  width: 20em; /*max-height: 20em;*/
+  max-width: 20em;
+  border: 1px solid #e0e0e0;
 }
 
 /* ------------------------------------------------------ */

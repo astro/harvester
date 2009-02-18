@@ -19,7 +19,7 @@ collections:
   - http://planet.entropia.de/rss.rdf
   - http://asocio.no-ip.com/unter-schwarzer-flagge/?feed=rss2
   projects:
-  - "http://trac.c3d2.de/harvester/timeline?max=20&daysback=2&format=rss"
+  - http://github.com/feeds/astro/commits/harvester/blog-harvester.de
   links:
   - http://feeds.delicious.com/rss/fukami
   - http://feeds.delicious.com/rss/astro1138

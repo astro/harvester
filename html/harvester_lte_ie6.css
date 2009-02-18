@@ -11,11 +11,17 @@
 /* ------------------------------------------------------ */
 
 .entry {
-  width: 98%; /* dirty hack */
+  width: 100%;
+  /*width: 98%;*/ /* dirty hack */
 }
 
 .entry-content pre,
 .entry-content code {
   width: 90%; /* dirty hack */
   overflow: scroll;
+}
+
+.tickers3 .ticker ul li { 
+  padding-bottom: 1em;
+  width: 100%;
 }

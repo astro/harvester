@@ -8,9 +8,10 @@
  *          http://www.blog-harvester.de/
  * Layout:  3-spaltig links fest, mittig variabel, rechts fest
  *          Textfarben #303030 #C00000 #FF6600 6699CC
- * Browser: IE6 (no chart), IE7, Firefox, Opera, Safari
+ * Browser: Firefox, Opera (webkit), Safari, IE7
+ *          (<= IE6: no chart, little problems)
  * Author: Tigion, http://tigion.de/
- * Version: 17.02.2009 - beta
+ * Version: 18.02.2009
  */
 
 /* ------------------------------------------------------ */
@@ -209,7 +210,8 @@ h1 {
 }
 
 /* more dynamic images */
-.entry img {
+/* no IE6 */
+html>body .entry img {
   height: auto !important;
   max-width: 100% !important;
   padding: 0.5em 0;

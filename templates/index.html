@@ -144,7 +144,7 @@
 	  <xsl:variable name="items"
 			select="hv:collection-items('microblogs', 100)"/>
 	  <xsl:variable name="now"
-			select="string($items/item[1]/date)"/>
+			select="date:date-time()"/>
 
 	  <div class="ticker">
 	    <h2>Microblogging — today</h2>
@@ -154,7 +154,8 @@
 		<xsl:variable name="diff" 
 			      select="date:difference(date, $now)"/>
 		<xsl:if test="$diff = 'P0D' or
-			      starts-with($diff, 'PT')">
+			      starts-with($diff, 'PT') or
+			      starts-with($diff, '-P')">
 		  <xsl:variable name="rss" select="string(rss)"/>
 		  <xsl:variable name="feed"
 				select="$microblogs/feed[rss=$rss]"/>
@@ -193,7 +194,8 @@
 			      select="date:difference(date, $now)"/>
 		<xsl:if test="not($diff = 'P0D') and
 			      not(starts-with($diff, 'PT')) and
-			      not(starts-with($diff, 'P1DT'))">
+			      not(starts-with($diff, 'P1DT')) and
+			      not(starts-with($diff, '-P'))">
 		  <xsl:variable name="rss" select="string(rss)"/>
 		  <xsl:variable name="feed"
 				select="$microblogs/feed[rss=$rss]"/>

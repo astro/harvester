@@ -17,6 +17,12 @@ rescue LoadError
   $stderr.puts "Hpricot not found, will not mangle relative links in <description/>"
 end
 
+# Slow monkey patching for recently commented function in Ruby's time library (sigh)
+class DateTime
+  def to_time
+    Time.parse(to_s)
+  end
+end unless DateTime.instance_methods.include?("to_time")
 
 class LinkAbsolutizer
   def initialize(body)

@@ -285,7 +285,7 @@ cl.add_iq_callback { |iq|
     end
   elsif iq.type == :get or iq.type == :get
     answer.type = :error
-    answer.add Jabber::Error.new('feature-not-implemented', 'The requested feature hasn\'t been implemented.')
+    answer.add Jabber::ErrorResponse.new('feature-not-implemented', 'The requested feature hasn\'t been implemented.')
   else
     answer = ' '
   end

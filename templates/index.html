@@ -369,7 +369,7 @@
 			'http://twitter.com/')">
 	  <!-- Twitter does plaintext only -->
 	  <xsl:call-template name="linkify">
-	    <xsl:with-param name="s" select="$text"/>
+	    <xsl:with-param name="s" select="substring-after($text, ': ')"/>
 	  </xsl:call-template>
 	</xsl:when>
 	<xsl:otherwise>

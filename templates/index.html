@@ -337,6 +337,9 @@
 	<xsl:when test="contains($feed/title, ' timeline')">
 	  <xsl:value-of select="substring-before(string($feed/title), ' timeline')"/>
 	</xsl:when>
+	<xsl:when test="contains($feed/title, 'Twitter / ')">
+	  <xsl:value-of select="substring-after(string($feed/title), 'Twitter / ')"/>
+	<xsl:when>
 	<xsl:otherwise>
 	  <xsl:value-of select="$feed/title"/>
 	</xsl:otherwise>
@@ -347,6 +350,13 @@
 		    'http://identi.ca/notice/')">
 	<a href="http://identi.ca/{$nick}">
 	  <img class="avatar" src="http://identi.ca/index.php?action=avatarbynickname&amp;nickname={$nick}&amp;size=24"
+	       alt="avatar"/>
+	</a>
+      </xsl:if>
+      <xsl:if test="starts-with($entry/link,
+		    'http://twitter.com/')">
+        <a href="http://twitter.com/{$nick}">
+	  <img class="avatar" src="http://spiurl.appspot.com/{$nick}"
 	       alt="avatar"/>
 	</a>
       </xsl:if>

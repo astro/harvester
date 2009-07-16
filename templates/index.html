@@ -339,7 +339,7 @@
 	</xsl:when>
 	<xsl:when test="contains($feed/title, 'Twitter / ')">
 	  <xsl:value-of select="substring-after(string($feed/title), 'Twitter / ')"/>
-	<xsl:when>
+	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:value-of select="$feed/title"/>
 	</xsl:otherwise>

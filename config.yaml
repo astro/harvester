@@ -20,6 +20,7 @@ collections:
   - http://asocio.no-ip.com/unter-schwarzer-flagge/?feed=rss2
   projects:
   - http://github.com/feeds/astro/commits/harvester/blog-harvester.de
+  #- http://gitorious.hq.c3d2.de/events.atom
   links:
   - http://feeds.delicious.com/rss/fukami
   - http://feeds.delicious.com/rss/astro1138
@@ -56,7 +57,6 @@ collections:
   - http://berzerkely.net/atom/
   - http://bsd-crew.de/~riot/rss.xml
   - http://www.haltetdenbeat.de/feed/
-  - http://leonweber.de/blog/feed/
   - http://klobs.kicks-ass.net/weblog/index.rss
   - http://kopfueber.wordpress.com/feed/
   - "http://www.jamendo.com/de/get/album/id/artist-license/page/rss2/336508/?ali=+info_min+images+info_min+info_common+info_common+images&ari=+info_min+info_min&lci=+info_min&o=release_date_desc"
@@ -67,16 +67,19 @@ collections:
   - http://turbolent.com/atom
   - http://cthulhu.c3d2.de/~herr_flupke/randomnotes/bucket.xml
   - http://mapforce.blogspot.com/feeds/posts/default
+  - http://blog.isabel-drost.de/index.php/feed
+  - http://blog.zensiertdas.net/rss.rss
   photos:
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=73915810@N00&format=atom"
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=58728439@N00&format=atom"
   - http://feed.fotolog.com/muff_divers/feed/main/rss20
-  - "http://api.flickr.com/services/feeds/photos_public.gne?id=45064561@N00&format=atom"
   - "http://api.flickr.com/services/feeds/photos_public.gne?id=28511726@N00&format=atom"
   microblogs:
   - http://identi.ca/api/statuses/user_timeline/astro.atom
   - http://identi.ca/api/statuses/user_timeline/tigion.atom
   - http://identi.ca/api/statuses/user_timeline/daemonized.atom
   - http://identi.ca/api/statuses/user_timeline/blitz.atom
-
+  - http://identi.ca/api/statuses/user_timeline/peponi.atom
+  - http://twitter.com/statuses/user_timeline/52429597.rss
+  - http://twitter.com/statuses/user_timeline/25352736.rss
 

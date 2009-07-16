@@ -345,6 +345,8 @@
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="text"
+		  select="hv:item-description(string($entry/rss), string($entry/link))"/>
     <li>
       <xsl:if test="starts-with($entry/link,
 		    'http://identi.ca/notice/')">
@@ -362,8 +364,48 @@
       </xsl:if>
       <a class="nickname"
 	 href="{$entry/link}"><xsl:value-of select="$nick"/></a>:
-      <xsl:value-of select="hv:item-description(string($entry/rss), string($entry/link))" disable-output-escaping="yes"/>
+      <xsl:choose>
+	<xsl:when test="starts-with($entry/link,
+			'http://twitter.com/')">
+	  <!-- Twitter does plaintext only -->
+	  <xsl:call-template name="linkify">
+	    <xsl:with-param name="s" select="$text"/>
+	  </xsl:call-template>
+	</xsl:when>
+	<xsl:otherwise>
+	  <!-- identi.ca can haz linkz -->
+	  <xsl:value-of select="$text"
+			disable-output-escaping="yes"/>
+	</xsl:otherwise>
+      </xsl:choose>
     </li>
+  </xsl:template>
+
+  <xsl:template name="linkify">
+    <xsl:param name="s"/>
+
+    <xsl:choose>
+      <xsl:when test="contains($s, 'http://')">
+	<xsl:value-of select="substring-before($s, 'http://')"/>
+	<xsl:variable name="s2" select="concat('http://', substring-after($s, 'http://'))"/>
+	<xsl:choose>
+	  <xsl:when test="contains($s2, ' ')">
+	    <xsl:variable name="url" select="substring-before($s2, ' ')"/>
+	    <a href="{$url}"><xsl:value-of select="$url"/></a>
+	    <xsl:text> </xsl:text>
+	    <xsl:call-template name="linkify">
+	      <xsl:with-param name="s" select="substring-after($s2, ' ')"/>
+	    </xsl:call-template>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <a href="{$s2}"><xsl:value-of select="$s2"/></a>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="$s"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>

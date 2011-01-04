@@ -1,0 +1,11 @@
+--- git/harvester/fetch.rb	2010-08-29 23:16:17.000000000 +0200
++++ harvester/fetch.rb	2011-01-03 16:57:14.000000000 +0100
+@@ -152,7 +152,7 @@
+               if item_is_new
+                 begin
+                   dbi.do "INSERT INTO items (rss, title, link, date, description) VALUES (?, ?, ?, ?, ?)",
+-                    rss_url, item.title, link, item.date, description
++                    rss_url, item.title, link, item.date.iso8601, description
+                   items_new += 1
+                 rescue DBI::ProgrammingError
+                   puts description

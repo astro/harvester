@@ -184,22 +184,18 @@ h1 {
 }
 
 .entry-content pre, .entry-content code {
+  font: 0.9em "Andale Mono", "Courier New", Courier, Fixed, mono;
+}
+
+.entry-content pre {
   background-color: #eee;
   color: #666;
   padding: 1em; 
   margin: 1em;
   border: 1px solid #ddd;
-  display: block;
   overflow: auto;
-  font: 0.9em "Andale Mono", "Courier New", Courier, Fixed, mono;
-}
-
-.entry-content pre {
   white-space: pre;
-}
-
-.entry-content code {
-  white-space: nowrap;
+  display: block;
 }
 
 .entry-content blockquote {

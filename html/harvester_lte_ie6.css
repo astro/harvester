@@ -15,8 +15,7 @@
   /*width: 98%;*/ /* dirty hack */
 }
 
-.entry-content pre,
-.entry-content code {
+.entry-content pre {
   width: 90%; /* dirty hack */
   overflow: scroll;
 }

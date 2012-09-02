@@ -9,6 +9,7 @@ begin
 rescue LoadError
   $stderr.puts "WARNING: No https support!"
 end
+require 'zlib'
 begin
   require 'fastthread'
 rescue LoadError
@@ -120,8 +121,14 @@ config['collections'].each { |collection,rss_urls|
         if response.body.size > sizelimit
           puts "#{logprefix} #{response.body.size} bytes big!"
         else
+          if response['Content-Encoding'] == 'gzip'
+            content = Zlib::GzipReader.new(StringIO.new(response.body)).read
+          else
+            content = response.body
+          end
+
           begin dbi.transaction do
-            rss = MRSS::parse response.body
+            rss = MRSS::parse content
 
             # Update source
             if is_new
@@ -152,7 +159,7 @@ config['collections'].each { |collection,rss_urls|
               if item_is_new
                 begin
                   dbi.do "INSERT INTO items (rss, title, link, date, description) VALUES (?, ?, ?, ?, ?)",
-                    rss_url, item.title, link, item.date, description
+                    rss_url, item.title, link, item.date.to_s, description
                   items_new += 1
                 rescue DBI::ProgrammingError
                   puts description

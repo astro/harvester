@@ -152,7 +152,7 @@ config['collections'].each { |collection,rss_urls|
               if item_is_new
                 begin
                   dbi.do "INSERT INTO items (rss, title, link, date, description) VALUES (?, ?, ?, ?, ?)",
-                    rss_url, item.title, link, item.date, description
+                    rss_url, item.title, link, item.date.to_s, description
                   items_new += 1
                 rescue DBI::ProgrammingError
                   puts description

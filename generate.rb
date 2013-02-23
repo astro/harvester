@@ -11,10 +11,11 @@ rescue LoadError
 end
 require 'time'
 require 'iconv'
+require 'uri'
 begin
-  require 'hpricot'
+  require 'nokogiri'
 rescue LoadError
-  $stderr.puts "Hpricot not found, will not mangle relative links in <description/>"
+  $stderr.puts "Nokogiri not found, will not mangle relative links in <description/>"
 end
 
 # Slow monkey patching for recently commented function in Ruby's time library (sigh)
@@ -30,9 +31,9 @@ class LinkAbsolutizer
   end
 
   def absolutize(base)
-    if defined? Hpricot
+    if defined? Nokogiri::HTML()
       begin
-        html = Hpricot("<html><body>#{@body}</body></html>")
+        html = Nokogiri::HTML("<html><body>#{@body}</body></html>")
         (html/'a').each { |a|
           begin
             f = a.get_attribute('href')
@@ -54,7 +55,7 @@ class LinkAbsolutizer
           end
         }
         html.search('/html/body/*').to_s
-      rescue Hpricot::Error => e
+      rescue Nokogiri::XML::SyntaxError => e
         $stderr.puts "Oops: #{e}"
         @body
       end

@@ -96,9 +96,7 @@ config['collections'].each { |collection,rss_urls|
 
       http = Net::HTTP.new uri.host, uri.port
       p http
-      if defined? Net::HTTPS
-        http.use_ssl = (uri.kind_of? URI::HTTPS)
-      end
+      http.use_ssl = (uri.kind_of? URI::HTTPS) if defined? Net::HTTPS
       request = (if is_new or last.nil?
         puts "#{logprefix} GET"
         Net::HTTP::Get.new uri.request_uri
